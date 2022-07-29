@@ -48,6 +48,8 @@ ggplot(test, aes(data, point)) +
 
 
 
+## Test commands
+
 asDateBuilt(hobo1c$Date.Time)
 
 plot(hobo1c$Date.Time, hobo1c$Temp)
