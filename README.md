@@ -58,7 +58,7 @@ ggplot(hobocleaned, aes(x=Date.Time)) +
     sec.axis = sec_axis(~., name="Humidity")
   ) +
   labs(title = "Temperature: Oct 21 - Jan 22", color = "Legend") +
-  scale_color_manual(labels = c("Humidity", "Temp"), values = c("red", "blue"))
-
+  scale_color_manual(labels = c("Humidity", "Temp"), values = c("red", "blue")) +
+  scale_x_datetime(labels = date_format("%Y-%m-%d"))
 ```
 ![hobo plot 2 variable](https://github.com/LeBoldus-Lab/hoboR/blob/main/figs/hobo_two_vars.png)
