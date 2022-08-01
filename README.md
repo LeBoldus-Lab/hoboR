@@ -42,7 +42,7 @@ ggplot(hobocleaned, aes(x=Date.Time, y = Temp)) +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))
 
 ```
-![hobo plot 1 variable](https://github.com/LeBoldus-Lab/hoboR/figs/hobo_one_var.png)
+![hobo plot 1 variable](https://github.com/LeBoldus-Lab/hoboR/blob/main/figs/hobo_one_var.png)
 
 
 ```R
@@ -61,4 +61,4 @@ ggplot(hobocleaned, aes(x=Date.Time)) +
   scale_color_manual(labels = c("Humidity", "Temp"), values = c("red", "blue"))
 
 ```
-![hobo plot 2 variable](https://github.com/LeBoldus-Lab/hoboR/figs/hobo_two_vars.png)
+![hobo plot 2 variable](https://github.com/LeBoldus-Lab/hoboR/blob/main/figs/hobo_two_vars.png)
