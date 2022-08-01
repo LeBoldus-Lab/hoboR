@@ -20,20 +20,26 @@ library(plyr)
 
 hobinder <- function(path){
   # read files from working directory
-  files = list.files(path=path, pattern = "\\.csv")
+  files <- list.files(path=path, pattern = "\\.csv", full.names = T)
   # get names from files
   names <- as.data.frame(files) |>
     separate(files, into=c("names", "ext"), sep= "[.]")
   # load all .csv files
-  ls = list(NULL)
-  for (i in 1:length(files)){
-    x <- read.csv(files[i], skip=2, header = F)
-    x$IDs <- rep(names$names[i], nrow(x))
-    ls[[i]] = x
-  }
+  hobos <- do.call(rbind,
+               lapply(files, function(x) {
+               read.csv(x, header =F, skip = 2)
+               })
+               )
+  # lapply(path, read.csv(header = F, skip = 2))
+  # ls = list(NULL)
+  # for (i in 1:length(files)){
+  #   x <- read.csv(textConnection(files)[i], skip=2, header = F)
+  #   x$IDs <- rep(names$names[i], nrow(x))
+  #   ls[[i]] = x
+  # }
   # bind all csv files with identifiers
-  hobos <- rbind.fill(ls)
-  colnames(hobos) <- c("tID","Date.Time", "Wetness", "Temp", "RH", "Rain", "Site")
+  # hobos <- rbind.fill(ls)
+  colnames(hobos) <- c("tID","Date.Time", "Wetness", "Temp", "RH", "Rain")
   return(hobos)
 }
 
