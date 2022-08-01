@@ -1,11 +1,26 @@
-setwd("~/Documents/site_1_24hr/")
+
+#' Reads HOBO data in CSV format
+#' 
+#' Two functions that read the original data downloaded from HOBO software
+#' adding file names as metadata for each .csv file and cleans the data
+#' from duplicates creating a continuous file from all .csv's
+#' 
+#' @param path to indicate the path to the csv files
+#' @param files get the bind csv file, remove duplicates and merge the data 
+#' @return large csv file
+#' 
+#' @examples 
+#' path_to_csvs <- "~mydirectory/myfiles.csv/
+#' loadAllcsvs <- hobinder(path_to_csvs)
+#' finalcsv <- hobocleaner(loadAllcsvs)
+
+#' @import libraries
 library(tidyverse)
 library(plyr)
 
-
-hobinder <- function(file){
+hobinder <- function(path){
   # read files from working directory
-  files = list.files(path=file, pattern = "\\.csv")
+  files = list.files(path=path, pattern = "\\.csv")
   # get names from files
   names <- as.data.frame(files) |>
     separate(files, into=c("names", "ext"), sep= "[.]")
@@ -25,38 +40,12 @@ hobinder <- function(file){
 hobocleaner <- function(file){
   temp <- file[,c(1:6)] |> 
     unique() 
+  init <- dim(file)[1]
+  clean <- dim(temp)[1]
+  cat(paste0(" proccesed: ", init,"\n cleaned: ", init-clean, " duplicated entries", 
+              '\n total: ', clean, " unique entries"))
   temp$Date.Time <- gsub("/", "-", temp$Date.Time)
+  temp$Date.Time <- as.POSIXct(temp$Date.Time)
   return(temp)
 }
 
-# Example
-
-file = "../site_1_24hr/"
-
-hobo1 <- hobinder(file)
-dim(hobo1)
-hobo1c <- hobocleaner(hobo1)
-dim(hobo1c)
-
-test$data <- as.POSIXct(test$data)
-
-library(scales)
-ggplot(test, aes(data, point)) +
-  geom_point() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  scale_x_datetime(labels = date_format("%H:%M:%S"))
-
-
-
-## Test commands
-
-asDateBuilt(hobo1c$Date.Time)
-
-plot(hobo1c$Date.Time, hobo1c$Temp)
-
-gsub("/", "-", hobo1c$Date.Time)
-
-as.POSIXct(hobo1c$Date.Time)
-
-specs <- read.csv("Site_1_(18025)_0.csv", skip = 1, header = F)[1,] |>
-  as.character()
