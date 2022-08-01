@@ -1,6 +1,6 @@
 # hoboR
 Function to combined data from HOBO weather stations.
-The files need to be exported from the HOBO software as CSV, using 24h format and YYYY-MM-DDD.
+The files need to be exported from the HOBO software as CSV, using 24h format and YYYY-MM-DD.
 
 
 ## Installation
