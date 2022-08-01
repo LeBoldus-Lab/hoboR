@@ -9,7 +9,7 @@ This project is available on GitHub and can be installed using:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("LeBoldus/hoboR")
+devtools::install_github("LeBoldus-Lab/hoboR")
 ```
 
 # Example
