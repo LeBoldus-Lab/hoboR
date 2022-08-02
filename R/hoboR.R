@@ -4,7 +4,7 @@
 #' Two functions that read the original data downloaded from HOBO software
 #' adding file names as metadata for each .csv file and cleans the data
 #' from duplicates creating a continuous file from all .csv's
-#' 
+#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' @param path to indicate the path to the csv files
 #' @param files get the bind csv file, remove duplicates and merge the data 
 #' @return large csv file
@@ -14,8 +14,8 @@
 #' loadAllcsvs <- hobinder(path_to_csvs)
 #' finalcsv <- hobocleaner(loadAllcsvs)
 
-#' @name load tidyverse
-#' @name load plyr
+#' @importFrom tidyverse plyr
+#' @export
 
 hobinder <- function(path){
   # read files from working directory
