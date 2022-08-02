@@ -14,8 +14,7 @@
 #' loadAllcsvs <- hobinder(path_to_csvs)
 #' finalcsv <- hobocleaner(loadAllcsvs)
 
-#' @importFrom tidyverse
-#' @importFrom plyr
+#' @importFrom tidyverse separate
 #' @export
 
 hobinder <- function(path){
