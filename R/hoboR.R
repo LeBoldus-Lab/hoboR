@@ -10,13 +10,12 @@
 #' @return large csv file
 #' 
 #' @examples 
-#' path_to_csvs <- "~mydirectory/myfiles.csv/
+#' path_to_csvs <- '~mydirectory/myfiles.csv/'
 #' loadAllcsvs <- hobinder(path_to_csvs)
 #' finalcsv <- hobocleaner(loadAllcsvs)
 
-#' @import libraries
-library(tidyverse)
-library(plyr)
+#' @name load tidyverse
+#' @name load plyr
 
 hobinder <- function(path){
   # read files from working directory
