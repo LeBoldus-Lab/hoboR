@@ -14,7 +14,8 @@
 #' loadAllcsvs <- hobinder(path_to_csvs)
 #' finalcsv <- hobocleaner(loadAllcsvs)
 
-#' @importFrom tidyverse plyr
+#' @importFrom tidyverse
+#' @importFrom plyr
 #' @export
 
 hobinder <- function(path){
@@ -29,15 +30,6 @@ hobinder <- function(path){
                read.csv(x, header =F, skip = 2)
                })
                )
-  # lapply(path, read.csv(header = F, skip = 2))
-  # ls = list(NULL)
-  # for (i in 1:length(files)){
-  #   x <- read.csv(textConnection(files)[i], skip=2, header = F)
-  #   x$IDs <- rep(names$names[i], nrow(x))
-  #   ls[[i]] = x
-  # }
-  # bind all csv files with identifiers
-  # hobos <- rbind.fill(ls)
   colnames(hobos) <- c("tID","Date.Time", "Wetness", "Temp", "RH", "Rain")
   return(hobos)
 }
@@ -53,4 +45,3 @@ hobocleaner <- function(file){
   temp$Date.Time <- as.POSIXct(temp$Date.Time)
   return(temp)
 }
-
