@@ -32,7 +32,7 @@ samplingrates <- function(samples, n, round) {
                   Leaves.In, Leaves.Out, Incidence) |>
            unique() |>
     dplyr::mutate(Incidence.Rate = round(Incidence/n, round)) 
-  samples$Leaves.In <- lubridate::ymd(samples$Leaves.In)
-  samples$Leaves.Out <- lubridate::ymd(samples$Leaves.Out)
+  Incidence$Leaves.In <- lubridate::ymd(Incidence$Leaves.In)
+  Incidence$Leaves.Out <- lubridate::ymd(Incidence$Leaves.Out)
   return(Incidence)
 }

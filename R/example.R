@@ -2,7 +2,7 @@
 # library("devtools")
 # devtools::install_github("LeBoldus-Lab/hoboR")
 library(hoboR)
-library(purrr)
+library(dplyr)
 library(ggplot2)
 
 path = "/Users/ricardoialcala/Desktop/site_1_date_adj/"
@@ -17,44 +17,16 @@ tail(hobocleaned)
 # getting hobo means by date 
 
 hobomeans <- meanhobo(hobocleaned)
-hobomeans |> as_tibble()
-
-
-ss <- samp.rates[which(samp.rates$Leaves.out < max(hobomeans$Date)),]
-rows = NULL#<-matrix(nrow = 1, ncol = 6)
-for (k in 1:nrow(hobomeans)){
-  print(k)
-  y=which(hobomeans$Date == ss$Leaves.In[k])  
-  x=which(hobomeans$Date == ss$Leaves.out[k])
-  rango <- hobomeans[y:x,]
-  rows  <- data.frame(ID = k,
-                bucket = paste0("bucket_", k),
-                meanwet = round(mean(rango$x.Wetness), 2),
-                meantem = round(mean(rango$x.Temp), 2),
-                meanRH = round(mean(rango$x.RH),2),
-                meanRai = round(mean(rango$x.Rain), 2)
- )
-  if (k == 1){
-  dat <- rows
-  } else {
-  dat <- rbind(dat, rows)
-  }
-}
+hobomeans |> 
+    as_tibble()
+  
 # reading bucke samples
 sampling <- read.csv("Bucket_Results_Adj.csv") |>
-  as_tibble()
- 
-samp.rates <- # generating incidence and incidence rates
-  sampling |>
-  group_by(Site, Location, Tree.,Treatment, Leaves.out) |>
-  mutate(incidence = sum(na.omit(ramorum.positive))) |>
-  select(Site, Tree., Location, Treatment, Week, 
-         Leaves.In, Leaves.out,incidence)|>
-  unique() |>
-  mutate(incidence.rate = round(incidence/9, 2)) 
+    as_tibble()
+samp.rates <- samplingrates(sampling, n = 9, round= 2)
 
-samp.rates$Leaves.In <- lubridate::ymd(samp.rates$Leaves.In)
-samp.rates$Leaves.out <- lubridate::ymd(samp.rates$Leaves.out)
+meanbybates <- sampling.trends(hobomeans, samp.rates)
+
 
 ## Plotting incidence and  
 #Make colorblind pallets:
