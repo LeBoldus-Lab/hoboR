@@ -20,7 +20,7 @@ hobomeans <- meanhobo(hobocleaned)
 hobomeans |> as_tibble()
 
 
-ss <- samp.rates[which(samp.rates$Leaves.out < "2022-08-01"),]
+ss <- samp.rates[which(samp.rates$Leaves.out < max(hobomeans$Date)),]
 rows = NULL#<-matrix(nrow = 1, ncol = 6)
 for (k in 1:nrow(hobomeans)){
   print(k)
