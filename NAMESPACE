@@ -2,4 +2,11 @@
 
 export(hobinder)
 export(hobocleaner)
+export(meanhobo)
+export(sampling.trends)
+export(samplingrates)
+importFrom(dplyr,group_by)
+importFrom(dplyr,mutate)
+importFrom(dplyr,select)
+importFrom(lubridate,ymd)
 importFrom(tidyr,separate)

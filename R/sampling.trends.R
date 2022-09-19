@@ -21,8 +21,7 @@
 #' @export
 #' 
 
-
-sampling.trends <- function(hobomeans, samp.rates){
+sampling.trends <- function(hobomeans, samp.rates, round){
   rows = NULL
   for (k in 1:nrow(hobomeans)){
     if (is_empty(which(hobomeans$Date == samp.rates$Leaves.In[k])) == TRUE){ 
@@ -37,15 +36,25 @@ sampling.trends <- function(hobomeans, samp.rates){
     }
     #- Calculating means
     rango <- hobomeans[y:x,]
+    nT <- nrow(rango)
     rows  <- data.frame(ID = k,
-                        Sample.Treatment = paste(paste0("S",samp.rates$Sites[k]), 
-                                                 samp.rates$Location[k], 
-                                                 samp.rates$Treatment[k], 
-                                                 sep = "-"),
-                        mean.wet = round(mean(rango$x.Wetness), 2),
-                        mean.temp = round(mean(rango$x.Temp), 2),
-                        mean.RH = round(mean(rango$x.RH),2),
-                        mean.Rain = round(mean(rango$x.Rain), 2)
+                        Sites = samp.rates$Sites[k], 
+                        Location = samp.rates$Location[k], 
+                        Treatment = samp.rates$Treatment[k], 
+                        collection = samp.rates$Leaves.Out[k],
+                        mean.wet = round(mean(rango$x.Wetness), round),
+                        se.wet = round(sd(rango$x.Wetness)/
+                                         sqrt(length(rango$x.Wetness)), round),
+                        mean.temp = round(mean(rango$x.Temp), round),
+                        se.temp = round(sd(rango$x.Temp)/
+                                          sqrt(length(rango$x.Temp)), round),
+                        mean.RH = round(mean(rango$x.RH), round),
+                        se.RH = round(sd(rango$x.RH)/sqrt(length(rango$x.RH)), round),
+                        mean.rain = round(mean(rango$x.Rain), round),
+                        se.rain = round(sd(rango$x.Rain)/
+                                          sqrt(length(rango$x.Rain)), round),
+                        Incidice = samp.rates$Incidence[k],
+                        Incidice.rate = samp.rates$Incidence.Rate[k]
     )
     if (k == 1){
       dat <- rows

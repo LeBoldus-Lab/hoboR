@@ -25,8 +25,10 @@ sampling <- read.csv("Bucket_Results_Adj.csv") |>
     as_tibble()
 samp.rates <- samplingrates(sampling, n = 9, round= 2)
 
-meanbybates <- sampling.trends(hobomeans, samp.rates)
+sumbybates <- sampling.trends(hobomeans, samp.rates, round = 2)
 
+#collection week - which is leave out
+# incidence and incidence rates 
 
 ## Plotting incidence and  
 #Make colorblind pallets:
@@ -37,7 +39,7 @@ cbp2 <- c("#000000", "#56B4E9", "#009E73",
           "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 
-ggplot(samp.rates, aes(Week, incidence.rate))+
+ggplot(samp.rates, aes(Week, Incidence.Rate))+
   geom_line(aes(color = Treatment), size=1)+
   geom_point(aes(fill = Treatment), size=2)+
   facet_wrap(vars(Location),

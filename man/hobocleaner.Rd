@@ -11,6 +11,8 @@ hobocleaner(file)
 }
 \value{
 large clean csv file
+
+#' @importFrom lubridate ymd_hms
 }
 \description{
 Functions that cleans the original data downloaded from the HOBO software
