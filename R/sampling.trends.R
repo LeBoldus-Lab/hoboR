@@ -8,11 +8,13 @@
 #' @param samples a csv with the format 
 #' incidence calculated from a csv table designed for baiting Phytophtora
 #' @return smaller data frame with incidence and rates
-#' 
+#'
+#' @importFrom purrr is_empty 
 #' @importFrom dplyr group_by
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
 #' @importFrom lubridate ymd
+
 
 
 #' @examples 
