@@ -7,6 +7,8 @@ The files need to be exported from the HOBO software as CSV, using 24h format an
 
 This project is available on GitHub and can be installed using:
 
+> Dependencies: `dplyr`, `purrr`, `lubridate`
+
 ``` r
 install.packages("devtools")
 library("devtools")
@@ -19,12 +21,24 @@ Add the PATH to your csv files
 ```
 path = "~/site_1_date_adj/"
 
+# loading hobo files 
 hobofiles <- hobinder(path)
-
-head(hobofiles)
-
+tail(hobofiles)
+# cleaning hobo files
 hobocleaned <- hobocleaner(hobofiles)
-head(hobocleaned)
+tail(hobocleaned)
+
+# getting hobo means by date 
+hobomeans <- meanhobo(hobocleaned)
+
+# reading bucke samples
+sampling <- read.csv("Bucket_Results_Adj.csv") 
+# Calculate the incidence rate  
+# n = is the total number of samples collected
+samp.rates <- samplingrates(sampling, n = 9, round= 2)
+
+# Get the summary by bates 
+summarybybates <- sampling.trends(hobomeans, samp.rates, round = 2)
 
 # Write you new combined data with
 write.csv(hobocleaned, "new_hobo_combined_file.csv")
@@ -34,6 +48,7 @@ The data cleaned can be plotted using the following commands in ggplot
 ```R
 library(ggplot2)
 library(scales)
+
 
 # Plot one variable: temperateure
 ggplot(hobocleaned, aes(x=Date.Time, y = Temp)) +
