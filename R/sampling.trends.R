@@ -25,9 +25,9 @@
 
 sampling.trends <- function(hobomeans, samp.rates, round){
   rows = NULL
-  for (k in 1:nrow(hobomeans)){
+  for (k in 1:nrow(samp.rates)){
     if (is_empty(which(hobomeans$Date == samp.rates$Leaves.In[k])) == TRUE){ 
-      print(paste0("row ", k, ": Missing sample in hobo, about date : ", samp.rates$Leaves.In[k-1]))
+      print(paste0("row ", k, ": Missing sample in hobo, about date: ", samp.rates$Leaves.In[k-1]))
     } else {
       y <- which(hobomeans$Date == samp.rates$Leaves.In[k])
     }
