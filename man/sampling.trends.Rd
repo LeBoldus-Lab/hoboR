@@ -11,11 +11,14 @@ HOBO software}
 sampling.trends(hobomeans, samp.rates, round)
 }
 \arguments{
-\item{samples}{a csv with the format
-incidence calculated from a csv table designed for baiting Phytophtora}
+\item{samp.rates}{a data frame with incidence summary of collected dates
+for baiting Phytophtora}
+
+\item{hobodata}{a data frame with the hobo means}
 }
 \value{
-smaller data frame with incidence and rates
+A data frame with summarized weather variables by data and location,
+as incidence rates
 }
 \description{
 calcula sampling bate rates temperature using weather data and
@@ -26,7 +29,9 @@ HOBO software
 }
 \examples{
 samples <- read.cv(sampling.data)
-samp.rates <- samplingrates(samples)
+hobomeans <- meanhobo(hobocleaned)
+samp.rates <- samplingrates(samples, n = 9, round = 2)
+Site <- sampling.trends(hobomeans, samp.rates, round = 2)
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

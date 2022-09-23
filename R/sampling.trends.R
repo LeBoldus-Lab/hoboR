@@ -5,9 +5,11 @@
 #' Ex: phytophthora collected on dates for baited and removed leaves
 #' HOBO software
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
-#' @param samples a csv with the format 
-#' incidence calculated from a csv table designed for baiting Phytophtora
-#' @return smaller data frame with incidence and rates
+#' @param hobodata a data frame with the hobo means 
+#' @param  samp.rates a data frame with incidence summary of collected dates 
+#' for baiting Phytophtora
+#' @return A data frame with summarized weather variables by data and location, 
+#' as incidence rates
 #'
 #' @importFrom purrr is_empty 
 #' @importFrom dplyr group_by
@@ -16,10 +18,11 @@
 #' @importFrom lubridate ymd
 
 
-
 #' @examples 
 #' samples <- read.cv(sampling.data)
-#' samp.rates <- samplingrates(samples)
+#' hobomeans <- meanhobo(hobocleaned)
+#' samp.rates <- samplingrates(samples, n = 9, round = 2)
+#' Site <- sampling.trends(hobomeans, samp.rates, round = 2)
 #' @export
 #' 
 
@@ -39,7 +42,7 @@ sampling.trends <- function(hobomeans, samp.rates, round){
     #- Calculating means
     rango <- hobomeans[y:x,]
     nT <- nrow(rango)
-    rows  <- data.frame(ID = k,
+    rows  <- data.frame(Sampling = k,
                         Sites = samp.rates$Sites[k], 
                         Location = samp.rates$Location[k], 
                         Treatment = samp.rates$Treatment[k], 
