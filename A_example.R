@@ -6,7 +6,7 @@ library(dplyr)
 library(ggplot2)
 
 # Change the number for the site
-x =11
+x =1
 
 # Add the PATH to your sites for weather data (from hobo)
 path = paste0("~/Desktop/site_", x)
@@ -21,14 +21,15 @@ tail(hobocleaned)
 # getting hobo means by date
 hobomeans <- meanhobo(hobocleaned)
 hobomeans |>
-    as_tibble()
+    as_tibble()|>
+    tail()
 
 # reading bucke samples
 sampling <- read.csv("~/Desktop/Bucket_Results_Adj.csv") |>
     as_tibble()
 # subset your bucket sampling by site
 ## Remember to replace the EC,NH and CC
-Site <- sampling[which(sampling$Location == "NH" & sampling$Site == x) ,]
+Site <- sampling[which(sampling$Location == "EC" & sampling$Site == x) ,]
 # n is the total number of baited samples
 samp.rates <- samplingrates(Site, n = 9, round= 2)
 # get the weather data summary for samples in and out
