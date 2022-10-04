@@ -1,6 +1,6 @@
-# install.packages("devtools")
-# library("devtools")
-# devtools::install_github("LeBoldus-Lab/hoboR")
+install.packages("devtools")
+library("devtools")
+devtools::install_github("LeBoldus-Lab/hoboR")
 library(hoboR)
 library(dplyr)
 library(ggplot2)
@@ -21,11 +21,21 @@ hobomeans |>
     as_tibble()
   
 # reading bucke samples
-sampling <- read.csv("Bucket_Results_Adj.csv") |>
+sampling <- read.csv("/Users/ricardoialcala/Desktop/Bucket_Results_Adj.csv") |>
     as_tibble()
-samp.rates <- samplingrates(sampling, n = 9, round= 2)
 
-sumbybates <- sampling.trends(hobomeans, samp.rates, round = 2)
+# subset your bucket sampling by site 
+## Remember to replace the EC,NH and CC 
+Site <- sampling[which(sampling$Location == "EC" & sampling$Site == x) ,]
+# n is the total number of baited samples 
+samp.rates <- samplingrates(Site, n = 9, round= 2)
+tail(samp.rates)
+# get the weather data summary for samples in and out 
+SITE <- sampling.trends(hobomeans, samp.rates, round = 2)
+tail(SITE)
+
+# samp.rates <- samplingrates(sampling, n = 9, round= 2)
+# sumbybates <- sampling.trends(hobomeans, samp.rates, round = 2)
 
 #collection week - which is leave out
 # incidence and incidence rates 

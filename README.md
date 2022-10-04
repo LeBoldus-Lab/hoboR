@@ -44,6 +44,11 @@ summarybybates <- sampling.trends(hobomeans, samp.rates, round = 2)
 write.csv(hobocleaned, "new_hobo_combined_file.csv")
 ```
 
+Testing roxygen package
+```R
+roxygen2::roxygenise()
+```
+
 The data cleaned can be plotted using the following commands in ggplot
 ```R
 library(ggplot2)
