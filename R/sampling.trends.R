@@ -31,8 +31,8 @@ sampling.trends <- function(hobomeans, samp.rates, round){
   for (k in 1:nrow(samp.rates)){
     if (is_empty(which(hobomeans$Date == samp.rates$Leaves.In[k])) == TRUE){ 
       print(paste0("row ", k, ": Missing sample in hobo at date: ", samp.rates$Leaves.In[k]))
-     y <- which(hobomeans$Date >= samp.rates$Leaves.In[k]) |>
-           min()
+     y <- which(hobomeans$Date <= samp.rates$Leaves.In[k]) |>
+           max()
       # y <- which(hobomeans$Date == samp.rates$Leaves.In[k])
     } else {
       y <- which(hobomeans$Date == samp.rates$Leaves.In[k])
@@ -43,8 +43,8 @@ sampling.trends <- function(hobomeans, samp.rates, round){
       #### Getting 
       # n = length(samp.rates$Leaves.Out) - k
       # x <- which(hobomeans$Date == samp.rates$Leaves.Out[k-n])
-      x <- which(hobomeans$Date >=samp.rates$Leaves.Out[k]) |>
-            min()
+      x <- which(hobomeans$Date <= samp.rates$Leaves.Out[k]) |>
+            max()
     } else {
       x <- which(hobomeans$Date == samp.rates$Leaves.Out[k])
     }
