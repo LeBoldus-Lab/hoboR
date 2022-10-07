@@ -8,7 +8,7 @@ This function calculates hobo weather means for sampling rates
 Ex: phytophthora collected on dates for baited and removed leaves
 HOBO software}
 \usage{
-sampling.trends(hobomeans, samp.rates, round)
+sampling.trends(hobomeans, samp.rates, round, na.rm = T)
 }
 \arguments{
 \item{samp.rates}{a data frame with incidence summary of collected dates

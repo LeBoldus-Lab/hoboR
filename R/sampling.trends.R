@@ -26,7 +26,7 @@
 #' @export
 #' 
 
-sampling.trends <- function(hobomeans, samp.rates, round){
+sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
   rows = NULL
   for (k in 1:nrow(samp.rates)){
     if (is_empty(which(hobomeans$Date == samp.rates$Leaves.In[k])) == TRUE){ 
@@ -58,16 +58,29 @@ sampling.trends <- function(hobomeans, samp.rates, round){
                         Treatment = samp.rates$Treatment[k], 
                         collection = samp.rates$Leaves.Out[k],
                         mean.wet = round(mean(rango$x.Wetness), round),
-                        se.wet = round(sd(rango$x.Wetness)/
-                                         sqrt(length(rango$x.Wetness)), round),
+                        se.wet = round(sd(rango$x.Wetness, na.rm = na.rm)/
+                                         # sqrt(length(na.omit(rango$x.Wetness))), round),
+                                         sqrt(ifelse(test = isFALSE(na.rm) == T, 
+                                                yes = length(rango$x.Wetness), 
+                                                 no = length(na.omit(rango$x.Wetness)))), round),
                         mean.temp = round(mean(rango$x.Temp), round),
-                        se.temp = round(sd(rango$x.Temp)/
-                                          sqrt(length(rango$x.Temp)), round),
+                        se.temp = round(sd(rango$x.Temp, na.rm = na.rm)/
+                                          # sqrt(length(na.omit(rango$x.Temp))), round),
+                                          sqrt(ifelse(test = isFALSE(na.rm) == T, 
+                                                      yes = length(rango$x.Temp), 
+                                                      no = length(na.omit(rango$x.Temp)))), round),
                         mean.RH = round(mean(rango$x.RH), round),
-                        se.RH = round(sd(rango$x.RH)/sqrt(length(rango$x.RH)), round),
+                        se.RH = round(sd(rango$x.RH, na.rm = na.rm)/
+                                        #sqrt(length(rango$x.RH)), round),
+                                          sqrt(ifelse(test = isFALSE(na.rm) == T, 
+                                                       yes = length(rango$x.RH), 
+                                                        no = length(na.omit(rango$x.RH)))), round),
                         mean.rain = round(mean(rango$x.Rain), round),
-                        se.rain = round(sd(rango$x.Rain)/
-                                          sqrt(length(rango$x.Rain)), round),
+                        se.rain = round(sd(rango$x.Rain, na.rm = na.rm)/
+                                          # sqrt(length(na.omit(rango$x.Rain))), round),
+                                          sqrt(ifelse(test = isFALSE(na.rm) == T, 
+                                                      yes = length(rango$x.Rain), 
+                                                      no = length(na.omit(rango$x.Rain)))), round),
                         Incidice = samp.rates$Incidence[k],
                         Incidice.rate = samp.rates$Incidence.Rate[k]
     )
