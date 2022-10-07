@@ -14,8 +14,8 @@ path = paste0("~/Desktop/site_", x)
 # loading hobo files
 hobofiles <- hobinder(path)
 head(hobofiles)
-hobofiles <- hobinderSpecial(path)
-head(hobofiles)
+# hobofiles <- hobinderSpecial(path)
+# head(hobofiles)
 
 # cleaning hobo files
 hobocleaned <- hobocleaner(hobofiles)
@@ -28,7 +28,7 @@ hobomeans <- meanhobo(hobocleaned)|>
 hobomeans |>
     tail()
 
-hobomeans$x.Temp[hobomeans$x.Temp > 90] <- NA 
+hobomeans$x.Temp[hobomeans$x.Temp > 20] <- NA 
 
 # reading bucke samples
 sampling <- read.csv("~/Desktop/Bucket_Results_Adj.csv") |>
@@ -39,8 +39,7 @@ Site <- sampling[which(sampling$Location == "EC" & sampling$Site == x) ,]
 # n is the total number of baited samples
 samp.rates <- samplingrates(Site, n = 9, round= 2)
 # get the weather data summary for samples in and out
-SITEF <- sampling.trends(hobomeans, samp.rates, na.rm = F, round = 2)
-SITEF$se.temp == SITET$se.temp
+SITE <- sampling.trends(hobomeans, samp.rates, na.rm = T, round = 2)
 
 # write your results by SITE
 # write.csv(SITE, paste0("site_", x, "_inc_results_by_site.csv"))

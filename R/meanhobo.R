@@ -21,15 +21,18 @@ meanhobo <-
   function(cleandata){
     cleandata |>
       dplyr::group_by(Date) |>
-      dplyr::mutate(x.Wetness = mean(na.omit(Wetness)),
+      dplyr::mutate(
+             x.Wetness = mean(na.omit(Wetness)),
              sd.Wetness = sd(na.omit(Wetness)),
              x.Temp = mean(na.omit(Temp)),
              sd.Temp = sd(na.omit(Temp)),
              x.RH = mean(na.omit(RH)),
              sd.RH = sd(na.omit(RH)),
-             x.Rain = mean(na.omit(Rain)),
-             sd.Rain = sd(na.omit(Rain))) |>
+             sum.Rain = sum(na.omit(Rain)),
+             # x.Rain = mean(na.omit(Rain)),
+             # sd.Rain = sd(na.omit(Rain))
+             ) |>
       dplyr::select(Date, x.Wetness, sd.Wetness,x.Temp, sd.Temp, 
-             x.RH, sd.RH, x.Rain, sd.Rain) |>
+             x.RH, sd.RH, sum.Rain) |>
       unique() 
   }

@@ -75,12 +75,15 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
                                           sqrt(ifelse(test = isFALSE(na.rm) == T, 
                                                        yes = length(rango$x.RH), 
                                                         no = length(na.omit(rango$x.RH)))), round),
-                        mean.rain = round(mean(rango$x.Rain), round),
-                        se.rain = round(sd(rango$x.Rain, na.rm = na.rm)/
+                        sum.rain = round(sum(rango$sum.Rain), round),
+                        max.rain = max(rango$sum.Rain),
+                        min.rain = min(rango$sum.Rain),
+                        mean.rain = round(mean(rango$sum.Rain), round),
+                        sd.rain = round(sd(rango$sum.Rain, na.rm = na.rm)), #/
                                           # sqrt(length(na.omit(rango$x.Rain))), round),
-                                          sqrt(ifelse(test = isFALSE(na.rm) == T, 
-                                                      yes = length(rango$x.Rain), 
-                                                      no = length(na.omit(rango$x.Rain)))), round),
+                                          # sqrt(ifelse(test = isFALSE(na.rm) == T, 
+                                          #            yes = length(rango$x.Rain), 
+                                          #            no = length(na.omit(rango$x.Rain)))), round),
                         Incidice = samp.rates$Incidence[k],
                         Incidice.rate = samp.rates$Incidence.Rate[k]
     )
