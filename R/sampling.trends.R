@@ -38,9 +38,9 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
       y <- which(hobomeans$Date == samp.rates$Leaves.In[k])
     }
     if (is_empty(which(hobomeans$Date == samp.rates$Leaves.Out[k])) == TRUE){
-      cat(paste0("Missin in row ", k, ", end date: ", samp.rates$Leaves.Out[k], '\r\n'))
+      cat(paste0("Missing in row ", k, ", end date: ", samp.rates$Leaves.Out[k], '\r\n'))
       cat(paste0("        Last recorded date: ", max(hobomeans$Date), '\r\n', 
-                 "    NA's may be present as a result of missing dates, proceed with caution"))
+                 "    NA's may be present as a result of missing dates, proceed with caution", '\r\n'))
       #### Getting 
       # n = length(samp.rates$Leaves.Out) - k
       # x <- which(hobomeans$Date == samp.rates$Leaves.Out[k-n])

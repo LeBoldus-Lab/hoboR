@@ -25,6 +25,8 @@ meanhobo <-
              x.Wetness = mean(na.omit(Wetness)),
              sd.Wetness = sd(na.omit(Wetness)),
              x.Temp = mean(na.omit(Temp)),
+             max.Temp = max(na.omit(Temp)),
+             min.Temp = min(na.omit(Temp)),
              sd.Temp = sd(na.omit(Temp)),
              x.RH = mean(na.omit(RH)),
              sd.RH = sd(na.omit(RH)),
@@ -32,7 +34,7 @@ meanhobo <-
              # x.Rain = mean(na.omit(Rain)),
              # sd.Rain = sd(na.omit(Rain))
              ) |>
-      dplyr::select(Date, x.Wetness, sd.Wetness,x.Temp, sd.Temp, 
-             x.RH, sd.RH, sum.Rain) |>
+      dplyr::select(Date, x.Wetness, sd.Wetness, x.Temp, max.Temp, min.Temp, 
+                    sd.Temp, x.RH, sd.RH, sum.Rain) |>
       unique() 
   }
