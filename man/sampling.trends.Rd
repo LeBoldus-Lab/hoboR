@@ -5,6 +5,7 @@
 \title{calcula sampling bate rates temperature using weather data and
 sampling rates for data collection
 This function calculates hobo weather means for sampling rates
+Noted that
 Ex: phytophthora collected on dates for baited and removed leaves
 HOBO software}
 \usage{
@@ -24,6 +25,7 @@ as incidence rates
 calcula sampling bate rates temperature using weather data and
 sampling rates for data collection
 This function calculates hobo weather means for sampling rates
+Noted that
 Ex: phytophthora collected on dates for baited and removed leaves
 HOBO software
 }
