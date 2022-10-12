@@ -2,6 +2,7 @@
 #' calcula sampling bate rates temperature using weather data and
 #' sampling rates for data collection
 #' This function calculates hobo weather means for sampling rates 
+#' Noted that 
 #' Ex: phytophthora collected on dates for baited and removed leaves
 #' HOBO software
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
@@ -57,27 +58,38 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
                         Location = samp.rates$Location[k], 
                         Treatment = samp.rates$Treatment[k], 
                         collection = samp.rates$Leaves.Out[k],
-                        mean.wet = round(mean(rango$x.Wetness), round),
+                        mean.wet = mean(ifelse(test = isFALSE(na.rm) == T, 
+                                                yes = round(mean(rango$x.Wetness), round), 
+                                                 no = round(mean(rango$x.Wetness, na.rm = na.rm), round))),
+                          # round(mean(rango$x.Wetness), round),
                         se.wet = round(sd(rango$x.Wetness, na.rm = na.rm)/
                                          # sqrt(length(na.omit(rango$x.Wetness))), round),
                                          sqrt(ifelse(test = isFALSE(na.rm) == T, 
                                                 yes = length(rango$x.Wetness), 
                                                  no = length(na.omit(rango$x.Wetness)))), round),
-                        mean.temp = round(mean(rango$x.Temp), round),
+                        mean.temp = mean(ifelse(test = isFALSE(na.rm) == T, 
+                                                yes = round(mean(rango$x.Temp), round), 
+                                                 no = round(mean(rango$x.Temp, na.rm = na.rm),  round))),
+                          # round(mean(rango$x.Temp), round),
                         se.temp = round(sd(rango$x.Temp, na.rm = na.rm)/
                                           # sqrt(length(na.omit(rango$x.Temp))), round),
                                           sqrt(ifelse(test = isFALSE(na.rm) == T, 
                                                       yes = length(rango$x.Temp), 
                                                       no = length(na.omit(rango$x.Temp)))), round),
-                        mean.RH = round(mean(rango$x.RH), round),
+                        mean.max.temp = round(mean(rango$max.Temp), round),
+                        mean.min.temp = round(mean(rango$min.Temp), round),
+                        mean.RH = mean(ifelse(test = isFALSE(na.rm) == T, 
+                                              yes = round(mean(rango$x.RH), round), 
+                                               no = round(mean(rango$x.RH, na.rm = na.rm), round))),
+                          #round(mean(rango$x.RH), round),
                         se.RH = round(sd(rango$x.RH, na.rm = na.rm)/
                                         #sqrt(length(rango$x.RH)), round),
                                           sqrt(ifelse(test = isFALSE(na.rm) == T, 
                                                        yes = length(rango$x.RH), 
                                                         no = length(na.omit(rango$x.RH)))), round),
                         sum.rain = round(sum(rango$sum.Rain), round),
-                        max.rain = max(rango$sum.Rain),
-                        min.rain = min(rango$sum.Rain),
+                        mean.max.rain = max(rango$sum.Rain, na.rm = na.rm),
+                        mean.min.rain = min(rango$sum.Rain),
                         mean.rain = round(mean(rango$sum.Rain), round),
                         sd.rain = round(sd(rango$sum.Rain, na.rm = na.rm)), #/
                                           # sqrt(length(na.omit(rango$x.Rain))), round),
