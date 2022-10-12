@@ -20,8 +20,8 @@ hobocleaner <- function(file){
     unique() 
   init <- dim(file)[1]
   clean <- dim(temp)[1]
-  cat(paste0(" proccesed: ", init,"\n cleaned: ", init-clean, " duplicated entries", 
-             "\n total: ", clean, " unique entries"))
+  cat(paste0(" proccesed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
+             "\n   total: ", clean, " unique entries"))
   temp$Date.Time <- gsub(":", "-", temp$Date.Time)
   temp$Date.Time <- gsub(" ", "-", temp$Date.Time)
   temp$Date.Time <- gsub("^", "20", temp$Date.Time)

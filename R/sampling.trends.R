@@ -30,7 +30,7 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
   rows = NULL
   for (k in 1:nrow(samp.rates)){
     if (is_empty(which(hobomeans$Date == samp.rates$Leaves.In[k])) == TRUE){ 
-      cat(paste0("row ", k, ": Missing sample in start date: ", samp.rates$Leaves.In[k]))
+      cat(paste0("Missing in row ", k, ", start date: ", samp.rates$Leaves.In[k], '\r\n'))
      y <- which(hobomeans$Date <= samp.rates$Leaves.In[k]) |>
            max()
       # y <- which(hobomeans$Date == samp.rates$Leaves.In[k])
@@ -38,9 +38,9 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
       y <- which(hobomeans$Date == samp.rates$Leaves.In[k])
     }
     if (is_empty(which(hobomeans$Date == samp.rates$Leaves.Out[k])) == TRUE){
-      cat(paste0("row ", k, ": Missing sample in end date: ", samp.rates$Leaves.Out[k], '\r\n'))
-      cat(paste0("Last recorded date: ", max(hobomeans$Date), '\r\n', 
-                   "NA's may be present as a result of missing dates, proceed with caution"))
+      cat(paste0("Missin in row ", k, ", end date: ", samp.rates$Leaves.Out[k], '\r\n'))
+      cat(paste0("        Last recorded date: ", max(hobomeans$Date), '\r\n', 
+                 "    NA's may be present as a result of missing dates, proceed with caution"))
       #### Getting 
       # n = length(samp.rates$Leaves.Out) - k
       # x <- which(hobomeans$Date == samp.rates$Leaves.Out[k-n])

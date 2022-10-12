@@ -21,6 +21,8 @@ head(hobofiles)
 hobocleaned <- hobocleaner(hobofiles)
 tail(hobocleaned)
 
+na.omit(hobocleaned[,3:6]) |>
+  colSums() 
 
 # getting hobo means by date
 hobomeans <- meanhobo(hobocleaned)|>
@@ -28,7 +30,7 @@ hobomeans <- meanhobo(hobocleaned)|>
 hobomeans |>
     tail()
 
-hobomeans$x.Temp[hobomeans$x.Temp > 20] <- NA 
+# hobomeans$x.Temp[hobomeans$x.Temp > 100] <- NA 
 
 # reading bucke samples
 sampling <- read.csv("~/Desktop/Bucket_Results_Adj.csv") |>
