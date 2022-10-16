@@ -13,6 +13,7 @@ hobocleaner(file)
 large clean csv file
 
 #' @importFrom lubridate ymd_hms
+#' @importFrom dplyr
 }
 \description{
 Functions that cleans the original data downloaded from the HOBO software

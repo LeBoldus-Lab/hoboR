@@ -8,6 +8,7 @@
 #' @return large clean csv file
 #' 
 #' #' @importFrom lubridate ymd_hms
+#' #' @importFrom dplyr
 
 #' @examples 
 #' path_to_csvs <- '~mydirectory/myfiles.csv/'
@@ -28,6 +29,6 @@ hobocleaner <- function(file){
   temp$Date.Time <- lubridate::ymd_hms(temp$Date.Time, truncated = 1)
   temp$Date <- as.Date(temp$Date.Time)
   temp = temp |> 
-          arrange(Date.Time)
+        dplyr::arrange(Date.Time)
   return(temp)
 }
