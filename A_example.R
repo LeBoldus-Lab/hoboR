@@ -30,6 +30,10 @@ hobomeans <- meanhobo(hobocleaned)|>
 hobomeans |>
     tail()
 
+test <- hobomeans[c(which(hobomeans$Date == "2021-10-26"):
+            which(hobomeans$Date == "2021-11-04")),]
+
+colSums(test[2:8])
 # hobomeans$x.Temp[hobomeans$x.Temp > 100] <- NA 
 
 # reading bucke samples

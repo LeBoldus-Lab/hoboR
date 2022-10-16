@@ -27,5 +27,7 @@ hobocleaner <- function(file){
   temp$Date.Time <- gsub("^", "20", temp$Date.Time)
   temp$Date.Time <- lubridate::ymd_hms(temp$Date.Time, truncated = 1)
   temp$Date <- as.Date(temp$Date.Time)
+  temp = temp |> 
+          arrange(Date.Time)
   return(temp)
 }
