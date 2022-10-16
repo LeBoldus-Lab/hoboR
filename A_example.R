@@ -30,6 +30,7 @@ hobomeans <- meanhobo(hobocleaned)|>
 hobomeans |>
     tail()
 
+# testing
 test <- hobomeans[c(which(hobomeans$Date == "2021-10-26"):
             which(hobomeans$Date == "2021-11-04")),]
 
