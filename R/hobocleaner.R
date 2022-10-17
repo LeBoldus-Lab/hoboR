@@ -17,7 +17,7 @@
 #' @export
 
 hobocleaner <- function(file){
-  temp <- file[,c(1:6)] |> 
+  temp <- file[,2:6] |> 
     unique() 
   init <- dim(file)[1]
   clean <- dim(temp)[1]
@@ -29,6 +29,6 @@ hobocleaner <- function(file){
   temp$Date.Time <- lubridate::ymd_hms(temp$Date.Time, truncated = 1)
   temp$Date <- as.Date(temp$Date.Time)
   temp = temp |> 
-        dplyr::arrange(Date.Time)
+          dplyr::arrange(Date.Time)
   return(temp)
 }
