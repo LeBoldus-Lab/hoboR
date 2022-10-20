@@ -25,7 +25,7 @@ tail(hobocleaned)
 hobomeans <- meanhobo(hobocleaned)|>
   as_tibble()
 hobomeans |>
-    tail()
+    head()
 
 # testing
 # test <- hobomeans[c(which(hobomeans$Date == "2021-10-26"):
