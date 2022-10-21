@@ -87,10 +87,10 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
                                           sqrt(ifelse(test = isFALSE(na.rm) == T, 
                                                        yes = length(rango$x.RH), 
                                                         no = length(na.omit(rango$x.RH)))), round),
-                        sum.rain = round(sum(rango$sum.Rain), round),
+                        sum.rain = round(sum(rango$sum.Rain, na.rm = na.rm), round),
                         mean.max.rain = max(rango$sum.Rain, na.rm = na.rm),
-                        mean.min.rain = min(rango$sum.Rain),
-                        mean.rain = round(mean(rango$sum.Rain), round),
+                        mean.min.rain = min(rango$sum.Rain, na.rm = na.rm),
+                        mean.rain = round(mean(rango$sum.Rain, na.rm = na.rm), round),
                         sd.rain = round(sd(rango$sum.Rain, na.rm = na.rm)), #/
                                           # sqrt(length(na.omit(rango$x.Rain))), round),
                                           # sqrt(ifelse(test = isFALSE(na.rm) == T, 
