@@ -25,7 +25,6 @@ hobocleaner <- function(file){
   temp$Date.Time <- gsub("^", "20", temp$Date.Time)
   temp$Date.Time <- lubridate::ymd_hms(temp$Date.Time, truncated = 1)
   temp$Date.Time <- round(temp$Date.Time, units = "mins")
-  temp$Date <- as.Date(temp$Date.Time)
   temp = temp |> 
           dplyr::arrange(Date.Time)
   # mean repeated measurements by date
@@ -35,6 +34,7 @@ hobocleaner <- function(file){
                         Temp = mean(Temp, na.rm = T),
                           RH = mean(RH, na.rm = T),
                         Rain = mean(Rain, na.rm = T))
+  dat$Date <- as.Date(dat$Date.Time)
   clean <- dim(dat)[1]
   cat(paste0(" proccesed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
              "\n   total: ", clean, " unique entries"))
