@@ -38,5 +38,5 @@ hobocleaner <- function(file){
   clean <- dim(dat)[1]
   cat(paste0(" proccesed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
              "\n   total: ", clean, " unique entries"))
-  return(temp)
+  return(dat)
 }

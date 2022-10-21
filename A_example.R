@@ -19,7 +19,7 @@ head(hobofiles)
 
 # cleaning hobo files
 hobocleaned <- hobocleaner(hobofiles)
-tail(hobocleaned)
+head(hobocleaned)
 
 # getting hobo means by date
 hobomeans <- meanhobo(hobocleaned)|>
