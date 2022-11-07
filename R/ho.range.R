@@ -3,12 +3,10 @@
 #' This function calculates hobo weather means for sampling rates 
 #' HOBO software
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
-#' @param data a data frame with the hobo data and a Date column  
-#' @param start a data frame with incidence summary of collected dates 
-#' @param end a data frame with incidence summary of collected dates 
-#' for baiting Phytophtora
-#' @return A data frame with summarized weather variables by data and location, 
-#' as incidence rates
+#' @param data a data frame with the hobo data and a `Date` column  
+#' @param start an early date in yyyy/mm/dd format
+#' @param end a late date in yyyy/mm/dd format 
+#' @return A data frame with the range  start to end of weather variables 
 #'
 #' @importFrom purrr is_empty 
 #' @importFrom dplyr group_by
@@ -18,23 +16,25 @@
 
 
 #' @examples 
-#' samples <- read.cv(sampling.data)
-#' hobomeans <- meanhobo(hobocleaned)
-#' samp.rates <- samplingrates(samples, n = 9, round = 2)
-#' Site <- sampling.trends(hobomeans, samp.rates, round = 2)
+#' samples <- read.cvs(sampling.data)
+#' site.ranges <- ho.range(samples, start = "2021/11/02",  end = "2021/11/23")
 #' @export
 #' 
-# 
-# start = "2021/11/02"
-# end = "2021/11/23"
 
 ho.range <- function(data, start = "yyyy/mm/dd", end = "yyyy/mm/dd", round, na.rm = T ){
-  rows = NULL
+  if (lubridate::is.Date(as.Date(start)) == F){
+    print("date out of range")
+  } else {
   x <- which(hobocleaned$Date == start)|>
         min()
+  }
+  if (lubridate::is.Date(as.Date(end)) == F){
+    print("date out of range")
+  } else {
   y <- which(hobocleaned$Date == end) |>
         max()
-    #- Calculating means
+  }
+  #- Calculating means
   rango <- hobocleaned[y:x,]
-  return(dat)
+  return(rango)
 }
