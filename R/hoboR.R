@@ -13,24 +13,24 @@
 #' path_to_csvs <- '~mydirectory/myfiles.csv/'
 #' loadAllcsvs <- hobinder(path_to_csvs)
 #' finalcsv <- hobocleaner(loadAllcsvs)
-
 #' @importFrom tidyr separate
 #' @export
-
-hobinder <- function(path){
+  
+hobinder <- function(path, col.names=col.names){
   # read files from working directory
   files <- list.files(path=path, pattern = "\\.csv", full.names = T)
   # get names from files
   names <- as.data.frame(files) |>
-    separate(files, into=c("names", "ext"), sep= "[.]")
+    tidyr::separate(files, into=c("names", "ext"), sep= "[.]")
   # load all .csv files
   hobos <- do.call(rbind,
                lapply(files, function(x) {
                read.csv(x, header =F, skip = 2)
                })
                )
-  colnames(hobos) <- c("tID","Date.Time", "Wetness", "Temp", "RH", "Rain")
-  return(hobos)
+  colnames(hobos) <- col.names
+  hobos
+  return(hobos[, !is.na(colnames(hobos))])
 }
 
 hobocleaner <- function(file){

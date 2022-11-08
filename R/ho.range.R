@@ -6,13 +6,9 @@
 #' @param data a data frame with the hobo data and a `Date` column  
 #' @param start an early date in yyyy/mm/dd format
 #' @param end a late date in yyyy/mm/dd format 
-#' @return A data frame with the range  start to end of weather variables 
+#' @return A data frame subset from start to end hobo range  
 #'
-#' @importFrom purrr is_empty 
-#' @importFrom dplyr group_by
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @importFrom lubridate ymd
+#' @importFrom lubridate is.Date
 
 
 #' @examples 

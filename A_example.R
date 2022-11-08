@@ -6,13 +6,15 @@ library(dplyr)
 library(ggplot2)
 
 # Change the number for the site
-x = 1
+x = "A"
 
 # Add the PATH to your sites for weather data (from hobo)
 path = paste0("~/Desktop/site_", x)
 
 # loading hobo files
-hobofiles <- hobinder(path)
+# col.names <- c("tID","Date.Time", "Wetness", "Temp", "RH", "Rain")
+col.names <- c("tID", "Date.Time", "Temp", "RH", "P.Dew")
+hobofiles <- hobinder(path, col.names)
 head(hobofiles)
 # hobofiles <- hobinderSpecial(path)
 # head(hobofiles)
