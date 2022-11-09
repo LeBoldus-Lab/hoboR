@@ -6,25 +6,27 @@ library(dplyr)
 library(ggplot2)
 
 # Change the number for the site
-x = "A"
+x = 1 #"A"
 
 # Add the PATH to your sites for weather data (from hobo)
 path = paste0("~/Desktop/site_", x)
 
 # loading hobo files
-# col.names <- c("tID","Date.Time", "Wetness", "Temp", "RH", "Rain")
-col.names <- c("tID", "Date.Time", "Temp", "RH", "P.Dew")
+# Adam's files #1
+col.names <- c("tID","Date.Time", "Wetness", "Temp", "RH", "Rain")
+# Sky's files #A
+# col.names <- c("tID", "Date.Time", "Temp", "RH", "P.Dew")
 hobofiles <- hobinder(path, col.names)
 head(hobofiles)
 # hobofiles <- hobinderSpecial(path)
 # head(hobofiles)
 
 # cleaning hobo files
-hobocleaned <- hobocleaner(hobofiles)
+hobocleaned <- hobocleaner(hobofiles, format = "yymd")
 head(hobocleaned)
 
 # getting hobo means by date
-hobomeans <- meanhobo(hobocleaned)|>
+hobomeans <- meanhobo(hobocleaned, na.rm = T)|>
   as_tibble()
 hobomeans |>
     head()

@@ -37,6 +37,7 @@ hobocleaner <- function(file, format="ymd", na.rm = T){
   temp$Date.Time <- gsub("^", "20", temp$Date.Time)
   temp$Date.Time <- lubridate::ymd_hms(temp$Date.Time, truncated = 1)
   }
+  # rounding time and in order
   temp$Date.Time <- round(temp$Date.Time, units = "mins")
   temp = temp |> 
           dplyr::arrange(Date.Time)
