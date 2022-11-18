@@ -6,10 +6,10 @@ library(dplyr)
 library(ggplot2)
 
 # Change the number for the site
-x = 1 #"A"
+x = "01" #"A"
 
 # Add the PATH to your sites for weather data (from hobo)
-path = paste0("~/Desktop/site_", x)
+path = paste0("~/Desktop/canopy_", x)
 
 # loading hobo files
 # Adam's files #1
@@ -22,7 +22,7 @@ head(hobofiles)
 # head(hobofiles)
 
 # cleaning hobo files
-hobocleaned <- hobocleaner(hobofiles, format = "yymd")
+hobocleaned <- hobocleaner(hobofiles, format = "mdy")
 head(hobocleaned)
 
 # getting hobo means by date
