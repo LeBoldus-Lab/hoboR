@@ -23,13 +23,16 @@ path = "~/site_1_date_adj/"
 
 
 # Hobo column order
-col.names <- c("tID", "Date.Time", "Temp", "RH", "P.Dew")
+col.names <- c("tID", "Date.Time", "Temp", "RH", "P.Dew") # hobo portable
+col.names <- c("tID", "Date.Time", "Wetness", "Temp", "RH", "Rain") # hobo station
 
 # loading hobo files 
 hobofiles <- hobinder(path, col.names)
 tail(hobofiles)
 # cleaning hobo files
-hobocleaned <- hobocleaner(hobofiles, format = "mdy”) # your files are month day and year 
+hobocleaned <- hobocleaner(hobofiles, format = "mdy”) # your files are month day and year "05-01-23" 
+                                    # format = "ymd"  # your files are year month and day "20-11-21"
+                                    # format = "yymd" # your files are year month and day "2020-11-21" 
 tail(hobocleaned)
 
 # getting hobo means by date 
