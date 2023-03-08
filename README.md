@@ -21,15 +21,19 @@ Add the PATH to your csv files
 ```
 path = "~/site_1_date_adj/"
 
+
+# Hobo column order
+col.names <- c("tID", "Date.Time", "Temp", "RH", "P.Dew")
+
 # loading hobo files 
-hobofiles <- hobinder(path)
+hobofiles <- hobinder(path, col.names)
 tail(hobofiles)
 # cleaning hobo files
-hobocleaned <- hobocleaner(hobofiles)
+hobocleaned <- hobocleaner(hobofiles, format = "mdy”) # your files are month day and year 
 tail(hobocleaned)
 
 # getting hobo means by date 
-hobomeans <- meanhobo(hobocleaned)
+hobomeans <- meanhobo(hobocleaned, na.rm = T)
 
 # reading bucke samples
 sampling <- read.csv("Bucket_Results_Adj.csv") 
