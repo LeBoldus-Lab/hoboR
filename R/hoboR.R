@@ -16,7 +16,7 @@
 #' @importFrom tidyr separate
 #' @export
   
-hobinder <- function(path, col.names=col.names){
+hobinder <- function(path){
   # read files from working directory
   files <- list.files(path=path, pattern = "\\.csv", full.names = T)
   # get names from files
@@ -28,6 +28,8 @@ hobinder <- function(path, col.names=col.names){
                read.csv(x, header =F, skip = 2)
                })
                )
+  col.names <- lapply(strsplit(string, "[..]"), "[[", 1) |>
+                unlist()
   colnames(hobos) <- col.names
   hobos
   return(hobos[, !is.na(colnames(hobos))])

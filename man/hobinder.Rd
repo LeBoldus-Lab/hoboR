@@ -4,7 +4,7 @@
 \alias{hobinder}
 \title{Reads HOBO data in CSV format}
 \usage{
-hobinder(path, col.names = col.names)
+hobinder(path)
 }
 \arguments{
 \item{path}{to indicate the path to the csv files}
