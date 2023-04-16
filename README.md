@@ -22,12 +22,9 @@ Add the PATH to your csv files
 path = "~/site_1_date_adj/"
 
 
-# Hobo column order
-col.names <- c("tID", "Date.Time", "Temp", "RH", "P.Dew") # hobo portable
-col.names <- c("tID", "Date.Time", "Wetness", "Temp", "RH", "Rain") # hobo station
-
 # loading hobo files 
-hobofiles <- hobinder(path, col.names)
+# hobinder reads csv headers automatically, just double check that all csv are in order ## working on auto sorting
+hobofiles <- hobinder(path)
 tail(hobofiles)
 # cleaning hobo files
 hobocleaned <- hobocleaner(hobofiles, format = "mdy”) # your files are month day and year "05-01-23" 
