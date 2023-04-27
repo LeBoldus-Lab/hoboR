@@ -1,8 +1,8 @@
 
 
 # New dataframe for line plot of incidence by location
-Location_sum2 <- BIGdataFRAME %>%
-  group_by(Sampling, Treatment, Location) %>%
+Location_sum2 <- data |>
+  dplyr::group_by(Sampling, Treatment, Location) |>
   summarise( 
     n=n()*9,
     Sum.Rain=mean(sum.rain*.1),
