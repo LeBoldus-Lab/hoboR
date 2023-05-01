@@ -24,29 +24,29 @@ hobocleaner <- function(file, format="ymd", na.rm = T){
   init <- dim(file)[1]
   if (format == "mdy"){ 
   # formating hobo dates to UTC
-  temp$Date.Time <- lubridate::mdy_hms(temp$Date.Time, truncated = 1)
+  temp$Date <- lubridate::mdy_hms(temp$Date, truncated = 1)
   }
   if (format == "ymd"){
   # formating hobo dates to UTC
-  temp$Date.Time <- lubridate::ymd_hms(temp$Date.Time, truncated = 1)
+  temp$Date <- lubridate::ymd_hms(temp$Date, truncated = 1)
   }
   if (format == "yymd"){
   # formating hobo dates to UTC ymd
-  temp$Date.Time <- gsub(":", "-", temp$Date.Time)
-  temp$Date.Time <- gsub(" ", "-", temp$Date.Time)
-  temp$Date.Time <- gsub("^", "20", temp$Date.Time)
-  temp$Date.Time <- lubridate::ymd_hms(temp$Date.Time, truncated = 1)
+  temp$Date <- gsub(":", "-", temp$Date)
+  temp$Date <- gsub(" ", "-", temp$Date)
+  temp$Date <- gsub("^", "20", temp$Date)
+  temp$Date <- lubridate::ymd_hms(temp$Date, truncated = 1)
   }
   # rounding time and in order
-  temp$Date.Time <- round(temp$Date.Time, units = "mins")
+  temp$Date <- round(temp$Date, units = "mins")
   temp = temp |> 
-          dplyr::arrange(Date.Time)
+          dplyr::arrange(Date)
   # get col names to construct function summarise
   cols <- colnames(temp)
   n <- 1:(length(cols)-1)
   m <- cols[1+n]
   writ <- capture.output(
-    cat( "temp |> dplyr::group_by(Date.Time) |>",
+    cat( "temp |> dplyr::group_by(Date) |>",
        "dplyr::summarise(", 
                 paste0(paste0(m, " = mean(", m, ", na.rm = ", na.rm, "),"  
                              )
@@ -57,7 +57,7 @@ hobocleaner <- function(file, format="ymd", na.rm = T){
   cmd <- str2expression(cmd)
   # evaluating command
   dat <- eval(cmd) 
-  dat$Date <- as.Date(dat$Date.Time)
+  dat$By.Day <- as.Date(dat$Date)
   clean <- dim(dat)[1]
   cat(paste0(" proccesed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
              "\n   total: ", clean, " unique entries"))

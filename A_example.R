@@ -6,30 +6,40 @@ library(dplyr)
 library(ggplot2)
 
 # Change the number for the site
-x = "01" #"A"
+x = "1" #"A"
 
 # Add the PATH to your sites for weather data (from hobo)
-path = paste0("~/Desktop/canopy_", x)
+path = paste0("~/Desktop/hobo/site_", x)
+path = paste0("~/Desktop/site_1/")
+
+# the path file exist
+exists(path)
+
+# load one file for testing
+test <- read.csv(file = "~/Desktop/site_1/Site_1_(18025)_1.csv", 
+            skip = 1)
+string <- colnames(test)
+colnames(test) <- lapply(strsplit(string, "[.]"), "[[", 1) |>
+  unlist()
 
 # loading hobo files
 # Adam's files #1
-col.names <- c("tID","Date.Time", "Wetness", "Temp", "RH", "Rain")
+#col.names <- c("tID","Date.Time", "Wetness", "Temp", "RH", "Rain")
 # Sky's files #A
 # col.names <- c("tID", "Date.Time", "Temp", "RH", "P.Dew")
-hobofiles <- hobinder(path, col.names)
+hobofiles <- hobinder(path)
 head(hobofiles)
 # hobofiles <- hobinderSpecial(path)
 # head(hobofiles)
 
 # cleaning hobo files
-hobocleaned <- hobocleaner(hobofiles, format = "mdy")
+hobocleaned <- hobocleaner(hobofiles, format = "ymd")
 head(hobocleaned)
 
 # getting hobo means by date
 hobomeans <- meanhobo(hobocleaned, na.rm = T)|>
   as_tibble()
-hobomeans |>
-    head()
+hobomeans 
 
 # testing
 # test <- hobomeans[c(which(hobomeans$Date == "2021-10-26"):
@@ -38,7 +48,7 @@ hobomeans |>
 # colSums(test[2:8])
 # hobomeans$x.Temp[hobomeans$x.Temp > 100] <- NA 
 
-# reading bucke samples
+# reading bucket samples
 sampling <- read.csv("~/Desktop/Bucket_Results_Adj.csv") |>
     as_tibble()
 # subset your bucket sampling by site
