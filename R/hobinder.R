@@ -33,5 +33,6 @@ hobinder <- function(path){
                       function(x) sapply(strsplit(x, "[.]"), "[", 1))
   hobos <- Map(setNames, hobos, col.names)
   hobo <- reshape::merge_all(hobos, keep.all = T)
+  hobo$X <- rownames(hobo)
   return(hobo[, !is.na(colnames(hobo))])
 }

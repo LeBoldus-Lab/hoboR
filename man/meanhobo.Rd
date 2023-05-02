@@ -4,9 +4,9 @@
 \alias{meanhobo}
 \title{mean HOBO data in CSV format}
 \usage{
-meanhobo(data, na.rm = T)
+meanhobo(data, summariseby = "24 hours", na.rm = T)
 
-meanhobo(data, na.rm = T)
+meanhobo(data, summariseby = "24 hours", na.rm = T)
 }
 \arguments{
 \item{data}{cleaned hobo data frame from \code{hobocleaner}}

@@ -38,7 +38,7 @@ cleans the data and removes duplicates creating a continuous file from all .csv'
 path_to_csvs <- '~mydirectory/myfiles.csv/'
 loadAllcsvs <- hobinder(path_to_csvs)
 finalcsv <- hobocleaner(loadAllcsvs)
-path_to_csvs <- '~mydirectory/myfiles.csv/'
+path_to_csvs <- 'mydirectory/myfiles.csv/'
 loadAllcsvs <- hobinder(path_to_csvs)
 finalcsv <- hobocleaner(loadAllcsvs)
 }

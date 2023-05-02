@@ -14,7 +14,7 @@
 #' #' @importFrom dplyr
 
 #' @examples 
-#' path_to_csvs <- '~mydirectory/myfiles.csv/'
+#' path_to_csvs <- 'mydirectory/myfiles.csv/'
 #' loadAllcsvs <- hobinder(path_to_csvs)
 #' finalcsv <- hobocleaner(loadAllcsvs)
 #' @export
@@ -57,7 +57,7 @@ hobocleaner <- function(file, format="ymd", na.rm = T){
   cmd <- str2expression(cmd)
   # evaluating command
   dat <- eval(cmd) 
-  dat$By.Day <- as.Date(dat$Date)
+  #dat$By.Day <- as.Date(dat$Date)
   clean <- dim(dat)[1]
   cat(paste0(" proccesed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
              "\n   total: ", clean, " unique entries"))

@@ -18,12 +18,15 @@
 #' mean.vars <- meanhobo(cleanedcsv)
 #' @export
 
-meanhobo <-  function(data, na.rm = T){
+meanhobo <-  function(data, summariseby = "24 hours", na.rm = T){
     # Preparing function content
+    data <- transform(data, Date = cut(Date, summariseby))
+    # data <- aggregate(.~Date, t, mean, na.rm = na.rm)
+    # Getting mean hobo 
     cols <- colnames(data)
     n <- 1:(length(cols)-1)
     m <- cols[1+n]
-    m=m[1:length(m)-1]
+    # m=m[1:length(m)-1]
     pos <- which(m %in% "Rain") 
     if((length(pos) == 0) == T){pos <-1}
     if (m[pos] == "Rain" ){
