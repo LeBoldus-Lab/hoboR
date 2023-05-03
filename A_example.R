@@ -1,6 +1,6 @@
 # install.packages("devtools")
 # library("devtools")
-# devtools::install_github("LeBoldus-Lab/hoboR")
+# devtools::install_github("LeBoldus-Lab/hoboR", force = TRUE)
 library(hoboR)
 library(dplyr)
 library(ggplot2)
@@ -23,7 +23,7 @@ hobocleaned <- hobocleaner(hobofiles, format = "ymd")
 head(hobocleaned)
 
 # getting hobo mean summary by time 
-hobot <- hobotime(hobocleaned, summariseby = "5 mins", na.rm = T)
+hobot <- hobotime(hobocleaned, summariseby = "25 mins", na.rm = T)
 head(hobot)
 
 # impossible values

@@ -1,13 +1,13 @@
 # hoboR
-Function to combined data from HOBO weather stations.
-The files need to be exported from the HOBO software as CSV, using 24h format and YYYY-MM-DD.
+R package for the analysis of  HOBO weather stations data.
+The HOBO files as CSV, time formats accepted: DD/MM/YYYY, MM/DD/YYYY, YY/MM/DD
 
 
 ## Installation
 
-This project is available on GitHub and can be installed using:
+This project is available on GitHub on `http://github.com/LeBoldus` and can be installed using `devtools`, working on a CRAN version.
 
-> Dependencies: `dplyr`, `purrr`, `lubridate`
+> Dependencies required: `dplyr`, `purrr`, `lubridate`
 
 ``` r
 install.packages("devtools")
@@ -19,11 +19,10 @@ library(hoboR)
 # Example
 Add the PATH to your csv files  
 ```
-path = "~/site_1_date_adj/"
+path = "~/site_1/"
 
 
 # loading hobo files 
-# hobinder reads csv headers automatically, just double check that all csv are in order ## working on auto sorting
 hobofiles <- hobinder(path)
 tail(hobofiles)
 # cleaning hobo files
@@ -32,8 +31,16 @@ hobocleaned <- hobocleaner(hobofiles, format = "mdy”) # your files are month d
                                     # format = "yymd" # your files are year month and day "2020-11-21" 
 tail(hobocleaned)
 
+# summarizing hobo by time intervals 
+hobot <- hobotime(hobocleaned, summariseby = "5 mins", na.rm = T)
+tail(hobot) 
+
+# retrieve impossible values
+impossiblevalues(hobocleaned)
+
 # getting hobo means by date 
-hobomeans <- meanhobo(hobocleaned, na.rm = T)
+hobomeans <- meanhobo(hobocleaned, summariseby = "24 hours",  na.rm = T)
+head(hobomeans)
 
 # reading bucke samples
 sampling <- read.csv("Bucket_Results_Adj.csv") 
