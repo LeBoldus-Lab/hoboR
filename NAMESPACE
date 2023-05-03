@@ -2,7 +2,6 @@
 
 export(ho.range)
 export(hobinder)
-export(hobinderSpecial)
 export(hobocleaner)
 export(hobotime)
 export(horange)
