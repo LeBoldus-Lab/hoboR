@@ -7,11 +7,20 @@ The HOBO files as CSV, time formats accepted: DD/MM/YYYY, MM/DD/YYYY, YY/MM/DD
 
 This project is available on GitHub on `http://github.com/LeBoldus` and can be installed using `devtools`, working on a CRAN version.
 
-> Dependencies required: `dplyr`, `purrr`, `lubridate`
-
-``` r
+Install the following dependencies:
+```r
+install.packages("dplyr")
+install.packages("lubridate")
+install.packages("tidyr")
+install.packages("reshape")
 install.packages("devtools")
+```
+
+Install using `devtools`
+```r
+# load library 
 library("devtools")
+# install from github
 devtools::install_github("LeBoldus-Lab/hoboR")
 library(hoboR)
 ```
