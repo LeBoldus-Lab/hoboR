@@ -6,7 +6,7 @@ library(dplyr)
 library(ggplot2)
 
 # Change the number for the site
-x = "11" #"A"
+x = "12" #"A"
 
 # Add the PATH to your sites for weather data (from hobo)
 path = paste0("~/Desktop/site_", x)
@@ -18,9 +18,12 @@ file.exists(path)
 hobofiles <- hobinder(path)
 head(hobofiles)
 
-# cleaning hobo files, add format 
-hobocleaned <- hobocleaner(hobofiles, format = "ymd")
+# cleaning hobo files, add format
+hobocleaned <- hobocleaner(hobofiles, format = "yymd")
 head(hobocleaned)
+
+# specify a window range 
+horange(hobocleaned, start="2021-10-16", end="2021-10-22")
 
 # getting hobo mean summary by time 
 hobot <- hobotime(hobocleaned, summariseby = "25 mins", na.rm = T)
@@ -30,12 +33,44 @@ head(hobot)
 impossiblevalues(hobocleaned)
 
 # getting hobo means by date
-hobomeans <- meanhobo(hobocleaned, summariseby = "24 hours",  na.rm = T)
+hobomeans <- meanhobo(hobocleaned, summariseby = "1 day",  na.rm = T)
 head(hobomeans)
 
+library(ggplot2)
+library(scales)
+
+
+# Plot one variable: temperateure
+ggplot(hobocleaned, aes(x=as.POSIXct(Date), y = Temp)) +
+  geom_line(alpha= 0.5) +
+  scale_y_continuous( name = "Temperature °C")+
+  ggtitle("Temperature: Oct 14 - Nov 11, 2021")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_x_datetime(labels = date_format("%Y-%m-%d"))+
+  theme_bw()
+
+# two vars
+ggplot(hobocleaned, aes(x=as.POSIXct(Date))) +
+  geom_line( aes(y=Temp, col = "red"), alpha = 0.5) + 
+  geom_line( aes(y= Wetness, col = "blue"), alpha = 0.5) + 
+  scale_y_continuous(
+    # Features of the first axis
+    name = "Temperature °C",
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~., name="Humidity")
+  ) +
+  labs(title = "Temperature: Oct 14 - Nov 11, 2021", color = "Legend") +
+  scale_color_manual(labels = c("Humidity", "Temp"), values = c("blue", "red")) +
+  scale_x_datetime(labels = date_format("%Y-%m-%d"))+
+  theme_bw()
+
+heatmap(cor(as.matrix(hobocleaned[,2:3])))
+test <- na.omit(hobocleaned[,2:5])
+cor(test)|>
+  heatmap(Colv=NA, Rowv=NA)
+
 # reading bucket samples
-sampling <- read.csv("~/Desktop/Bucket_Results_Adj.csv") |>
-    as_tibble()
+sampling <- read.csv("~/Desktop/Bucket_Results_Adj.csv")
 
 # subset your bucket sampling by site
 ## Remember to replace the EC,NH and CC
