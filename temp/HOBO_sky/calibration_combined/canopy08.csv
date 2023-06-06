@@ -1,4 +1,4 @@
-hobo,Date-Time (Pacific Standard Time),Ch: 1 - Temperature   (??C),Ch: 1 - Temperature Max : Max (??C),Ch: 1 - Temperature Min : Min (??C),Ch: 1 - Temperature Avg : Avg (??C),Ch: 1 - Temperature Std Dev : Std Dev (??C),Ch: 2 - RH   (%),Ch: 2 - RH Max : Max (%),Ch: 2 - RH Min : Min (%),Ch: 2 - RH Avg : Avg (%),Ch: 2 - RH Std Dev : Std Dev (%),Dew Point   (??C),Button Down,Host Connected,End of File
+hobo,Date-Time (Pacific Standard Time), Temperature   (??C), Temperature Max : Max (??C), Temperature Min : Min (??C), Temperature Avg : Avg (??C), Temperature Std Dev : Std Dev (??C), RH   (%), RH Max : Max (%), RH Min : Min (%), RH Avg : Avg (%), RH Std Dev : Std Dev (%),Dew Point   (??C),Button Down,Host Connected,End of File
 8,3/21/2022 17:50,20.72,20.72,20.72,20.72,0,47.58,47.58,47.58,47.58,0,9.2,,,
 8,3/21/2022 17:55,20.8,20.8,20.74,20.76,0.02,47.09,47.45,47.09,47.26,0.14,9.12,,,
 8,3/21/2022 18:00,20.83,20.83,20.78,20.8,0.01,46.97,47.17,46.93,47.06,0.07,9.11,,,

@@ -16,7 +16,7 @@
 #' @importFrom tidyr separate
 #' @export
   
-hobinder <- function(path){
+hobinder <- function(path, ...){
   # read files from working directory
   files <- list.files(path=path, pattern = "\\.csv", full.names = T)
   # get names from files
@@ -25,7 +25,7 @@ hobinder <- function(path){
   # load all .csv files
   hobos <- do.call(list,
                lapply(files, function(x) {
-               read.csv(x, header = T, skip = 1)
+               read.csv(x, ...) #header = T, skip = 1)
                })
                )
   #hobocn <- lapply(hobos, colnames)

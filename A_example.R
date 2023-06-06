@@ -15,7 +15,7 @@ path = paste0("~/Desktop/site_", x)
 file.exists(path)
 
 # loading hobo files
-hobofiles <- hobinder(path)
+hobofiles <- hobinder(path, header = T, skip=1) # header and skip col is a new feature
 head(hobofiles)
 
 # cleaning hobo files, add format

@@ -1,4 +1,5 @@
-
+# sky script
+# to normalize data based on basal temperature
 
 library(ggplot2)
 library(tidyverse)
@@ -7,13 +8,25 @@ library(readr)
 library("writexl")
 library(nlme)
 
-#change language if not in EN
-#Sys.setenv(LANG = "en")
+library(hoboR)
+library(reshape)
+library(dplyr)
+library(ggplot2)
+
+# Add the PATH to your sites for weather data (from hobo)
+path = "temp/HOBO_sky/calibration_combined/"
+
+# the path file exist
+file.exists(path)
+
+# loading hobo files
+df <- hobinder(path, header= F)
+head(df)
 
 #files were pooled and edited individually by hand. Just put them into the same folder. 
 
 #load files.
-list_of_files <- list.files(path = "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined",
+list_of_files <- list.files(path = "temp/HOBO_sky/calibration_combined/",
                             recursive = TRUE,
                             pattern = "\\.csv$",
                             full.names = TRUE)
@@ -40,19 +53,19 @@ names(df)[13] <- "Humid_sd"
 names(df)[14] <- "Dewpoint"
 
 
-df$file=factor(df$file,
-                levels=c("C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy01.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy02.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy03.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy04.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy05.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy06.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy07.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy08.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy09.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy10.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy11.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy12.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy13.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy14.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy15.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy16.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy17.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy18.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy19.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy20.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy21.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy22.csv",
-                         "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy23.csv", "C:/Users/skyla/Desktop/HOBO_SOD/stats_hobo/calibration/combined/canopy24.csv"), 
+df$file <- factor( x= df$file,
+              levels=c("temp/HOBO_sky/calibration_combined/canopy01.csv", "temp/HOBO_sky/calibration_combined/canopy02.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy03.csv", "temp/HOBO_sky/calibration_combined/canopy04.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy05.csv", "temp/HOBO_sky/calibration_combined/canopy06.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy07.csv", "temp/HOBO_sky/calibration_combined/canopy08.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy09.csv", "temp/HOBO_sky/calibration_combined/canopy10.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy11.csv", "temp/HOBO_sky/calibration_combined/canopy12.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy13.csv", "temp/HOBO_sky/calibration_combined/canopy14.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy15.csv", "temp/HOBO_sky/calibration_combined/canopy16.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy17.csv", "temp/HOBO_sky/calibration_combined/canopy18.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy19.csv", "temp/HOBO_sky/calibration_combined/canopy20.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy21.csv", "temp/HOBO_sky/calibration_combined/canopy22.csv",
+                         "temp/HOBO_sky/calibration_combined/canopy23.csv", "temp/HOBO_sky/calibration_combined/canopy24.csv"), 
                 labels=c("canopy01", "canopy02", "canopy03", "canopy04","canopy05","canopy06", "canopy07","canopy08", "canopy09", "canopy10",
                          "canopy11", "canopy12", "canopy13", "canopy14","canopy15","canopy16", "canopy17","canopy18", "canopy19", "canopy20",
                          "canopy21", "canopy22", "canopy23", "canopy24"))
@@ -196,14 +209,16 @@ df3 <- subset(df,  DateTime == "3/22/2022 1:00" |
                 DateTime == "4/3/2022 2:00" |
                 DateTime == "4/3/2022 3:00"
               )
+library(lubridate)
 
+df3$DateTime <- lubridate::mdy_hms(df3$DateTime, truncated = 1)
 
 #by using linear model
 model1 = lm(Temp ~ DateTime * hobo , data = df3)
 summary(model1)
 anova(model1)
 
-ggplot(model1, aes(x=hobo, y=Temp, group=hobo)) +
+ggplot(model1, aes(x=sort(DateTime), y=sort(Temp), group=DateTime)) +
   geom_point() +
   geom_line() 
 
@@ -211,7 +226,10 @@ model2 = lm(Temp ~ hobo , data = df3)
 summary(model2)
 anova(model2)
 
-
+ggplot(model2, aes(x= sort(Temp), y=sort(hobo), group=hobo)) +
+  geom_point() +
+  geom_line(color = "lightgreen", alpha = 0.5) 
+plot(model2)
 ##Humidity calibration----
 #hobo_15 missing data after 4/4. Just ignore it.
 #by using linear model
@@ -219,13 +237,18 @@ model3 = lm(Humid ~ DateTime * hobo , data = df2)
 summary(model3)
 anova(model3)
 
-ggplot(model3, aes(x=hobo, y=Humid, group=hobo)) +
+ggplot(model3, aes(y= sort(Humid), x=sort(DateTime), group=hobo)) +
   geom_point() +
   geom_line() 
-
+plot(model3)
 model4 = lm(Humid ~ hobo , data = df2)
 summary(model4)
 anova(model4)
+
+ggplot(model4, aes(y= sort(Humid), x=sort(hobo), group=hobo)) +
+  geom_point() +
+  geom_line() 
+plot(model4)
 
 #Either the temperature or humidity is related to hobos. 
 #So an additive calibration should be enough. Which means the difference among hobos are additive. 

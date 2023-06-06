@@ -21,16 +21,16 @@ ho.range <- function(data, start = "yyyy/mm/dd", end = "yyyy/mm/dd", round, na.r
   if (lubridate::is.Date(as.Date(start)) == F){
     print("date out of range")
   } else {
-  x <- which(hobocleaned$Date == start)|>
+  x <- which(data$Date == start)|>
         min()
   }
   if (lubridate::is.Date(as.Date(end)) == F){
     print("date out of range")
   } else {
-  y <- which(hobocleaned$Date == end) |>
+  y <- which(data$Date == end) |>
         max()
   }
   #- Calculating means
-  rango <- hobocleaned[y:x,]
+  rango <- data[y:x,]
   return(rango)
 }
