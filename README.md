@@ -1,5 +1,5 @@
 # hoboR
-R package for the analysis of  HOBO weather stations data.
+R package for the analysis of  HOBO weather station data.
 The HOBO files as CSV, time formats accepted: DD/MM/YYYY, MM/DD/YYYY, YY/MM/DD
 
 
@@ -32,7 +32,7 @@ path = "~/site_1/"
 
 
 # loading hobo files 
-hobofiles <- hobinder(path)
+hobofiles <- hobinder(path, header = T, skip = 1)
 tail(hobofiles)
 # cleaning hobo files
 hobocleaned <- hobocleaner(hobofiles, format = "mdy”) # your files are month day and year "05-01-23" 
