@@ -21,13 +21,13 @@ horange <- function(data, start = "yyyy/mm/dd", end = "yyyy/mm/dd", round, na.rm
   if (lubridate::is.Date(as.Date(start)) == F){
     print("date out of range")
   } else {
-  x <- which(hobocleaned$Date == start)|>
+  x <- which(as.Date(hobocleaned$Date) == start)|>
         min()
   }
   if (lubridate::is.Date(as.Date(end)) == F){
     print("date out of range")
   } else {
-  y <- which(hobocleaned$Date == end) |>
+  y <- which(as.Date(hobocleaned$Date) == end) |>
         max()
   }
   #- Calculating means

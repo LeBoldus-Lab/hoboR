@@ -7,7 +7,7 @@
 #' @param summariseby= a time interval in minmutes
 #' @return a data frame summarised by minutes  
 #'
-#' @importFrom lubridate is.Date
+#' @importFrom lubridate as_datetime
 
 
 #' @examples 
@@ -19,8 +19,8 @@
 #' 
 
 hobotime <- function(data, summariseby = "5 mins", na.rm = T){
-  x <- data
-  t <- transform(x, Date = cut(Date, summariseby))
+  t <- transform(data, Date = cut(Date, summariseby))
   data <- aggregate(.~Date, t, mean, na.rm = na.rm)
+  data$Date <- lubridate::as_datetime(data$Date)
   return(data)
 }

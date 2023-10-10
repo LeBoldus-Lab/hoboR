@@ -30,7 +30,7 @@ meanhobo <-  function(data, summariseby = "24 hours", na.rm = T){
     pos <- which(m %in% "Rain") 
     if((length(pos) == 0) == T){pos <-1}
     if (m[pos] == "Rain" ){
-    writ <- capture.output(
+    operations <- capture.output(
       cat("dplyr::group_by(data, Date) |>",
           "dplyr::summarise(", 
            paste0(
@@ -40,7 +40,7 @@ meanhobo <-  function(data, summariseby = "24 hours", na.rm = T){
                paste0("sum.", m[pos]), " = sum(", m[pos],", na.rm = ", na.rm, "),"
                ))))
     } else {
-      writ <- capture.output(
+      operations <- capture.output(
         cat("dplyr::group_by(data, Date) |>",
             "dplyr::summarise(", 
              paste0(
@@ -50,7 +50,9 @@ meanhobo <-  function(data, summariseby = "24 hours", na.rm = T){
                ))))
     }
     # 
-    cmd <- gsub(",$", ")", writ)
+    cmd <- gsub(",$", ")", operations)
     cmd <- str2expression(cmd)
-    eval(cmd)
+    output <- eval(cmd)
+    output$Date <- lubridate::as_datetime(output$Date)
+    return(output)
 }

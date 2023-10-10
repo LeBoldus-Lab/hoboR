@@ -6,11 +6,11 @@ library(dplyr)
 library(ggplot2)
 
 # Change the number for the site
-x = "12" #"A"
+x = "11" #"A"
 
 # Add the PATH to your sites for weather data (from hobo)
 path = paste0("~/Desktop/site_", x)
-
+path = "~/Desktop/Adam/site_12_date_adj2/"
 # the path file exist
 file.exists(path)
 
@@ -23,10 +23,10 @@ hobocleaned <- hobocleaner(hobofiles, format = "yymd")
 head(hobocleaned)
 
 # specify a window range 
-horange(hobocleaned, start="2021-10-16", end="2021-10-22")
+horange(hobocleaned, start="2022-06-04", end="2022-10-22")
 
 # getting hobo mean summary by time 
-hobot <- hobotime(hobocleaned, summariseby = "25 mins", na.rm = T)
+hobot <- hobotime(hobocleaned, summariseby = "5 mins", na.rm = T)
 head(hobot)
 
 # impossible values

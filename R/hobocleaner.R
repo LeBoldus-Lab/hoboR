@@ -45,7 +45,7 @@ hobocleaner <- function(file, format="ymd", na.rm = T){
   cols <- colnames(temp)
   n <- 1:(length(cols)-1)
   m <- cols[1+n]
-  writ <- capture.output(
+  operations <- capture.output(
     cat( "temp |> dplyr::group_by(Date) |>",
        "dplyr::summarise(", 
                 paste0(paste0(m, " = mean(", m, ", na.rm = ", na.rm, "),"  
@@ -53,7 +53,7 @@ hobocleaner <- function(file, format="ymd", na.rm = T){
                        )
         )
    )
-  cmd <- gsub(",$", ")", writ)
+  cmd <- gsub(",$", ")", operations)
   cmd <- str2expression(cmd)
   # evaluating command
   dat <- eval(cmd) 
