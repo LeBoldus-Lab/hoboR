@@ -36,7 +36,7 @@ tail(hobocleaned)
 head(hobocleaned)
 
 # getting hobo means by date 
-hobomeans <- meanhobo(hobocleaned, summariseby = "24 hours",  na.rm = T)
+hobomeans <- meanhobo2(hobocleaned, summariseby = "24 hours",  na.rm = T, minmax = T)
 head(hobomeans)
 
 hobomeans$Date <- as.Date(hobomeans$Date)
