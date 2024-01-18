@@ -14,14 +14,14 @@ path = "~/Desktop/Adam/site_12_date_adj2/"
 # the path file exist
 file.exists(path)
 
-# loading hobo files
+# loading all hobo files
 hobofiles <- hobinder(path, header = T, skip=1) # header and skip col is a new feature
 head(hobofiles)
 
 # cleaning hobo files, add format
 hobocleaned <- hobocleaner(hobofiles, format = "yymd")
 head(hobocleaned)
-
+tail(hobocleaned)
 # specify a window range 
 horange(hobocleaned, start="2022-06-04", end="2022-10-22")
 
@@ -30,15 +30,28 @@ hobot <- hobotime(hobocleaned, summariseby = "5 mins", na.rm = T)
 head(hobot)
 
 # impossible values
-impossiblevalues(hobocleaned)
+impossiblevalues(hobocleaned, showrows = 3)
+
+na_data <- NAsensorfailures(hobocleaned, condition = ">", threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))
+
+timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours", 
+          days = 100, na.rm = TRUE, plot = T, var = "Temp")
+
 
 # getting hobo means by date
 hobomeans <- meanhobo(hobocleaned, summariseby = "1 day",  na.rm = T)
 head(hobomeans)
 
+
+# plots 
+
+# horrelation 
+horrelation(hobocleaned, summariseby = "month", by = "mean", na.rm = F)
+
+#--------------- Plot 
+
 library(ggplot2)
 library(scales)
-
 
 # Plot one variable: temperateure
 ggplot(hobocleaned, aes(x=as.POSIXct(Date), y = Temp)) +
@@ -64,7 +77,7 @@ ggplot(hobocleaned, aes(x=as.POSIXct(Date))) +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
   theme_bw()
 
-heatmap(cor(as.matrix(hobocleaned[,2:3])))
+heatmap(cor(as.matrix(hobocleaned[,2:4])))
 test <- na.omit(hobocleaned[,2:5])
 cor(test)|>
   heatmap(Colv=NA, Rowv=NA)

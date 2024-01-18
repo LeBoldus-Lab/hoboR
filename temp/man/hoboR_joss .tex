@@ -1,0 +1,79 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+
+%SetFonts
+
+%SetFonts
+
+
+\title{HoboR: An R package to manipulate weather stations data}
+\author{Alcal\'a Brise\~no RI, Carson AR, Lang S,  Peterson E,  and LeBoldus, J.}
+%\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section*{Summary}
+
+\verb|HoboR| is an R package for efficiently processing extensive datasets obtained from HOBO weather stations and data loggers, supporting various weather station formats. Multiple tools were designed for streamlined weather data management, \verb|HoboR| enables users to load CSV files into a tibble format, eliminate duplicates, summarize data by time intervals (minutes, hours, and days), subset files by date ranges, and address common data quality issues such as sensor failures, out-of-range entries, and time zone discrepancies. Additionally, the package incorporates guidelines for weather data analysis (REF), advocating for adherence to standard practices in handling weather variables. Despite its name, \verb|HoboR| is adaptable to other weather station formats sharing a similar data structure
+
+%\verb|HoboR| is an R package allowing the process of thousands of datasheet files in csv format retrieved from HOBO weather station and data loggers, compatible with multiple weather station formats. \verb|HoboR| tools allow loading csv files within a directory in a tibble format, additional functions to clean duplicates and redundant entries, summarise by time (minutes, hours, and days), subsetting files by date ranges, as well as identify and correct for sensor failures and out-of-range entries, identify impossible values, time zone shifts and plotting the weather variables. We implemented the guidelines for weather data analysis (REF) and recommend that users follow weather variable standard practices. Any other weather station format with a similar data structure can be used despite the name.
+
+Weather station data can be logged by the minute from any point in time and from different types of sensors, such as the standard time, rain, relative humidity (RH), light, and more. \verb|HoboR| main functions implement dynamic interpretation programming, allowing to process the spreadsheet independently of the number of sensors, adapting to different initial headers. Among the challenges of recording and collecting data, replacing batteries and download data could create multiple entries that might be challenging and time consuming to handle in graphic user interface spreadsheet programs. Duplicate entries might vary from seconds to minutes, and with the help of this package, it can be merged and summarized for further data analysis.
+
+\verb|HoboR| was tested on log files with hundreds to thousands entries, facilitating the post-processing of weather station and data loggers, loading csv files regardless of the header column order and dimensions, and summarised within seconds, the summary statistics can be rounded to minutes, hours and days, yielding minimums and maximum, mean and standard deviation of your data. Additional functions can help to identify and replace impossible values and correct the variation within your loggers. As a proof of concept applied to these weather data, we implement a couple of functions to calculate disease trends of the sudden oak death epidemiology affecting tanoek (\emph{Notholitocarpus densiflorus}) in the Pacific Northwest.
+
+\section*{Statement of need}
+Developing automated software for preprocessing weather stations and data logger information may facilitate the analysis of epidemiological surveillance, microbiome, and multiple disciplines (Dahl et al., 2023; Nikolauo et al., 2023; Wu et al., 2023 ). Traditional spreadsheet interfaces pose a challenge in handling extensive and complex studies that are difficult to manage, time-consuming to organize, error-prone if done by hand, and might not handle whole datasets. By automating these tasks, \verb|hoboR| enhances accuracy and significantly reduces the time and effort required for data preparation, leaving more time for robust epidemiological modeling. The integration of advanced algorithms and user-friendly software makes it accessible to both experienced researchers and program beginners, addressing the current potential of implementing weather variables for plant pathology and disease ecology for effective management (Garrett et al., 2023).
+
+%Weather data collected for epidemiological surveillance throughout seasons are still on the verge of plant pathology and disease ecology (Garrett et al., 2023). Extensive and complex epidemiological studies recording weather data make the analysis of log files in spreadsheet interfaces difficult, prone to error, and time-consuming. Weather log files can exceed spreadsheet program size, making parsing several hundred rows at once impossible. Handling several hundred csv files might be challenging to new R users and program beginners with limited time. Therefore, software is needed to automate the processing of weather stations and data logger information to prepare the data for epidemiological modeling analysis and more.
+
+To our knowledge, no packages in R are available to analyze weather station and data logger files. A graphic user interface for HOBO exists but is incompatible with data postprocessing and summary statistics. 
+
+\section*{Package workflow}
+The workflow of the \verb|hoboR| package consists of three consecutive steps and seven assisting functions: \\
+– \verb|hobinder|: Load multiple csv files regardless of the order and number of columns from a single directory; the files must come from the same weather station or data logger model.   \\
+–  \verb|hobocleaner|: Averages duplicate entries from the large csv file. \\
+–  \verb|meanhobo|: Summary statistic (min, max, mean, and standard deviation) for the different weather station and data logger sensors \\
+– \verb|hobotime|: Allows aggregating your data by minutes, hours, or days.\\
+– \verb|horange|: Allows to parse your data by date ranges,\\
+– \verb|impossiblevalues|: Identify the min and max values in the data set, the user should consider what are the minimum and maximum values for the region. \\
+– \verb|NAsensorfailures|: Allows to replace with NAs impossible values in your data set using logical statements. \\
+– \verb|timestamp|: Select a time and gives you an interval \\ 
+– \verb|horrelation|: Plot what weather variable correlates among them. \\
+– \verb|hoboplot|: Plot weather variable trends.\\
+
+
+samplingrates()
+sampling.trends()
+
+\section*{Example}
+
+\section*{Installation}
+This package requires R version 4.1.3 or later. It also requires the following packages: data.table, dplyr, ggplot2,  lubridate, plyr, purrr. These dependencies should be installed automatically when dependencies = TRUE is set in the command used to install the package.
+\begin{verbatim}
+> if (!require("devtools")) \\
+> install.packages("devtools")\\
+> devtools::install_github("leboldus_lab/hoboR", dependencies = TRUE)
+\end{verbatim}
+
+ 
+\section*{Authors contribution}
+Ricardo I. Alcal\'a authored and developed the original version of the package, maintained the package, wrote the documentation, debugged the code, and wrote the manuscript. Adam R. Carson collected the data, wrote code implemented in the package’s main functions, and debugged the code. Sky Lang collected the data and assisted in the user-functionality of the code functions. Ebba Peterson assisted in best practices for post-processing. Jared LeBoldus supervised the project and participated in the manuscript drafting process.
+\section*{Acknowledgements}
+
+%\subsection{}
+Garrett et al., 2023 https://doi.org/10.1146/annurev-phyto-021021-042636
+
+Dahl et al., 2023,  https://doi.org/10.1111/1462-2920.16347
+
+Nikolauo et al., 2023, https://doi.org/10.1016/j.envres.2023.117173
+
+Wu et al., 2023, https://doi.org/10.1093/aob/mcad195
+
+\end{document}  

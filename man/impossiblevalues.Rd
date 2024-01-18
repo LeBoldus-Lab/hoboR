@@ -4,15 +4,15 @@
 \alias{impossiblevalues}
 \title{HOBO impossible values}
 \usage{
-impossiblevalues(data, ...)
+impossiblevalues(data, showrows = 10, ...)
 }
 \arguments{
-\item{data}{cleaned hobo data frame from \verb{original csv} or \code{hobocleaner} and \code{hobotime}}
+\item{data}{Cleaned hobo data frame from \verb{original csv} or \code{hobocleaner} and \code{hobotime}}
 
-\item{na.rm}{TRUE or FALSE to remove NAs, TRUE is default}
+\item{showrows}{Number of rows to show for maximum values, default is 10}
 }
 \value{
-gives the rows with impossible values
+Gives the rows with impossible values
 }
 \description{
 Functions that gets the mean by date of the cleaned data downloaded from the

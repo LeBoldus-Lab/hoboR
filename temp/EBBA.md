@@ -2,8 +2,7 @@
 
 ## IDing errors.
 
-### Remove "impossible" values.  
-I usually screen all data for values I consider to be impossible or null. Having functions whereby you can define what you consider "impossible" would be helpful. 
+**Remove "impossible" values** I usually screen all data for values I consider to be impossible or null. Having functions whereby you can define what you consider "impossible" would be helpful. 
 
 After that, I typically rely on visual aids to ID errors, particularly for those errors which aren't impossible over the year but would be considered highly unlikely given the season.  You could consider adding some automated ways to produce visual output, or use a moving average to ID those values which fall outside the range of neighboring values in the timeseries. 
 
