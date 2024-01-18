@@ -22,24 +22,24 @@ horange <- function(data, start = "yyyy/mm/dd", end = "yyyy/mm/dd", round, na.rm
   if (lubridate::is.Date(as.Date(start)) == F){
     warning("value is not a Date")
   } else {
-    if (any(as.Date(hobocleaned$Date) == start) == FALSE) {
+    if (any(as.Date(data$Date) == start) == FALSE) {
       warning("Date out of range")
     } else {
-  x <- which(as.Date(hobocleaned$Date) == start)|>
+  x <- which(as.Date(data$Date) == start)|>
         min()
     }
   }  
   if (lubridate::is.Date(as.Date(end)) == F){
     warning("value is not a Date")
-    if (any(as.Date(hobocleaned$Date) == end) == FALSE) {
+    if (any(as.Date(data$Date) == end) == FALSE) {
       warning("Date out of range")
   } else {
-  y <- which(as.Date(hobocleaned$Date) == end) |>
+  y <- which(as.Date(data$Date) == end) |>
         max()
     }
   }  
   #- Calculating means
-  rango <- hobocleaned[y:x,]
+  rango <- data[y:x,]
   return(rango)
 }
 
