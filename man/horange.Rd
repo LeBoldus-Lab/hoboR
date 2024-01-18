@@ -2,30 +2,31 @@
 % Please edit documentation in R/horange.R
 \name{horange}
 \alias{horange}
-\title{calculate date range temperature using hobo data
-This function calculates hobo weather means for sampling rates
-HOBO software}
+\title{Subset data within a date range}
 \usage{
 horange(data, start = "yyyy/mm/dd", end = "yyyy/mm/dd", round, na.rm = T)
 }
 \arguments{
-\item{data}{a data frame with the hobo data and a \code{Date} column}
+\item{data}{A data frame with the HOBO data and a \code{Date} column}
 
-\item{start}{an early date in yyyy/mm/dd format}
+\item{start}{Start date for the subset (in "yyyy/mm/dd" format)}
 
-\item{end}{a late date in yyyy/mm/dd format}
+\item{end}{End date for the subset (in "yyyy/mm/dd" format)}
+
+\item{round}{Logical, whether to round the start and end dates to the nearest available dates in the data}
+
+\item{na.rm}{Logical, whether to remove NAs from the result}
 }
 \value{
-A data frame subset from start to end hobo range
+A subset of the original data frame within the specified date range
 }
 \description{
-calculate date range temperature using hobo data
-This function calculates hobo weather means for sampling rates
+This function subsets data within a specified date range.
 HOBO software
 }
 \examples{
-samples <- read.cvs(sampling.data)
-site.ranges <- ho.range(samples, start = "2021/11/02",  end = "2021/11/23")
+cleaned <- hobocleaner(data, format = "yymd")
+site.ranges <- horange(cleaned, start = "2021/11/02",  end = "2021/11/23")
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
