@@ -11,10 +11,8 @@
 #' @param na.rm Logical, whether to remove NAs from the result
 #' @return A ggplot object representing the correlation heatmap
 #' 
-#' @importFrom lubridate cut
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot geom_tile scale_fill_gradient2 theme_minimal labs
-#' @importFrom dplyr transform aggregate
 #' 
 #' @examples 
 #' files <- hobinder(path)
@@ -25,8 +23,8 @@
 
 
 horrelation <- function(data, summariseby = "month", by = "mean", na.rm = F){
-  data <- dplyr::transform(data, Date = lubridate::cut(Date, summariseby)) |>
-            dplyr::aggregate(.~Date, by, na.rm = na.rm)
+  data <- transform(data, Date = cut(Date, summariseby)) |>
+            aggregate(.~Date, by, na.rm = na.rm)
   if (na.rm){
     c <- cor(as.matrix(data[,2:ncol(data)])) |>
           na.omit(c)
