@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.11.10)  18 JAN 2024 09:12
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.11.10)  19 JAN 2024 01:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -167,14 +167,66 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--50
 
  []
 
-[2] [3] (./hoboR_joss .aux) ) 
-Here is how much of TeX's memory you used:
- 2053 strings out of 476683
- 32593 string characters out of 5804046
- 1854018 words of memory out of 5000000
- 22310 multiletter control sequences out of 15000+600000
- 516988 words of font info for 57 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 55i,6n,62p,1005b,218s stack positions out of 10000i,1000n,20000p,200000b,200000s
+[2]
+Overfull \hbox (41.39278pt too wide) in paragraph at lines 80--80
+[]\TU/lmtt/m/n/10.95 hobotime(cleaned, summariseby = "5 mins", na.rm = T) # rou
+nds data every 5 minutes[] 
+ []
 
-Output written on hoboR_joss .pdf (3 pages).
+
+Overfull \hbox (35.64403pt too wide) in paragraph at lines 80--80
+[]\TU/lmtt/m/n/10.95 horange(cleaned, start = "2022-08-04", end = "2022-08-10")
+ # select a time window[] 
+ []
+
+
+Overfull \hbox (190.86024pt too wide) in paragraph at lines 80--80
+[]\TU/lmtt/m/n/10.95 NAsensorfailures(cleaned, condition = ">", threshold = c(5
+0, 3000, 101), opt = c("Temp", "Rain", "Wetness"))[] 
+ []
+
+
+Overfull \hbox (219.60399pt too wide) in paragraph at lines 80--80
+[]\TU/lmtt/m/n/10.95 timestamp(cleaned, stamp = "2022-08-05 00:01", by = "24 ho
+urs", days = 100, na.rm = TRUE, plot = T, var = "Temp")[] 
+ []
+
+
+./hoboR_joss .tex:83: LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83 \caption
+              Fig. 1) shows the output variables using plotweather() function.
+? 
+[3]
+./hoboR_joss .tex:102: Missing $ inserted.
+<inserted text> 
+                $
+l.102 ... R.” The Journal of Open Source Software_
+                                                  , *3*(30), 1035.
+? 
+./hoboR_joss .tex:104: Missing $ inserted.
+<inserted text> 
+                $
+l.104 
+      
+? 
+./hoboR_joss .tex:105: Misplaced alignment tab character &.
+l.105 Chamberlain, S., &
+                         Hocking, D. (2023). rnoaa: 'NOAA' Weather Data from...
+
+? 
+[4] (./hoboR_joss .aux) ) 
+Here is how much of TeX's memory you used:
+ 2059 strings out of 476683
+ 32694 string characters out of 5804046
+ 1854018 words of memory out of 5000000
+ 22316 multiletter control sequences out of 15000+600000
+ 518536 words of font info for 63 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 55i,6n,62p,1096b,218s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on hoboR_joss .pdf (4 pages).

@@ -10,9 +10,10 @@ This project is available on GitHub on `http://github.com/LeBoldus` and can be i
 Install the following dependencies:
 ```r
 install.packages("dplyr")
+install.packages("plyr")
 install.packages("lubridate")
-install.packages("tidyr")
 install.packages("reshape")
+install.packages("ggplot2")
 install.packages("devtools")
 ```
 
@@ -28,7 +29,7 @@ library(hoboR)
 # Example
 Add the PATH to your csv files  
 ```
-path = "~/site_1/"
+path = "/Site_1/"
 
 
 # loading hobo files 
@@ -44,12 +45,26 @@ tail(hobocleaned)
 hobot <- hobotime(hobocleaned, summariseby = "5 mins", na.rm = T)
 tail(hobot) 
 
+# retrieve a time interval 
+horange(hobocleaned, start="2022-06-04", end="2022-10-22")
+
 # retrieve impossible values
 impossiblevalues(hobocleaned)
 
+# transform impossible values to NAs --- This is data dependent
+na_data <- NAsensorfailures(hobocleaned, condition = ">", threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))
+
+timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours", 
+          days = 100, na.rm = TRUE, plot = T, var = "Temp")
+          
 # getting hobo means by date 
 hobomeans <- meanhobo(hobocleaned, summariseby = "24 hours",  na.rm = T)
 head(hobomeans)
+
+
+# plot correlation hobo variables  
+horrelation(hobocleaned, summariseby = "month", by = "mean", na.rm = F)
+
 
 # reading bucke samples
 sampling <- read.csv("Bucket_Results_Adj.csv") 
