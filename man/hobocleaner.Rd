@@ -9,9 +9,9 @@ hobocleaner(file, format = "ymd", na.rm = T)
 hobocleaner(file, format = "ymd", na.rm = T)
 }
 \arguments{
-\item{file}{get the binded csv file from \code{hobinder}, and remove duplicates and merge the data}
+\item{file}{Get the binded CSV file from \code{hobinder} and remove duplicates to merge the data.}
 
-\item{format}{choose between month, day and year (mdy) or year, month and day (ymd) or
+\item{format}{Choose between month, day, and year (mdy) or year, month, and day (ymd) or
 year two digits, month and day (yymd)}
 
 \item{na.rm}{TRUE or FALSE to remove NAs, TRUE is default}
@@ -22,25 +22,22 @@ large clean csv file
 #' @importFrom lubridate ymd_hms
 #' @importFrom dplyr
 
-dataframe with no duplicate values
-
-#' @importFrom lubridate ymd_hms
-#' @importFrom dplyr
+data frame without duplicate values
 }
 \description{
 Functions that cleans the original data downloaded from the HOBO software
 cleans the data and removes duplicates creating a continuous file from all .csv's
 
-Functions that cleans the original data downloaded from the HOBO software
+Functions that cleans the original data downloaded from the HOBO software,
 cleans the data and removes duplicates creating a continuous file from all .csv's
 }
 \examples{
 path_to_csvs <- '~mydirectory/myfiles.csv/'
 loadAllcsvs <- hobinder(path_to_csvs)
 finalcsv <- hobocleaner(loadAllcsvs)
-path_to_csvs <- 'mydirectory/myfiles.csv/'
+path_to_csvs <- "~/Documents/"
 loadAllcsvs <- hobinder(path_to_csvs)
-finalcsv <- hobocleaner(loadAllcsvs)
+file <- hobocleaner(loadAllcsvs)
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

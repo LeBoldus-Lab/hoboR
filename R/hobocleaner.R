@@ -12,16 +12,18 @@
 #' @return data frame without duplicate values 
 #' 
 #' @importFrom lubridate mdy_hms ymd_hms
-#' @importFrom dplyr
+#' @importFrom dplyr arrange
 
 #' @examples 
-#' path_to_csvs <- "~/Documents/'
+#' path_to_csvs <- "~/Documents/"
 #' loadAllcsvs <- hobinder(path_to_csvs)
 #' file <- hobocleaner(loadAllcsvs)
 #' @export
 
 hobocleaner <- function(file, format = "ymd", na.rm = T){
   temp <- file[,-1]
+  temp <- temp[,apply(temp, 2, 
+              function(col) !any(col %in% c("", "Logged")))]
   init <- dim(file)[1]
   if (format == "mdy"){ 
   # formating hobo dates to UTC
@@ -61,6 +63,6 @@ hobocleaner <- function(file, format = "ymd", na.rm = T){
   #dat$By.Day <- as.Date(dat$Date)
   clean <- dim(dat)[1]
   cat(paste0(" proccesed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
-             "\n   total: ", clean, " unique entries"))
+             "\n   total: ", clean, " unique entries \n" ))
   return(dat)
 }

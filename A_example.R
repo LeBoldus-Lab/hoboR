@@ -25,6 +25,8 @@ tail(hobocleaned)
 # specify a window range 
 horange(hobocleaned, start="2022-06-04", end="2022-10-22")
 
+
+
 # getting hobo mean summary by time 
 hobot <- hobotime(hobocleaned, summariseby = "5 mins", na.rm = T)
 head(hobot)

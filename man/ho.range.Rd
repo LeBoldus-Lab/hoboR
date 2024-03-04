@@ -6,7 +6,13 @@
 This function calculates hobo weather means for sampling rates
 HOBO software}
 \usage{
-ho.range(data, start = "yyyy/mm/dd", end = "yyyy/mm/dd", round, na.rm = T)
+ho.range(
+  data,
+  start = "1910-09-16 06:00",
+  end = "1920-12-01 12:00",
+  round,
+  na.rm = T
+)
 }
 \arguments{
 \item{data}{a data frame with the hobo data and a \code{Date} column}

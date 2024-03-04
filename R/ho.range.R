@@ -8,7 +8,7 @@
 #' @param end a late date in yyyy/mm/dd format 
 #' @return A data frame subset from start to end hobo range  
 #'
-#' @importFrom lubridate is.Date
+#' @importFrom lubridate as_datetime
 
 
 #' @examples 
@@ -17,17 +17,17 @@
 #' @export
 #' 
 
-ho.range <- function(data, start = "yyyy/mm/dd", end = "yyyy/mm/dd", round, na.rm = T ){
-  if (lubridate::is.Date(as.Date(start)) == F){
+ho.range <- function(data, start = "1910-09-16 06:00", end = "1920-12-01 12:00", round, na.rm = T ){
+  if (!is.Date(lubridate::as_datetime(start, format = "%Y-%m-%d %H:%M")) == F){
     print("date out of range")
   } else {
-  x <- which(data$Date == start)|>
+  x <- which(data$Date %in% lubridate::as_datetime(start, format = "%Y-%m-%d %H:%M"))|>
         min()
   }
-  if (lubridate::is.Date(as.Date(end)) == F){
+  if (!is.Date(lubridate::as_datetime(end, format = "%Y-%m-%d %H:%M")) == F){
     print("date out of range")
   } else {
-  y <- which(data$Date == end) |>
+  y <- which(data$Date %in% lubridate::as_datetime(end, format = "%Y-%m-%d %H:%M")) |>
         max()
   }
   #- Calculating means
