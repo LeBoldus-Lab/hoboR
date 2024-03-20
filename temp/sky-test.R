@@ -8,7 +8,7 @@ file.exists(path)
 path=paste0(path, "canopy1/")
 # loading all hobo files
 # hobofiles <- hobinder(path) # header and skip col is a new feature
-hobofiles <- hobinder(path, channels = "ON" ) # channels is a new feature
+hobofiles <- hobinder2(path, channels = "ON" ) # channels is a new feature
 head(hobofiles)
 
 hobocleaned <- hobocleaner(hobofiles, format = "ymd")
