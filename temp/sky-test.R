@@ -16,12 +16,15 @@ pathtoread[[i]] <- paste0(path, folder[i])
 calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" ) # channels is a new feature
 data[[i]]=hobocleaned[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd")
 }
-
+data[[2]]
 times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", "2022-03-22 04:00",
            "2022-03-22 05:00", "2022-03-22 06:00", "2022-03-22 07:00", "2022-03-22 08:00",
            "2022-03-22 09:00")
 
-calibrator(data, formula = "y = a + b", columns= c(2, 7, 12), times = times)
+x <- calibrator(data, columns= c(2, 7, 12), times = times)
+correction.test(list.data=data, calibrationfile=x, columns = c(2, 7, 12), times = times, threshold = .3)
+
+# correct the hobos using the results of calibrator, and your results should add to 0 for all of them
 
 
 ho.range(hobocleaned, start="2022-03-21 17:45", end="2022-03-21 18:20")

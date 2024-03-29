@@ -1,11 +1,12 @@
 
-#' mean HOBO data in CSV format
+#' Calibrator HOBO data in CSV format
 #' 
-#' Functions that calculate the parameter to correct with calibrated data from the 
-#' HOBO software
+#' Additive function to calculate the difference among hobo loggers to calibrate
+#' using a base correction to the data
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
-#' @param data 
-#' @return calibrated data frame 
+#' @param data a list of CVS data containing the hobo 
+#' @param times a series of times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00")
+#' @return a data frame with the difrences for data correction, to use with corrector
 #' 
 #' @importFrom dplyr group_by
 #' @importFrom dplyr mutate
@@ -14,7 +15,16 @@
 
 
 #' @examples 
-#' calibratedcsv <- calibritor(calibration-data)
+#' path = "~/Desktop/testsky/calibration/originalfiles/"
+#'file.exists(path)
+#'folder=paste0(rep("canopy", 24), 1:24)
+#'pathtoread=calibrationfiles=hobocleaned=data=list()
+#'for (i in seq_along(folder)){
+#'  pathtoread[[i]] <- paste0(path, folder[i])
+#'  calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" ) # channels is a new feature
+#'  data[[i]]=hobocleaned[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd")
+#'}
+#' data.calibrated <- calibritor(calibrationfiles)
 #' @export
 
 times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", "2022-03-22 04:00",
@@ -24,11 +34,11 @@ times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", "2022-03-
 # Do the substraction from hobo 1 to the rest of hobos within the same time slot 
 # Create a list of input files 
 
-calibrator <- function(data, formula = "y = a + b", columns= c(2, 7, 12), times = times){
+calibrator <- function(list.data=data, formula = "y = a + b", columns= c(2, 7, 12), times = times, round = 7){
   # from character to UTC times
   time=as.POSIXct(times, tz = "UTC")
   # subset by times of interest
-  x <- lapply(data, function(df) {
+  x <- lapply(list.data, function(df) {
     df[df$Date %in% time, ]
   })
   # get the base columns - probably to remove
@@ -40,20 +50,20 @@ calibrator <- function(data, formula = "y = a + b", columns= c(2, 7, 12), times 
   sall <- lapply(x, function(df){
     df[, columns]
   })
-  # subtracting hobo one from other hobo's  
+  # subtracting hobo one from other hobo's for correction
   corr <- lapply(sall, function(df){
               base - df
               })
   # get the mean difference by hobo
   res <- lapply(corr, function(df){
-          mean <- sapply(df, mean, na.rm = TRUE) 
-          as.data.frame(mean)
+          x <- sapply(df, mean, na.rm = TRUE) 
+          as.data.frame(x)
     })
   res
   # to a dataframe
   calibration <- do.call(cbind, res)
   # present results
-  results <- round(t(calibration), 7)
+  results <- round(t(calibration), round)
   rownames(results) <- paste0("hobo", 1:length(x))
   return(results)
-}rox
+}
