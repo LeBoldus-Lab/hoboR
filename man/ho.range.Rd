@@ -2,36 +2,31 @@
 % Please edit documentation in R/ho.range.R
 \name{ho.range}
 \alias{ho.range}
-\title{calculate date range temperature using hobo data
-This function calculates hobo weather means for sampling rates
-HOBO software}
+\title{Calculate Date Range Temperature Using HOBO Data}
 \usage{
-ho.range(
-  data,
-  start = "1910-09-16 06:00",
-  end = "1920-12-01 12:00",
-  round,
-  na.rm = T
-)
+ho.range(data, start = "1910-09-16 06:00", end = "1920-12-01 12:00", na.rm = T)
 }
 \arguments{
-\item{data}{a data frame with the hobo data and a \code{Date} column}
+\item{data}{A data frame containing the HOBO data, including a \code{Date} column in POSIXct format.}
 
-\item{start}{an early date in yyyy/mm/dd format}
+\item{start}{The start of the date range in "yyyy-mm-dd HH:MM" format.}
 
-\item{end}{a late date in yyyy/mm/dd format}
+\item{end}{The end of the date range in "yyyy-mm-dd HH:MM" format.}
+
+\item{na.rm}{A logical value indicating whether NA values should be removed before calculation.}
+
+\item{round}{Logical indicating whether to round the results (not used in the example, consider removing or implementing).}
 }
 \value{
-A data frame subset from start to end hobo range
+A subset of the original data frame limited to the specified date range.
 }
 \description{
-calculate date range temperature using hobo data
-This function calculates hobo weather means for sampling rates
-HOBO software
+This function calculates the means for weather data collected by HOBO loggers
+over a specified date range. It's designed for use with data exported from HOBO software.
 }
 \examples{
 samples <- read.cvs(sampling.data)
-site.ranges <- ho.range(samples, start = "2021/11/02",  end = "2021/11/23")
+site.ranges <- ho.range(samples, start = "1910/09/16",  end = "1920/12/01")
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

@@ -2,31 +2,40 @@
 % Please edit documentation in R/correction.test.R
 \name{correction.test}
 \alias{correction.test}
-\title{Correction test for HOBO data from calibrator}
+\title{Correction Test for HOBO data from calibrator}
 \usage{
 correction.test(
   list.data = data,
   calibrationfile = x,
   columns = c(2, 7, 12),
   times = times,
-  threshold = 1
+  threshold = c(1, 5, 10)
 )
 }
 \arguments{
-\item{times}{a series of times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00")}
+\item{list.data}{A list of CSV data frames containing the HOBO data.}
 
-\item{data}{a list of CVS data containing the hobo}
+\item{calibrationfile}{A data frame representing the calibration file.}
+
+\item{columns}{A vector of column indices to be used in the correction.}
+
+\item{times}{A vector of times for which the data is relevant.}
+
+\item{threshold}{A vector of threshold values for passing the correction test.}
 }
 \value{
-a data frame with the difrences for data correction, to use with corrector
+A data frame with the differences for data correction, to be used with a corrector.
 }
 \description{
-Additive function to calculate the difference among hobo loggers to calibrate
-using a base correction to the data
+This function calculates the difference among HOBO loggers to calibrate
+the data using a base correction. It's designed to adjust HOBO data based
+on calibration files and specified thresholds.
 }
 \examples{
-path = "~/Desktop/testsky/calibration/originalfiles/"
-data.calibrated <- calibritor(calibrationfiles)
+path <- "~/Desktop/testsky/calibration/originalfiles/"
+calibrationfiles <- read.csv(paste0(path, "your_calibration_file.csv"))
+corrector(list.data, calibrationfiles, columns = c(2, 7, 12), 
+          times = c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00"), threshold = c(1, 5, 10))
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

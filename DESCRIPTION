@@ -1,8 +1,8 @@
 Package: hoboR
 Title: Format Multiple CSV Files From HOBO Weather Stations
-Version: 0.9.3.0
+Version: 0.9.4.0
 Authors@R: 
-    person("Ricardo", "Alcala", , "ricardo.alcalabriseno@oregonstate.edu", role = c("aut", "cre"),
+    person("Ricardo I", "Alcala", , "ricardo.alcalabriseno@oregonstate.edu", role = c("aut", "cre"),
            comment = c(SCHOLARGOOGLE = "https://scholar.google.com/citations?user=SkBxudIAAAAJ&hl=en"))
 Description: Load multiple csv files and remove unique entries.
 License: MIT + file LICENSE

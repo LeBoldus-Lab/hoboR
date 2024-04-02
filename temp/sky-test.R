@@ -22,9 +22,8 @@ times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", "2022-03-
            "2022-03-22 09:00")
 
 x <- calibrator(data, columns= c(2, 7, 12), times = times)
-correction.test(list.data=data, calibrationfile=x, columns = c(2, 7, 12), times = times, threshold = .3)
 
-# correct the hobos using the results of calibrator, and your results should add to 0 for all of them
+correction.test(list.data=data, calibrationfile=x, columns = c(2, 7, 12), 
+                times = times, threshold = c(1, 0.5, 10))
 
-
-ho.range(hobocleaned, start="2022-03-21 17:45", end="2022-03-21 18:20")
+ho.range(data[[2]], start="2022-03-22 5:40", end="2022-03-22 9:20")
