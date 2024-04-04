@@ -3,11 +3,10 @@ theme: jekyll-theme-minima
 
 # Site settings
 title: HOBOR
-description: >- # this means to ignore newlines until "baseurl:"
-R package for the analysis of  HOBO weather station data.
-baseurl: /hoboR/ # the subpath of your site, e.g. /blog
-url: https://leboldus-lab.github.io/ # the base hostname & protocol for your site, e.g. http://example.com
+description: >- 
+  R package for the analysis of HOBO weather station data.
+baseurl: "/hoboR/" # the subpath of your site, e.g., /blog
+url: "https://leboldus-lab.github.io/" # the base hostname & protocol for your site, e.g., http://example.com
 
 # Build settings
 markdown: kramdown
-
