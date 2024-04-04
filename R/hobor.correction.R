@@ -21,7 +21,7 @@
 #' @export
 #' 
 
-correction<- correction(data, calibration, column = "FULL", calibrate = USEFILE)
+correction<- function(data) #, calibration, column = "FULL", calibrate = USEFILE)
 {
-  
+  print(data)
 }
