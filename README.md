@@ -20,7 +20,7 @@ install.packages("devtools")
 Install using `devtools`
 ```r
 # load library 
-library("devtools")
+library(devtools)
 # install from github
 devtools::install_github("LeBoldus-Lab/hoboR")
 library(hoboR)
