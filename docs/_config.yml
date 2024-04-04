@@ -10,3 +10,6 @@ url: "https://leboldus-lab.github.io/" # the base hostname & protocol for your s
 
 # Build settings
 markdown: kramdown
+header_pages:
+  - index.md
+  - about.md
