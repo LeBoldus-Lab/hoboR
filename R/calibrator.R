@@ -27,13 +27,6 @@
 #' data.calibrated <- calibritor(calibrationfiles)
 #' @export
 
-times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", "2022-03-22 04:00",
-           "2022-03-22 05:00", "2022-03-22 06:00", "2022-03-22 07:00", "2022-03-22 08:00",
-           "2022-03-22 09:00")
-# I need to add the same time slot for all hobos used for calibration
-# Do the substraction from hobo 1 to the rest of hobos within the same time slot 
-# Create a list of input files 
-
 calibrator <- function(list.data=data, formula = "y = a + b", columns= c(2, 7, 12), times = times, round = 7){
   # from character to UTC times
   time=as.POSIXct(times, tz = "UTC")
