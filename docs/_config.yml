@@ -13,3 +13,6 @@ markdown: kramdown
 header_pages:
   - index.md
   - about.md
+social_links:
+  twitter: ricardoi
+  github: ricardoi
