@@ -16,10 +16,12 @@
 
 #' @examples 
 #' path = "~/Desktop/testsky/calibration/originalfiles/"
-#' data.calibrated <- calibritor(calibrationfiles)
+#' filestocorrect <- calibritor(calibrationfiles)
+#' calibratedfiles <- correction(data, calibration, calibrate=)
 #' @export
 #' 
 
-hobor.correction <- function(data, calibrationfile, columns = c(2, 7, 12)){
+correction<- correction(data, calibration, column = "FULL", calibrate = USEFILE)
+{
   
 }
