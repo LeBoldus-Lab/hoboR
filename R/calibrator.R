@@ -45,8 +45,21 @@ calibrator <- function(list.data=data, formula = "y = a + b", columns= c(2, 7, 1
   })
   # subtracting hobo one from other hobo's for correction
   corr <- lapply(sall, function(df){
-              base - df
-              })
+    tryCatch({ base - df
+    }, error = function(cond) {
+      # This function is executed if an error occurs
+      # Check if the error message matches the specific case you're interested in
+      if(grepl("‘-’ only defined for equally-sized data frames", cond$message)) {
+        warning("Input Error: Attempting to subtract data frames of unequal size. 
+                Please make sure all hobo files have the same number of records.")
+      } else {
+        # If it's a different error, redo it
+        stop(cond)
+      }
+      # Return a sensible default or NA to continue
+      NA
+    })
+})
   # get the mean difference by hobo
   res <- lapply(corr, function(df){
           x <- sapply(df, mean, na.rm = TRUE) 
