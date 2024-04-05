@@ -32,7 +32,7 @@ correction.test <- function(list.data=data, calibrationfile=x, columns = c(2, 7,
             time=as.POSIXct(times, tz = "UTC")
             # Subset data by selected times 
             y <- lapply(list.data, function(df) {
-              df[df$Date %in% time, ]
+              df[as.POSIXct(df$Date, tz = "UTC") %in% time, ]
             })
             
             # Correct data with calibration file to each CSV

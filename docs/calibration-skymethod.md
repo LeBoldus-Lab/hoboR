@@ -78,5 +78,5 @@ multicalibratedfiles <- correction(data, calibration, column = "FULL", calibrate
 
 
 ### Handling errors
-If you the data list is throwing Warnings, you can use `testhobolist(data, times)`, to check if the data logger has missing data or errors.
+If you the data list is throwing Warnings, you can use `testhobolist(data, times)`, to check if the data logger has missing data or errors. 
 

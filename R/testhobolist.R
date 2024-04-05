@@ -15,7 +15,7 @@
 #' data <- testhobolist(data, times)
 #' @export
 testhobolist <- function(data, times){
-        x <- lapply(data, function(x) x$Date %in% as.POSIXct(times, tz="UTC"))
+        x <- lapply(data, function(x)  as.POSIXct(x$Date, tz="UTC") %in% as.POSIXct(times, tz="UTC"))
         y <- lapply(x, function(y) table(y))
         results <- do.call(rbind, y)
         results[,1] <- results[,1]+results[,2]

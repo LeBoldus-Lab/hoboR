@@ -32,7 +32,7 @@ calibrator <- function(list.data=data, formula = "y = a + b", columns= c(2, 7, 1
   time=as.POSIXct(times, tz = "UTC")
   # subset by times of interest
   x <- lapply(list.data, function(df) {
-    df[df$Date %in% time, ]
+    df[as.POSIXct(df$Date, tz = "UTC") %in% time, ]
   })
   # get the base columns - probably to remove
   # base <- lapply(x, function(df){
