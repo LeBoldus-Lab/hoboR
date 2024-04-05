@@ -3,7 +3,11 @@ theme: minima
 
 # Site settings
 title: HOBOR
-description: >- 
+author: 
+  name: ricardoi
+  email: ricardo.alcalabriseno@oregonstate.edu
+
+description: >-
   R package for the analysis of HOBO weather station data.
 baseurl: "/hoboR/" # the subpath of your site, e.g., /blog
 url: "https://leboldus-lab.github.io/" # the base hostname & protocol for your site, e.g., http://example.com
@@ -13,6 +17,10 @@ markdown: kramdown
 header_pages:
   - index.md
   - about.md
+
+minima: 
+  skin: auto
+
 social_links:
-  twitter: ricardoi
-  github: ricardoi
+  platform: x,			user_url: "https://twitter.com/ricardoI_"
+  platform: github, 		user_url: "https://github.com/LeBoldus-Lab/hoboR"
