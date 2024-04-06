@@ -10,7 +10,7 @@ title: Home
 
 [HoboR how to]({{ site.baseurl }}{% post_url 2024-04-05-howto %})
 
-[HoboR Callibration]({{ site.baseurl }}{% post_url 2024-04-05-sky-calibration %}) 
+[HoboR Callibration]({{ site.baseurl }}{% post_url 2024-04-05-sky_calibration %}) 
 
 [An example of implementing weather data]({{ site.baseurl }}{% post_url 2024-04-05-samplingtrends %})
 
