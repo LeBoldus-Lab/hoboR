@@ -16,7 +16,7 @@
 #' @importFrom tidyr separate
 #' @export
   
-hobinder <- function(path, channels="OFF",...){
+hobinder <- function(path, ...){
   # read files from working directory
   files <- list.files(path=path, pattern = "\\.csv", full.names = T)
   # get names from files
@@ -29,28 +29,10 @@ hobinder <- function(path, channels="OFF",...){
                })
                )
   #hobocn <- lapply(hobos, colnames)
-  
-  # hobinder habilitate channels = on, default channels = off
-  
-  if (channels == "ON" ) {
-    col.names <- lapply(hobos, colnames)
-    col.names <- lapply(col.names, function(x) gsub("\\.+", ".", x))
-  } else {
-    col.names <- lapply(lapply(hobos, colnames), 
-                        function(x) sapply(strsplit(x, "[.]"), "[", 1))
-  }
-  
+  col.names <- lapply(lapply(hobos, colnames), 
+                      function(x) sapply(strsplit(x, "[.]"), "[", 1))
   hobos <- Map(setNames, hobos, col.names)
   hobo <- reshape::merge_all(hobos, keep.all = T)
-  hobo[,1] <- rownames(hobo)
-  
-  if (!lubridate::is.Date(hobo[, 2])) {
-    # Convert text to POSIXct with the specified format
-    hobo[,2] <- as.POSIXct(hobo[, 2], format = "%m/%d/%Y %H:%M:%S")
-  }
-  colnames(hobo)[2] <- "Date"
-  # hobos <- Map(setNames, hobos, col.names)
-  # hobo <- reshape::merge_all(hobos, keep.all = T)
-  # hobo$X <- rownames(hobo)
+  hobo$X <- rownames(hobo)
   return(hobo[, !is.na(colnames(hobo))])
 }

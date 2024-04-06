@@ -1,7 +1,7 @@
 path = "~/Desktop/Adam/site_12_date_adj2/"
 # the path file exist
 file.exists(path)
-
+list.files(path)
 # loading hobo files
 hobofiles <- hobinder(path, header = T, skip=1) # header and skip col is a new feature
 head(hobofiles)

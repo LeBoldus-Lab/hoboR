@@ -22,16 +22,16 @@
 
 ho.range <- function(data, start = "1910-09-16 06:00", end = "1920-12-01 12:00", na.rm = T ){
   # Convert start and end to POSIXct, assuming data$Date is already in POSIXct or coerced it
-  if (!is.Date(lubridate::as_datetime(start, format = "%Y-%m-%d %H:%M")) == F){
+  if (!is.Date(lubridate::as_datetime(start, format = "%Y-%m-%d")) == F){
     print("Provided dates are out of range")
   } else {
-  x <- which(data$Date %in% lubridate::as_datetime(start, format = "%Y-%m-%d %H:%M"))|>
+  x <- which(data$Date %in% lubridate::as_datetime(start, format = "%Y-%m-%d"))|>
         min()
   }
-  if (!is.Date(lubridate::as_datetime(end, format = "%Y-%m-%d %H:%M")) == F){
+  if (!is.Date(lubridate::as_datetime(end, format = "%Y-%m-%d")) == F){
     print("Provided dates are out of range")
   } else {
-  y <- which(data$Date %in% lubridate::as_datetime(end, format = "%Y-%m-%d %H:%M")) |>
+  y <- which(data$Date %in% lubridate::as_datetime(end, format = "%Y-%m-%d")) |>
         max()
   }
   
@@ -43,3 +43,4 @@ ho.range <- function(data, start = "1910-09-16 06:00", end = "1920-12-01 12:00",
   }
   return(rango)
 }
+
