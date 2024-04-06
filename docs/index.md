@@ -12,8 +12,8 @@ title: Home
 
 ## [HoboR Callibration](https://github.com/LeBoldus-Lab/hoboR/blob/main/docs/_posts/2024-04-05_sky-calibration.md)
 
-## [An example of implementing weather data](https://github.com/LeBoldus-Lab/hoboR/blob/main/docs/_posts/2024-04-05-samplingtrends.md)
+## [An example of implementing weather data]
 
 <p>Funded by:</p>
-<img src="/images/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>
-<img src="/images/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
+<img src="/docs/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>
+<img src="/docs/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
