@@ -8,8 +8,12 @@ author:
   email: ricardo.alcalabriseno@oregonstate.edu
 
 description: >
+<<<<<<< HEAD
   R package for the analysis of HOBO weather station data.
    Installation This project is available on GitHub at `http://github.com/LeBoldus` and can be installed using `devtools`. We are working on a submitting hoboR to CRAN. Install the following dependencies: 
+=======
+   An R package for the analysis of HOBO weather station data. HoboR is a specialized R package designed to streamline the processing of large datasets from HOBO weather stations and data loggers. 
+>>>>>>> e3d3a0ce4249f899eb1a95ed23d85f90894808f8
 
 baseurl: "/hoboR/" # the subpath of your site, e.g., /blog
 url: "https://leboldus-lab.github.io/" # the base hostname & protocol for your site, e.g., http://example.com
@@ -29,6 +33,6 @@ plugins:
   - jekyll-seo-tag
 
 social_links:
-#  - { platform: x,			user_url: "https://twitter.com/" }
-#  - { platform: github, 		user_url: "https://github.com/" }
-#  - { platform: google_scholar, user_url: "https://scholar.google.com/citations?user=SkBxudIAAAAJ&hl=en" }
+#  - { platform: x,			                user_url: "https://twitter.com/" }
+#  - { platform: github, 		            user_url: "https://github.com/" }
+#  - { platform: google_scholar,        user_url: "https://scholar.google.com/citations?user=SkBxudIAAAAJ&hl=en" }
