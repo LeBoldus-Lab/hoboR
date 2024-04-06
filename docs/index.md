@@ -9,5 +9,5 @@ title: Home
 
 
 <p>Funded by:</p>
-<img src="/docs/usda_logo.png" alt="USDA Logo" style="width: 100px;"/>
-<img src="/docs/osu_logo.png" alt="OSU Logo" style="width: 100px;"/>
+<img src="/docs/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>
+<img src="/docs/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
