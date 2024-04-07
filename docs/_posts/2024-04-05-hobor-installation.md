@@ -16,9 +16,14 @@ library(lubridate)
 library(tidyr)
 library(dplyr)
 library(reshape2)
-library(ggplot2)i
+library(ggplot2)
 library(scales)
 ```
+
+## Data Availability
+We provide two data sets to test the package `hobor`, one location from Southern Oregon from October to January, with recorded data every minute used to test the incidence of SOD in tanoek trees (_Notholithocarpus densiflorus_), and a partial calibration experiment to determine the variability of HOBO data loggers and apply a base correction.
+
+
 ## HOBOR components
 
 Function | Description | Features 
@@ -31,5 +36,10 @@ hobotime() | summarise time in minutes, hours or days |  summariseby = "5 mins" 
 impossiblevalues() | shows the maximum and minimum values | Select the number of rows to displya showrows = 3
 NAsensorfailures() | detect the sensor failures and impossible values | select the conditional if values bigger than a threshold in the measurements of election  condition = ">",  threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))
 timestamp() | get a snapshot and plot the interval of your election for n days | timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours", days = 100, na.rm = TRUE, plot = T, var = "Temp")
-horrelation()| display the correlation between variables) | The data can be summariseby time and by means 
-
+horrelation()| display the correlation between variables | The data can be summariseby time and by means 
+calibration()| collect the data frames and calculate the variability of respect to a base HOBO | this function require the columns of interest, and the times to collect the data for calibration
+correction.test()| use the result of the calibration procees to test the accuracy of the data logger | select the treshold difference for the measuremnt to test
+correction()| correct the experimental data using the weather variable of interest of the full dataset | useful for individual or multiple corrections
+testhobolist()| if calibration() or correction() do not compute, test the list of hobo dataframes | checks data viability
+samplingrates()| calculate the total of samples collected  | custom function for Carson et al., 2024
+summarybates()| summarises the weather data by sample collection | custom function for Carson et al., 2024 

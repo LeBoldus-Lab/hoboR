@@ -17,13 +17,13 @@
 #' @examples 
 #' data <- hobunder(loadAllcsvs)
 #' data_clean <- hobocleaner(data)
-#' NAsensorfailures(data, condition = ">", threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))
-#' NAdata <- NAsensorfailures(data, condition = "<", threshold = c(0, 0), opt = c("Rain", "Wetness"))
+#' sensorfailures(data, condition = ">", threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))
+#' NAdata <- sensorfailures(data, condition = "<", threshold = c(0, 0), opt = c("Rain", "Wetness"))
 
 #' @export
 
 
-NAsensorfailures <- function(data, condition = ">", threshold = c(34, 8), opt = c("Temp", "Rain")){
+sensorfailures <- function(data, condition = ">", threshold = c(34, 8), opt = c("Temp", "Rain")){
   # functions 
   # replace with NA's greather than 
   greater_than <- function(a, b) {

@@ -17,12 +17,12 @@
 #' @examples 
 #' files <- hobinder(path)
 #' cleaned <- hobocleaner(files, format = "ymd")
-#' correlation(cleaned, summariseby = "month", by = "mean", na.rm = FALSE)
+#' hobocorrelation(cleaned, summariseby = "month", by = "mean", na.rm = FALSE)
 #' 
 #' @export
 
 
-horrelation <- function(data, summariseby = "month", by = "mean", na.rm = F){
+hobocorrelations <- function(data, summariseby = "month", by = "mean", na.rm = FALSE){
   data <- transform(data, Date = cut(Date, summariseby)) |>
             aggregate(.~Date, by, na.rm = na.rm)
   if (na.rm){
