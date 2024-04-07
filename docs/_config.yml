@@ -28,6 +28,6 @@ plugins:
   - jekyll-seo-tag
 
 social_links:
-#  - { platform: x,			user_url: "https://twitter.com/" }
-#  - { platform: github, 		user_url: "https://github.com/" }
-#  - { platform: google_scholar,        user_url: "https://scholar.google.com/citations?user=SkBxudIAAAAJ&hl=en" }
+  - { platform: x,			user_url: "https://twitter.com/" }
+  - { platform: github, 		user_url: "https://github.com/" }
+  - { platform: google_scholar,        user_url: "https://scholar.google.com/citations?user=SkBxudIAAAAJ&hl=en" }
