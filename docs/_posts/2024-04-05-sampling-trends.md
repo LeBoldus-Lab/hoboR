@@ -1,14 +1,14 @@
 # HOBOR::samplingtrends
-This function is used to calculate hobo weather means for a given period of non-wether data collection. For example, in studies that implement baiting and/or traps for bilogical detection, such as insect traps or soil baiting for plant pathogens, the collected weather data can be summarized by the period of bating. 
+This function is used to calculate hobo weather means for a given period of non-wether data collection. For example, in studies that implement baiting and/or traps for biological detection, such as insect traps or soil baiting for plant pathogens, the collected weather data can be summarized by the period of bating. 
 
 In this example, weather data was collected at baiting sites for the oomycete pathogen _Phytophthora ramorum_. At each site, three buckets were filled with deionized water and baited with three tanoak leaves. Once launched, the data loggers collected weather data every minute continuously, and data was downloaded at the time of leaf bait collection. Leaves were deployed and collected every 7 to 28 days, and the baiting duration was based on seasonal weather predictions. 
 # Reading bait sampling results
-Import the bait data as a .csv file
+Import the bait data as a CSV file
 ```R
 sampling <- read.csv("Bucket_Results_Adj.csv")
 ```
 # Calculate the incidence rate
-Now that the baiting results are loaded, samp.rates calculates the incidence of occurence and rate of indidence per collection. In this example, there are 3 buckets containing 3 leaf baits for a total of 9 baits per site & collection. Thus, incidence will be returned on a scale of 0-9, and incidence rate on a scale of 0-1.    
+Now that the baiting results are loaded, samp.rates() calculates the incidence of occurence and rate of indidence per collection. In this example, there are 3 buckets containing 3 leaf baits for a total of 9 baits per site & collection. Thus, incidence will be returned on a scale of 0-9, and incidence rate on a scale of 0-1.    
 ```R
 # n = is the total number of samples collected
 samp.rates <- samplingrates(sampling, n = 9, round= 2)

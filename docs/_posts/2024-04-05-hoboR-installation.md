@@ -1,6 +1,6 @@
 # Installing hoboR
 
-`HoboR` installation via `devtools`, and in the process of submit it to CRAN. 
+`HOBOR` installation via `devtools`, and in the process of submit it to CRAN. 
 
 First, install `devtools` and dependency libraries
 ```R
@@ -19,7 +19,7 @@ library(reshape2)
 library(ggplot2)i
 library(scales)
 ```
-## HoboR components
+## HOBOR components
 | Function | Description | Features |
 |--        |--           |--        |
 |hobinder()| loads all CSV files | some columns in hobo files start at position 2, use `skip=1` to skip col 1|
@@ -31,5 +31,4 @@ library(scales)
 |NAsensorfailures() | detect the sensor failures and impossible values | select the conditional if values bigger than a threshold in the measurements of election  condition = ">",  threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))|
 |timestamp() | get a snapshot and plot the interval of your election for n days | timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours", days = 100, na.rm = TRUE, plot = T, var = "Temp") |
 |horrelation()| display the correlation between variables) | The data can be summariseby time and by means |
-
 

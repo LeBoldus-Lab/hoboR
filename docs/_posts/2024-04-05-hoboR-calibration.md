@@ -5,10 +5,10 @@ Before setting up hobos in the field, it is important to know the difference bet
 
 To calibrate the HOBO data loggers, you need to put all the data loggers in an incubator or control environment to control temperature, humidity, or any other measurement you need to calibrate. If you do not have access to a control environment device, leave them in a location with similar conditions for several days. Make sure the hobos are not directly exposed to sunlight. Be aware that HOBO data loggers can be set to work with channels to record min, max, and mean values for each of the measurements for the recorded data.
 
-Once you collect the data from the data loggers, you can use the hoboR function `calibration()` to calculate the differences and the function `correction()` to correct the data logger measurements in your experimental data record.
+Once you collect the data from the data loggers, you can use the hobor function `calibration()` to calculate the differences and the function `correction()` to correct the data logger measurements in your experimental data record.
 
 ## Usage
-Load `library(hoboR)` and then continue setting the `path` to your calibration files. For example, if you have 20 HOBO loggers, you need to add a folder with the `.csv` file in its unique folder, e.g., hobo1, hobo2, hobo3, ... hobo20, for each data logger from your calibration experiment. It is recommended that you inspect your files to make sure you have the information you need for the calibration. 
+Load `library(hobor)` and then continue setting the `path` to your calibration files. For example, if you have 20 HOBO loggers, you need to add a folder with the CSV files in its unique folder, e.g., hobo1, hobo2, hobo3, ... hobo20, for each data logger from your calibration experiment. It is recommended that you inspect your files to make sure you have the information you need for the calibration. 
 
 ```R
 # Set the path
@@ -28,7 +28,7 @@ for (i in seq_along(folder)){
 pathtoread[[i]] <- paste0(path, folder[i])
 # Loading all hobo files
 calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" ) # channels is a new feature
-data[[i]]=hobocleaned[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd")
+data[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd")
 }
 # Check the content of you list, it will results on the csv on hobo2
 data[[2]]

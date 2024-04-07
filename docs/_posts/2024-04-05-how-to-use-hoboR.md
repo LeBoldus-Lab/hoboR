@@ -62,7 +62,7 @@ timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours",
 # obtain the maximum and minimum values
 impossiblevalues(hobocleaned, showrows = 3)
 
-# identify senso failures
+# identify sensor failures
 na_data <- NAsensorfailures(hobocleaned, condition = ">", threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))
 ```
 
