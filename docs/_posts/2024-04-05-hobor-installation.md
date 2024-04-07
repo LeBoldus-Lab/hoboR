@@ -1,4 +1,4 @@
-# Installing hoboR
+# Installing HOBOR
 
 `HOBOR` installation via `devtools`, and in the process of submit it to CRAN. 
 
