@@ -11,11 +11,11 @@ title: MAIN
 
 ## Tutorials
 
-### [HoboR Installation]({{ site.baseurl }}{% post_url 2024-04-05-hoboR-installation %})
+### [HoboR Installation]({{ site.baseurl }}{% post_url 2024-04-05-hobor-installation %})
 
-### [How To Use HoboR]({{ site.baseurl }}{% post_url 2024-04-05-how-to-hoboR %})
+### [How To Use HoboR]({{ site.baseurl }}{% post_url 2024-04-05-how-to-use-hobor %})
 
-### [HoboR Callibration]({{ site.baseurl }}{% post_url 2024-04-05-hoboR-calibration %}) 
+### [HoboR Callibration]({{ site.baseurl }}{% post_url 2024-04-05-hobor-calibration %}) 
 
 ### [An example to implement weather data]({{ site.baseurl }}{% post_url 2024-04-05-sampling-trends %})
 
