@@ -17,11 +17,12 @@ title: MAIN
 
 ### [An example to implement weather data]({{ site.baseurl }}{% post_url 2024-04-05-sampling-trends %})
  
-    Analyzing weather station data collected over a brief period can quickly become a big data project, making the task of processing and analysis a significant challenge. To facilitate the analysis and manipulation of weather station data, we developed HoboR. We aim to simplify this process, making it less time-consuming for researchers and users of weather data. HoboR offers a series of tools to load all CSV files, remove duplicates, and provide summary statistics for downstream and complex analyses or just summarizing weather data.
+## Statement of need
+  Analyzing weather station data collected over a brief period can quickly become a big data project, making the task of processing and analysis a significant challenge. To facilitate the analysis and manipulation of weather station data, we developed HoboR. We aim to simplify this process, making it less time-consuming for researchers and users of weather data. HoboR offers a series of tools to load all CSV files, remove duplicates, and provide summary statistics for downstream and complex analyses or just summarizing weather data.
 
-<img src="images/hobo_two_vars.png" alt="weather 2var" style="width: 400px;"/> 
+<img src="images/hobo_two_vars.png" alt="weather 2var" style="width: 600px;"/> 
 
-Fig. 1) Visualization of the summary statistics of two weather variables (temperature and humidity) from October 2021 to January 2022, in Southern Oregon.
+Fig. 1) Visualization of the summary statistics of two weather variables (temperature and humidity) in Southern Oregon from October 2021 to January 2022.
 
 #### Manuscript--> HOBOR: An R package for weather data manipulation
 
