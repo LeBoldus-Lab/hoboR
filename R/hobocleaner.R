@@ -4,14 +4,14 @@
 #' cleans the data and removes duplicates creating a continuous file from all .csv's
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' 
-#' @param file CSV files from `hobinder`
+#' @param file CSV from `hobinder`
 #' @param format Select the time format, month, day, and year (mdy), year, month, and day (ymd) or
 #'               year two digits, month and day (yymd)
 #' @param na.rm TRUE or FALSE to remove NAs, TRUE is default    
 #'            
-#' @return formated data frame and duplicate values removed 
+#' @return formatted data frame and duplicate values removed 
 #' 
-#' @importFrom lubridate mdy_hms ymd_hms
+#' @importFrom lubridate mdy_hms ymd_hms dmy_hms
 #' @importFrom dplyr arrange
 
 #' @examples 
@@ -22,20 +22,28 @@
 #' @export
 
 hobocleaner <- function(file, format = "ymd", na.rm = T){
-  temp <- file[,-1]
+  if (is.numeric(file[,1])){
+    temp <- file[,-1]  
+  } else {
+  temp <- file
+  }
   temp <- temp[,apply(temp, 2, 
               function(col) !any(col %in% c("", "Logged")))]
   init <- dim(file)[1]
   if (format == "mdy"){ 
-  # formating hobo dates to UTC
+  # formating hobo dates to UTC mdy
   temp$Date <- lubridate::mdy_hms(temp$Date, truncated = 1)
   }
   if (format == "ymd"){
-  # formating hobo dates to UTC
+  # formating hobo dates to UTC ymd
   temp$Date <- lubridate::ymd_hms(temp$Date, truncated = 1)
   }
+  if (format == "dmy"){
+    # formating hobo dates to UTC dmy
+    temp$Date <- lubridate::dmy_hms(temp$Date, truncated = 1)
+  }  
   if (format == "yymd"){
-  # formating hobo dates to UTC ymd
+  # formating hobo dates to UTC yymd
   temp$Date <- gsub(":", "-", temp$Date)
   temp$Date <- gsub(" ", "-", temp$Date)
   temp$Date <- gsub("^", "20", temp$Date)

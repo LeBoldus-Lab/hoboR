@@ -24,3 +24,8 @@ Now that your weather data is summarized by baiting period and combined with the
 ```R
 write.csv(hobocleaned, "new_hobo_combined_file.csv")
 ```
+
+
+<p>Funded by:</p>
+<img src="images/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
+<img src="images/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>

@@ -9,7 +9,7 @@ hobocleaner(file, format = "ymd", na.rm = T)
 hobocleaner(file, format = "ymd", na.rm = T)
 }
 \arguments{
-\item{file}{CSV files from \code{hobinder}}
+\item{file}{CSV from \code{hobinder}}
 
 \item{format}{Select the time format, month, day, and year (mdy), year, month, and day (ymd) or
 year two digits, month and day (yymd)}
@@ -22,7 +22,7 @@ large clean csv file
 #' @importFrom lubridate ymd_hms
 #' @importFrom dplyr
 
-formated data frame and duplicate values removed
+formatted data frame and duplicate values removed
 }
 \description{
 Functions that cleans the original data downloaded from the HOBO software
