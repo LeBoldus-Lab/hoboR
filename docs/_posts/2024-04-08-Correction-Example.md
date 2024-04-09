@@ -1,4 +1,9 @@
 # Example code to correct hobos 
+install.packages("devtools")
+library("devtools")
+ devtools::install_github("LeBoldus-Lab/hoboR", force = TRUE)
+
+library(hoboR)
 
 # Set path directories
 path1 = "~/Desktop/testsky/calibration/originalfiles/"
