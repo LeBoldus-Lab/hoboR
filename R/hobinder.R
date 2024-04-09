@@ -17,9 +17,14 @@
 #' @export
   
 hobinder <- function(path, channels="OFF", ...){
-  # read files from working directory
+  if (file.exists(companyFileName)) {	
+   # read files from working directory
   files <- list.files(path=path, pattern = "\\.csv", full.names = T)
-  # get names from files
+  } else {
+	print("no such files or directory")
+	}
+
+    # get names from files
   names <- as.data.frame(files) |>
     tidyr::separate(files, into=c("names", "ext"), sep= "[.]")
   # load all .csv files
@@ -52,4 +57,3 @@ hobinder <- function(path, channels="OFF", ...){
   hobo[,1] <- rownames(hobo)
   return(hobo[, !is.na(colnames(hobo))])
 }
-

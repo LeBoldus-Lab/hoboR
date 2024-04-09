@@ -1,6 +1,6 @@
 Package: hoboR
-Title: Format Multiple CSV Files From HOBO Weather Stations
-Version: 0.9.6.1
+Title: Data Analysis and Manipulation of HOBO Weather Stations
+Version: 0.9.6.2
 Authors@R: 
     person("Ricardo I", "Alcala", , "ricardo.alcalabriseno@oregonstate.edu", role = c("aut", "cre"),
            comment = c(SCHOLARGOOGLE = "https://scholar.google.com/citations?user=SkBxudIAAAAJ&hl=en"))
