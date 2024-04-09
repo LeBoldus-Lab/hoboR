@@ -11,6 +11,8 @@ hobinder(path, ...)
 \arguments{
 \item{path}{to indicate the path to the csv files}
 
+\item{channels}{turn on or off additional channels in HOBO data logger, default "OFF"}
+
 \item{files}{get the bind csv file, remove duplicates and merge the data}
 }
 \value{
@@ -31,6 +33,7 @@ from duplicates creating a continuous file from all .csv's
 path_to_csvs <- '~mydirectory/myfiles.csv/'
 loadAllcsvs <- hobinder(path_to_csvs)
 finalcsv <- hobocleaner(loadAllcsvs)
+
 path_to_csvs <- '~mydirectory/myfiles.csv/'
 loadAllcsvs <- hobinder(path_to_csvs)
 finalcsv <- hobocleaner(loadAllcsvs)

@@ -4,20 +4,21 @@
 #' cleans the data and removes duplicates creating a continuous file from all .csv's
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' 
-#' @param file Get the binded CSV file from `hobinder` and remove duplicates to merge the data.
-#' @param format Choose between month, day, and year (mdy) or year, month, and day (ymd) or
+#' @param file CSV files from `hobinder`
+#' @param format Select the time format, month, day, and year (mdy), year, month, and day (ymd) or
 #'               year two digits, month and day (yymd)
 #' @param na.rm TRUE or FALSE to remove NAs, TRUE is default    
 #'            
-#' @return data frame without duplicate values 
+#' @return formated data frame and duplicate values removed 
 #' 
 #' @importFrom lubridate mdy_hms ymd_hms
 #' @importFrom dplyr arrange
 
 #' @examples 
-#' path_to_csvs <- "~/Documents/"
-#' loadAllcsvs <- hobinder(path_to_csvs)
-#' file <- hobocleaner(loadAllcsvs)
+#' path_to_csvs <- "path/to/hobo.csv"
+#' csvs <- hobinder(path_to_csvs)
+#' cleancsvs <- hobocleaner(csvs)
+#' 
 #' @export
 
 hobocleaner <- function(file, format = "ymd", na.rm = T){
@@ -60,7 +61,6 @@ hobocleaner <- function(file, format = "ymd", na.rm = T){
   cmd <- str2expression(cmd)
   # evaluating command
   dat <- eval(cmd) 
-  #dat$By.Day <- as.Date(dat$Date)
   clean <- dim(dat)[1]
   cat(paste0(" proccesed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
              "\n   total: ", clean, " unique entries \n" ))

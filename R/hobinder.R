@@ -5,25 +5,27 @@
 #' adding file names as metadata for each .csv file and cleans the data
 #' from duplicates creating a continuous file from all .csv's
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
-#' @param path to indicate the path to the csv files
-#' @param files get the bind csv file, remove duplicates and merge the data 
+#' @param path select the path to the directory with the csv files
+#' @param channels turn on or off additional channels in HOBO data logger, default "OFF"
+#'
 #' @return large csv file
 #' 
+#' @importFrom tidyr separate
+
 #' @examples 
 #' path_to_csvs <- '~mydirectory/myfiles.csv/'
 #' loadAllcsvs <- hobinder(path_to_csvs)
 #' finalcsv <- hobocleaner(loadAllcsvs)
-#' @importFrom tidyr separate
+#' 
 #' @export
   
-hobinder <- function(path, channels="OFF", ...){
-  if (file.exists(companyFileName)) {	
+hobinder <- function(path, channels = "OFF", ...){
+  if (file.exists(path)) {	
    # read files from working directory
   files <- list.files(path=path, pattern = "\\.csv", full.names = T)
   } else {
 	print("no such files or directory")
 	}
-
     # get names from files
   names <- as.data.frame(files) |>
     tidyr::separate(files, into=c("names", "ext"), sep= "[.]")

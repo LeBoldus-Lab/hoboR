@@ -1,7 +1,7 @@
 # Example code to correct hobos 
-install.packages("devtools")
+# install.packages("devtools")
 library("devtools")
- devtools::install_github("LeBoldus-Lab/hoboR", force = TRUE)
+devtools::install_github("LeBoldus-Lab/hoboR", force = TRUE)
 
 library(hoboR)
 
@@ -26,7 +26,7 @@ for (i in seq_along(folder)){
   pathtoread[[i]] <- paste0(path1, folder[i])
   # loading all hobo files
   calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" ) # channels is a new feature
-  data[[i]]=hobocleaned[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd")
+  data[[i]]=hobocleaned[[i]] <- hobocleaner(calibrationfiles[[i]], format = "mdy")
 }
 data[[2]]
 times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", "2022-03-22 04:00",
@@ -49,7 +49,7 @@ list.files(path2)
 # loading processed hobo files with meanhobo()
 files <- list.files(path=path2, pattern = "\\.csv", full.names = T)
 experiment <- lapply(files, function(x) {
-                                    read.csv(x)})
+  read.csv(x)})
 
 # to correct a single variable
 exp2=experiment[[2]]

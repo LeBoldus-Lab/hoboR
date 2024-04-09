@@ -35,6 +35,7 @@ for (i in seq_along(folder)){
  data[[i]]=hobocleaned[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd")
 }
 data.calibrated <- calibritor(calibrationfiles)
+
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

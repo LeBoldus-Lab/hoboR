@@ -25,6 +25,7 @@
 #'  data[[i]]=hobocleaned[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd")
 #'}
 #' data.calibrated <- calibritor(calibrationfiles)
+#' 
 #' @export
 
 calibrator <- function(list.data=data, formula = "y = a + b", columns= c(2, 7, 12), times = times, round = 7){
