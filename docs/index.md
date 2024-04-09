@@ -10,7 +10,19 @@ title: MAIN
 ## Statement of need
   Analyzing weather station data collected over a brief period can quickly become a big data project, making the task of processing and analysis a significant challenge. To facilitate the analysis and manipulation of weather station data, we developed HoboR. We aim to simplify this process, making it less time-consuming for researchers and users of weather data. HoboR offers a series of tools to load all CSV files, remove duplicates, and provide summary statistics for downstream and complex analyses or just summarizing weather data.
 
-## How to Install HOBOR
+
+## Other Tutorials and Documentataion
+
+### [HOBOR components]({{ site.baseurl }}{% post_url 2024-04-05-hobor-documentation %}) 
+
+### [HOBOR Callibration]({{ site.baseurl }}{% post_url 2024-04-05-hobor-calibration %}) 
+
+### [An example to implement weather data]({{ site.baseurl }}{% post_url 2024-04-05-sampling-trends %})
+
+#### Manuscript--> HOBOR: An R package for weather data manipulation
+
+
+## **How to Install HOBOR**
 
 `HOBOR` installation via `devtools`, and in the process of submit it to CRAN. 
 
@@ -32,21 +44,21 @@ library(ggplot2)
 library(scales)
 ```
 
-## How to use HOBO
+## **How to use HOBO**
 
-#### For readers
+### **For readers**
 Hobor is an R package to process CSV files from HOBO weather stations and data loggers. The best way to start your project with hobor, is to organize your CSV files from a single directory for `hobobinder()` function to process all the CSV files. E.g., if you have 10 locations, you should have 10 folders, and each folder containing all the CSV corresponding to your period of time. By having all the files in a single data frame, hobocleaner() can sort all the entries and identify duplicates generated while retrieving the data or replacing batteries. In addition, the hobomean() function summarize the data by time intervals of your election. 
 
 Other functions to identify impossible values and sensor failures are available. As well as subsetting function by time intervals such as ho.range() or snapshots of a time intervals using timestamp(). Additional code is provided to calibrate HOBO data loggers, and experimental analysis of diseases incidence related to sudden oak death.
 
-#### For coders
+### **For coders**
 
 ```R
 # load the library
 library(hoboR)
 ```
 
-### Example
+## **Example:**
 Suppose you have multiple CSV files in a directory called site A. 
 
 ```R
@@ -71,7 +83,7 @@ hobocleaned <- hobocleaner(hobofiles, format = "ymd")
 head(hobocleaned)
 tail(hobocleaned)
 ```
-The clean data can be aggregated by time interval, e.g. "5 mins", "12 h", "1 day", etc., by using hobotime(), or obtaining the mean, the minimum and maximum, and the rest of summary statistcs by implementing meanhobo().
+The clean data can be aggregated by time interval, e.g. `"5 mins"`, `"12 h"`, `"1 day"`, etc., by using `hobotime()`, or obtaining the mean, the minimum and maximum, and the rest of summary statistcs by implementing `meanhobo()`.
 
 ```R
 # getting hobo mean summary by time
@@ -83,7 +95,7 @@ hobomeans <- meanhobo(hobocleaned, summariseby = "1 day",  na.rm = T)
 head(hobomeans)
 ```
 
-### Additional features
+### **Additional Features**
 
 ```
 # Specify a window range 
@@ -101,7 +113,7 @@ na_data <- NAsensorfailures(hobocleaned, condition = ">", threshold = c(50, 3000
 ```
 
 
-### Get plots  
+### **Get Plots**  
 
 A guide to visualize weather data with `ggplot2`, wether you are visualizing one or two variables. This approach gives you the flexibility to customize the style, color, and formatting of your data plots. 
 
@@ -119,7 +131,7 @@ ggplot(hobocleaned, aes(x=as.POSIXct(Date), y = Temp)) +
   theme_bw()
 ```
 
-<img src="images/hobo_one_var.png" alt="weather 1var" style="width: 400px;"/> 
+<img src="images/hobo_one_var.png" alt="weather 1var" style="width: 600px;"/> 
 
 Fig. 1) Visualization of the summary statistics of temperature in Southern Oregon from October 2021 to January 2022.
 
@@ -141,7 +153,7 @@ ggplot(hobocleaned, aes(x=as.POSIXct(Date))) +
   theme_bw()
 ```
 
-<img src="images/hobo_two_vars.png" alt="weather 2var" style="width: 400px;"/> 
+<img src="images/hobo_two_vars.png" alt="weather 2var" style="width: 600px;"/> 
 
 Fig. 2) Visualization of the summary statistics of two weather variables (temperature and humidity) in Southern Oregon from October 2021 to January 2022.
 
@@ -152,20 +164,10 @@ There is a function to analyze the correlation between the weather variables
 horrelation(hobocleaned, summariseby = "month", by = "mean", na.rm = F)
 ```
 
-<img src="images/hobo_heatmap.png" alt="weather correlation" style="width: 400px;"/> 
+<img src="images/hobo_heatmap.png" alt="weather correlation" style="width: 500px;"/> 
 
 Fig. 3) Visualization of the correaltion betwen weather variables. 
 
-
-## Other Tutorials and Documentataion
-
-### [HOBOR Callibration]({{ site.baseurl }}{% post_url 2024-04-05-hobor-calibration %}) 
-
-### [An example to implement weather data]({{ site.baseurl }}{% post_url 2024-04-05-sampling-trends %})
-
-### [HOBOR components]({{ site.baseurl }}{% post_url 2024-04-05-hobor-documentation %}) 
-
-#### Manuscript--> HOBOR: An R package for weather data manipulation
 
 <p>Funded by:</p>
 <img src="images/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
