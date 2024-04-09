@@ -4,11 +4,11 @@ theme: minima
 # Site settings
 title: HOBOR
 author: 
-name: leboldus-lab
-#  email: hobor@oregonstate.edu
+name: LeBoldus Lab
+#email: @oregonstate.edu
 
 description: >
-  An R package for the analysis of weather station data. HOBOR is a specialized R package designed to streamline the processing of large datasets from HOBO weather stations and data loggers. 
+  An R package for the analysis of weather station data. 
 
 baseurl: "/hoboR/" # the subpath of your site, e.g., /blog
 url: "https://leboldus-lab.github.io/" 
