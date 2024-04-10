@@ -1,6 +1,6 @@
 ## HOBOR Diagram Usage
 
-<img src="images/hobor-flowchart.png" alt="OSU Logo" style="width: 700px;"/>
+<img src="docs/images/hobor-flowchart.png" alt="flowchart" style="width: 700px;"/>
 
 
 
@@ -30,6 +30,6 @@ sampling.trends()| summarises the weather data by sample collection | custom fun
 
 
 <p>Funded by:</p>
-<img src="../images/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
-<img src="../images/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>
+<img src="docs/images/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
+<img src="docs/images/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>
 
