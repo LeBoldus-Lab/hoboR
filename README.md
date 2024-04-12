@@ -14,7 +14,7 @@ This project is available on GitHub at `http://github.com/LeBoldus` and can be i
 install.packages("devtools")
 library("devtools")
 # Installing HOBOR through devtools
-devtools::install_github("LeBoldus-Lab/hobor", force = TRUE)
+devtools::install_github("LeBoldus-Lab/hoboR")
 library(hobor)
 ```
 
