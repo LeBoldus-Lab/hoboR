@@ -16,7 +16,7 @@
 #' @importFrom tidyr separate
 #' @export
   
-hobinder <- function(path, ...){
+deprehobinder <- function(path, ...){
   # read files from working directory
   files <- list.files(path=path, pattern = "\\.csv", full.names = T)
   # get names from files

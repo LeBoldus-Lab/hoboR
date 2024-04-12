@@ -1,3 +1,10 @@
+install.packages("devtools")
+library("devtools")
+devtools::install_github("LeBoldus-Lab/hoboR")
+library(hoboR)
+library(dplyr)
+library(ggplot2)
+
 library(hoboR)
 
 

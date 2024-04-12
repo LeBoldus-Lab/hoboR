@@ -3,6 +3,7 @@
 export(calibrator)
 export(correction)
 export(correction.test)
+export(deprehobinder)
 export(hobinder)
 export(hobocleaner)
 export(hobocorrelations)
