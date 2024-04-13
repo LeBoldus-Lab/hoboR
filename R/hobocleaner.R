@@ -22,11 +22,7 @@
 #' @export
 
 hobocleaner <- function(file, format = "ymd", na.rm = T){
-  if (is.numeric(file[,1])){
-    temp <- file[,-1]  
-  } else {
-  temp <- file
-  }
+  temp <- file[,-1]  
   temp <- temp[,apply(temp, 2, 
               function(col) !any(col %in% c("", "Logged")))]
   init <- dim(file)[1]
