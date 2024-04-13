@@ -3,7 +3,7 @@ layout: default
 title: MAIN
 ---
 
-# Welcome
+# Welcome to `hoboR`: An R package for the analysis of HOBO weather data 
  
 `HoboR` is a package for the analysis of weather station data. Analyzing weather station data can quickly become a big data project, making the task of processing and analysing data a significant challenge. To facilitate analysis and manipulation of weather station data, we developed `HoboR`. `HoboR` aims to simplify this process, making it less time-consuming for researchers and users of weather data. `HoboR` offers a series of tools to load multiple CSV files, remove duplicates, process and summarize data.
 
@@ -17,7 +17,7 @@ title: MAIN
 
 ### [An example to implement weather data]({{ site.baseurl }}{% post_url 2024-04-05-sampling-trends %})
 
-### Manuscript--> HOBOR: An R package for weather data manipulation
+### Manuscript--> HOBOR: An R package for the analysis of HOB weather data
 
 # **Install hoboR**
 
