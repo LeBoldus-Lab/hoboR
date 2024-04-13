@@ -29,14 +29,21 @@ install.packages("devtools")
 ```
 
 ------ 
+HoboR usage
+
+```R
+hobofiles <- hobinder(path)
+cleanfiles <- hobocleaner(hobofiles, format = "ymd")
+# get summary statistics
+hobodata <- meanhobo(cleanfiles, summariseby = "5 mins", na.rm = T)
+```
+
 The data cleaned can be plotted using the following commands in ggplot
 ```R
 library(ggplot2)
 library(scales)
-
-
 # Plot one variable: temperateure
-ggplot(hobocleaned, aes(x=Date, y = Temp)) +
+ggplot(hobodata, aes(x=Date, y = Temp)) +
   geom_line(alpha= 0.5) +
   scale_y_continuous( name = "Temperature °C")+
   ggtitle("Temperature: Oct 21 - Jan 22")+
@@ -50,7 +57,7 @@ ggplot(hobocleaned, aes(x=Date, y = Temp)) +
 ```R
 # Plot two variables: temperature and humidity
 
-ggplot(hobocleaned, aes(x=Date)) +
+ggplot(hobodata, aes(x=Date)) +
   geom_line( aes(y=Temp, col = "red"), alpha = 0.5) + 
   geom_line( aes(y= Wetness, col = "blue"), alpha = 0.5) + 
   scale_y_continuous(
@@ -65,6 +72,10 @@ ggplot(hobocleaned, aes(x=Date)) +
 ```
 ![hobo plot 2 variable](https://github.com/LeBoldus-Lab/hoboR/blob/main/docs/images/hobo_two_vars.png)
 
+
+
+
+
 ## License
 
 This work is subject to the [MIT License](https://github.com/LeBoldus-Lab/hoboR/blob/main/LICENSE.md)
@@ -76,4 +87,4 @@ Grant 123456, and XYZ.
 ## Contributors and Errors
 
 Welcome pull submission through Github [pull request](https://help.github.com/articles/using-pull-requests/).
-Please report any errors or requests using GitHub [issues](https://github.com/grunwaldlab/metacoder/issues) ta
+Please report any errors or requests using GitHub [issues](https://github.com/LeBoldus_Lab/hoboR/issues).
