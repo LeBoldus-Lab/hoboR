@@ -1,12 +1,12 @@
 ## HOBOR Diagram Usage
 
 <div align="center">
-    <img src="{{ site.baseurl }}/images/hobor-flowchart.png" alt="flowchart" style="width: 700px;"/>
+    <img src="{{ site.baseurl }}/images/hobor_flowchart.png" alt="flowchart" style="width: 700px;"/>
 </div>
 
 
 ## Data Availability
-We provide two data sets to test the package `hobor`, one location from Southern Oregon from October to January, with recorded data every minute used to test the incidence of SOD in tanoek trees (_Notholithocarpus densiflorus_), and a partial calibration experiment to determine the variability of HOBO data loggers and apply a base correction.
+We provide two data sets to test the package `hoboR`, one location from Southern Oregon from October to January, with recorded data every minute used to test the incidence of SOD in tanoek trees (_Notholithocarpus densiflorus_), and a partial calibration experiment to determine the variability of HOBO data loggers and apply a base correction.
 
 
 ## HOBOR components
