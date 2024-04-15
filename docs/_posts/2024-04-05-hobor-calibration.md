@@ -8,7 +8,7 @@ To calibrate the HOBO devices, you need to put all the devices in an incubator o
 Once you collect the data from the data loggers, you can use the hoboR function `calibration()` to calculate the differences and the function `correction()` to correct the weather measurements recorded from the field plots.
 
 ## Usage
-Load `library(hobor)` and then continue setting the `path` to your calibration files. For example, if you have 20 HOBO loggers, you need to create a unique folder for each HOBO, e.g., hobo1, hobo2, hobo3, ... hobo20, then put all the CSV files from the same HOBO in its unique folder. It is recommended that you inspect your files to make sure you have the information you need for the calibration. 
+Load `library(hobor)` and then continue setting the `path` to your calibration files. For example, if you have 24 HOBO loggers, you need to create a unique folder for each HOBO, e.g., hobo1, hobo2, hobo3, ... hobo20, then put all the CSV files from the same HOBO in its unique folder. It is recommended that you inspect your files to make sure you have the information you need for the calibration. 
 
 ```R
 # Set the path
@@ -16,8 +16,10 @@ path = "~/path/to/calibration/files/" # change to your directory
 # Sanity check that the path exists
 file.exists(path) # must be TRUE otherwise, check if you are in the correct folder
 # Create a vector with your folder names 
-folder=paste0(rep("hobo", 24), 1:24) # Change "hobo" to the words you name for the folders. #change 24 to the total number of HOBO that you have in the calibration. 
-## Make sure the name of your folder matches the vector created here.
+folder=paste0(rep("hobo", 24), 1:24)
+# Change "hobo" to the words you name for the folders.
+# Change 24 to the total number of HOBO that you have in the calibration. 
+# Make sure the name of your folder matches the vector created here.
 ```
 Now that you set the path and the folder contents, you need to iterate over the files to create a list of your HOBO csv data.
 
@@ -51,7 +53,7 @@ calibrationmeans
 calibrationmeans[15,] <- c(-0.003056, 0.48528, 0.38472) # If you have any manually calculated HOBO numbers (i.e. HOBO15), use this syntax to add the numbers in. 
 
 ```
-The result of `hobor::calibrator()` is the difference of hobo1 compared to hobo2,
+The result of `hobor::calibrator()` is the difference of hobo1 compared to HOBO2,
 until completed the comparison. We use HOBO1 as the baseline, and these differences show the differences of each hobo
 from the baseline HOBO (which is HOBO1 here).
 You can evaluate if the correction of your data loggers is as expected. We
