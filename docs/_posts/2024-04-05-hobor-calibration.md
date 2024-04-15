@@ -8,7 +8,7 @@ To calibrate the HOBO devices, you need to put all the devices in an incubator o
 Once you collect the data from the data loggers, you can use the hoboR function `calibration()` to calculate the differences and the function `correction()` to correct the weather measurements recorded from the field plots.
 
 ## Usage
-Load `library(hobor)` and then continue setting the `path` to your calibration files. For example, if you have 24 HOBO loggers, you need to create a unique folder for each HOBO, e.g., hobo1, hobo2, hobo3, ... hobo20, then put all the CSV files from the same HOBO in its unique folder. It is recommended that you inspect your files to make sure you have the information you need for the calibration. 
+Load `library(hoboR)` and then continue setting the `path` to your calibration files. For example, if you have 24 HOBO loggers, you need to create a unique folder for each HOBO, e.g., hobo1, hobo2, hobo3, ... hobo24, then put all the CSV files from the same HOBO in its unique folder. It is recommended that you inspect your files to make sure you have the information you need for the calibration. 
 
 ```R
 # Set the path
@@ -34,7 +34,7 @@ calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" )
 data[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd") # change the format to "mdy" if your DateTime format is MM/DD/YYYY
 }
 # Check the content of your list, it will call out the csv from HOBO2
-data[[2]] #  Please notice that sometimes the second column (Date.Time.Pacific.Standard.Time) is automatically created by the Windows system but not the Mac system. Just ignore it.
+data[[2]] 
 ```
 Now that you created the list with all your hobos, the function `calibrator()`, 
 expect that you provide the columns for the measurements to calibrate, as well as 
@@ -50,8 +50,8 @@ times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", "2022-03-
 calibrationmeans <- calibrator(data, columns= measurements, times = times) # for the hobo(s) with different length datasets, you will see a warning message. That HOBO won't be calculated, so you will see it as "NaN" when you call out the "calibrationmeans". For that HOBO you have to calculate the numbers manually, then add the numbers to "calibrationmeans" when applying the correction to the field collected data. 
 calibrationmeans
 
-calibrationmeans[15,] <- c(-0.003056, 0.48528, 0.38472) # If you have any manually calculated HOBO numbers (i.e. HOBO15), use this syntax to add the numbers in. 
-
+# Manually add the calculated HOBO numbers (i.e. HOBO15) into "calibrationmeans", if any.
+calibrationmeans[15,] <- c(-0.003056, 0.48528, 0.38472)  
 ```
 The result of `hobor::calibrator()` is the difference of hobo1 compared to HOBO2,
 until completed the comparison. We use HOBO1 as the baseline, and these differences show the differences of each hobo
@@ -72,7 +72,7 @@ Here are two ways for corrections. If you want to correct the temperature measur
 temperature for hobo2, `calibrationmeans[2,1]`. 
 ```R
 # Individual corrections
-calibratedfiles <- correction(data, w.var = "Temperature", calibrate = "0.1089") 
+calibratedfiles <- correction(data, w.var = "Temperature", calibrate = "0.1089") # Change "data" to your combined HOBO file name
 ```
 Or, if you have plenty of HOBO devices, you can also calibrate all measurements and all the HOBO devices at once, just make sure your calibration files match the names of your data.
 
@@ -83,8 +83,8 @@ First of all, you will have to combine the datasets from all the HOBOs as one fi
 path_all = "~/Desktop/testsky/correction_files"
 
 # Check files
-file.exists(path2)
-list.files(path2)
+file.exists(path_all)
+list.files(path_all)
 
 # Load the combined field files, already processed with `hobinder` and `hobocleaner`.  
 
@@ -108,7 +108,7 @@ Now use `hobor::correction()` to correct everything in once.
 
 ```R
 # Multiple corrections
-multicalibratedfiles <- correction(data, w.var = "FULL", calibrate = calibrationmeans)
+multicalibratedfiles <- correction(field, w.var = "FULL", calibrate = calibrationmeans) # Change "field" to your data name
 ```
 
 ### Handling errors
