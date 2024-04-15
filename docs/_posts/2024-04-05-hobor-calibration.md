@@ -73,8 +73,36 @@ temperature for hobo2, `calibrationmeans[2,1]`.
 calibratedfiles <- correction(data, w.var = "Temperature", calibrate = "0.1089") 
 ```
 Or, if you have plenty of HOBO devices, you can also calibrate all measurements and all the HOBO devices at once, just make sure your calibration files match the names of your data.
-(Editing STOP HERE...Sky)
-First of all, you will need to create a folder and copy all the 
+
+First of all, you will have to combine the datasets from all the HOBOs as one file. To do this, use `hobor::hobinder()` and `hobor::hobocleaner()` to combine multiple csv files from the same HOBO device and export as an individual csv file. Then, create a folder and drag all the combined csv files from all HOBO devices to the unique folder.
+
+```R
+# Set path directories
+path_all = "~/Desktop/testsky/correction_files"
+
+# Check files
+file.exists(path2)
+list.files(path2)
+
+# Load the combined field files, already processed with `hobinder` and `hobocleaner`.  
+
+# This is a generic way to load multiple csv files
+files <- list.files(path=path_all, pattern = "\\.csv", full.names = T)
+field <- lapply(files, function(x) {
+  read.csv(x)})
+```
+
+Then you need to check out the structure of the pooled dataframe before applying `hobor::correction()`
+
+```R
+# Look at the dataframe structures and headline.
+field[[1]]
+
+# Add column names to "calibrationmeans" you created before, so the headline matches the field dataframe.
+colnames(calibrationmeans) <- c("Temperature", "RH", "Dew") # Change to fit your weather variables
+```
+
+Now use `hobor::correction()` to correct everything in once. 
 
 ```R
 # Multiple corrections
