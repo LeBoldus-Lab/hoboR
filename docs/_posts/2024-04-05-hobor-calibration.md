@@ -34,7 +34,7 @@ calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" )
 data[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd") # change the format to "mdy" if your DateTime format is MM/DD/YYYY
 }
 # Check the content of your list, it will call out the csv from HOBO2
-data[[2]] #  Please notice that the second column (Date.Time.Pacific.Standard.Time) is automatically created by the Windows system but not the Mac system. Just ignore it.
+data[[2]] #  Please notice that sometimes the second column (Date.Time.Pacific.Standard.Time) is automatically created by the Windows system but not the Mac system. Just ignore it.
 ```
 Now that you created the list with all your hobos, the function `calibrator()`, 
 expect that you provide the columns for the measurements to calibrate, as well as 
