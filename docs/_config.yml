@@ -4,11 +4,11 @@ theme: minima
 # Site settings
 title: hoboR
 author: 
-name: LeBoldus Lab
+#name: LeBoldus Lab
 #email: @oregonstate.edu
 
 description: >
-  An R package for the analysis of weather station data. 
+  hoboR documentation by the LeBoldus lab at the Botany and Plant Pathology and  Forest Engineering, Resources and Management Department at Oregon State University. https://github.com/LeBoldus-Lab/hoboR 
 
 baseurl: "/hoboR/" # the subpath of your site, e.g., /blog
 url: "https://leboldus-lab.github.io/" 
