@@ -3,16 +3,15 @@ theme: minima
 
 # Site settings
 title: hoboR
-author: 
-#name: LeBoldus Lab
-#email: @oregonstate.edu
+author:
+  name: LeBoldus-Lab
+ #email: LeBolduj@oregonstate.edu
 
 description: >
-  hoboR documentation by the LeBoldus lab at the Botany and Plant Pathology and  Forest Engineering, Resources and Management Department at Oregon State University. https://github.com/LeBoldus-Lab/hoboR 
-
+  hoboR documentation by the LeBoldus lab at the Botany and Plant Pathology and the Forest Engineering, Resources and Management Department at Oregon State University in collaboration with The Grunwald lab at the USDA Horticultural Crops Research Unit. [https://github.com/LeBoldus-Lab/hoboR]("https://github.com/LeBoldus-Lab/hoboR")
+  
 baseurl: "/hoboR/" # the subpath of your site, e.g., /blog
 url: "https://leboldus-lab.github.io/" 
-
 
 # Build settings
 markdown: kramdown
