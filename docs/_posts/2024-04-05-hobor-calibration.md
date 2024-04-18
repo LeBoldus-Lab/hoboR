@@ -1,5 +1,3 @@
-# HOBOR::Calibration 
-
 ## Calibration set up set up in a controlled environment.
 Before setting up hobos in the field, it is important to know the difference between data loggers by recording the difference variation among individual devices. Acknowledging this can be crucial for testing small environmental differences, such as how differences in weather variables affect the microbial composition in the tree canopy. 
 
@@ -77,5 +75,5 @@ If the data list throws Warnings, you can use `testhobolist(data, times)` to che
 
 
 <p>Funded by:</p>
-<img src="../images/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
-<img src="../images/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>
+<img src="{{ site.baseurl }}/images/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
+<img src="{{ site.baseurl }}/images/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>

@@ -43,3 +43,10 @@ correction()| correct the experimental data using the weather variable of intere
 testhobolist()| if calibration() or correction() do not compute, test the list of hobo dataframes | checks data viability
 samplingrates()| calculate the total of samples collected  | custom function for Carson et al., 2024
 summarybates()| summarises the weather data by sample collection | custom function for Carson et al., 2024 
+
+
+
+<p>Funded by:</p>
+<img src="{{ site.baseurl }}/images/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
+<img src="{{ site.baseurl }}/images/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>
+

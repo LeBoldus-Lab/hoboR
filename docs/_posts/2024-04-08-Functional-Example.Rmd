@@ -1,0 +1,87 @@
+---
+title: "Analysis of weather station data using hoboR"
+output: html_document
+---
+
+## Installation and Setup
+
+
+```{r installation, include=TRUE, message=FALSE, warning=FALSE}
+#install.packages("devtools", quietly = TRUE)
+#install.packages("reshape", quietly = TRUE)
+
+# Load libraries 
+library(reshape)
+library(lubridate)
+library(tidyr)
+library(ggplot2)
+library(hoboR)
+
+```
+
+## Site 12
+The data was collected in China Creek in Southern Oregon using a weather station. The measurements were recorded every minute over a period of 5 months, from in Summer and Fall 2022. The weather variables collected were humidity (Wetness), temperature (Temp), relative humidity (RH), and rain (Rain). 
+
+```{r addpath, include=FALSE}
+# Add the PATH to your sites for weather data (from hobo)
+path = paste0("~/Desktop/Adam/site_12_date_adj2/")
+# make sure the path to your CSV files exists
+file.exists(path)     # this will return a logical value TRUE
+```
+Confirm that the path exist, then proceed with binding all the csv files, and clean the data.
+```{r cleaning, include=T}
+# loading all hobo files
+hobofiles <- hobinder(path, skip = 1)
+hobocleaned <- hobocleaner(hobofiles, format = "yymd")
+head(hobocleaned)
+```
+
+Let's summarize the data every 30 min, and get the means for 1 day or get the mean every 24 hours
+
+> Note: that the original data was recorded every minute.
+
+```{r summary, include=T}
+# getting hobo mean summary by time
+hobot5 <- hobotime(hobocleaned, summariseby = "30 mins", na.rm = T)
+hobomeans5 <- meanhobo(hobot5, summariseby = "1 day",  na.rm = T)
+head(hobomeans5)
+
+# getting hobo means by date
+hobomeans <- meanhobo(hobocleaned, summariseby = "24 h",  na.rm = T)
+head(hobomeans)
+```
+Check the difference between both methods, summarizing and getting the mean, or mean only.
+```{r plot, include=TRUE, echo= TRUE}
+plot(1:nrow(hobomeans), hobomeans$x.Temp, type = "line")
+lines(1:nrow(hobomeans5), hobomeans5$x.Temp, type = "line", col = "red")
+```
+
+If you are interested to spot a time range, you can specify the dates using `hoborange`, and aadd the starting and end dates of interest.
+```{r specify, include=TRUE}
+# Specify a window range 
+#timerange <- hoborange(hobocleaned, start="2022-08-08", end="2022-12-12")
+#head(timerange)
+```
+Let's check the variability every 24 hours at midnight and noon for 100 days. Store it in a variable, and add groups. 
+```{r snapshot, include=TRUE, echo= TRUE}
+# Snapshot of a time interval 
+a <- timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours",
+          days = 100, na.rm = TRUE, plot = T, var = "Temp")
+a$Group <- rep("night", nrow(a))
+b <- timestamp(hobocleaned, stamp = "2022-08-05 12:01", by = "24 hours",
+               days = 100, na.rm = TRUE, plot = T, var = "Temp")
+b$Group <- rep("day", nrow(b))
+
+daynight <- rbind(a, b)
+```
+
+Now, you can plot with `ggplot` library 
+```{r ggplot, fig.cap="Temperature Variability: Day vs. Night"}
+ggplot(daynight, aes(x = Date, y = Temp, group = Group, color = Group)) +
+  geom_line() +
+  scale_x_datetime() +
+  scale_y_continuous(limits = c(0, 30)) +
+  scale_color_manual(values = c("orange", "black")) +
+  labs(color = "Source") +
+  theme_minimal()
+```

@@ -1,11 +1,11 @@
 
 #' Calibrator HOBO data in CSV format
 #' 
-#' Additive function to calculate the difference among hobo loggers to calibrate
-#' using a base correction to the data
+#' Calculates the difference between HOBO devices under controlled conditions. This additive function calculates the difference among hobo loggers using a base correction to HOBO loggers.
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
-#' @param data a list of CVS data containing the hobo 
-#' @param times a series of times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00")
+#' @param a list containing the HOBO csv files
+#' @param select the times in a vector of dates to be included in the calibration process
+#'
 #' @return a data frame with the difrences for data correction, to use with corrector
 #' 
 #' @importFrom dplyr group_by
@@ -16,16 +16,21 @@
 
 #' @examples 
 #' path = "~/Desktop/testsky/calibration/originalfiles/"
+
 #'file.exists(path)
+
 #'folder=paste0(rep("canopy", 24), 1:24)
-#'pathtoread=calibrationfiles=hobocleaned=data=list()
+
+#'a=b=d=list()
+
 #'for (i in seq_along(folder)){
-#'  pathtoread[[i]] <- paste0(path, folder[i])
-#'  calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" ) # channels is a new feature
-#'  data[[i]]=hobocleaned[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd")
+#'  a[[i]] <- paste0(path, folder[i])
+#'  b[[i]] <- hobinder(as.character(a[i]), channels = "ON" ) # channels is a new feature
+#'  d[[i]] <- hobocleaner(b[[i]], format = "ymd")
 #'}
+
 #' data.calibrated <- calibritor(calibrationfiles)
-#' 
+
 #' @export
 
 calibrator <- function(list.data=data, formula = "y = a + b", columns= c(2, 7, 12), times = times, round = 7){
