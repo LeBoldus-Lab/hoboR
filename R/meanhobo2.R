@@ -1,36 +1,33 @@
 
 #' mean HOBO data in CSV format
 #' 
-#' Functions that gets the mean by date of the cleaned data downloaded from the 
-#' HOBO software
+#' Functions that gets the summary statistics by summarizing by date the cleaned data downloaded from the HOBO software
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' @param data cleaned hobo data frame from `hobocleaner`
 #' @param na.rm TRUE or FALSE to remove NAs, TRUE is default
 #' @param minmax TRUE or FALSE to retain min and max temperatures
 #' @return smaller data frame with means and standard deviation
 #' 
-#' 
 #' @importFrom dplyr group_by
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
 #' @importFrom lubridate as_datetime
-
-
+#' 
 #' @examples 
-#' cleanedcsv <- hobocleaner(loadAllcsvs)
-#' mean.vars <- meanhobo(cleanedcsv)
+#' hoboclean <- hobocleaner(loadAllcsvs)
+#' 
+#' hobomeans <- meanhobo(cleanedcsv)
+
 #' @export
 
-meanhobo2 <-  function(data, summariseby = "24 hours", na.rm = T, minmax=F){
+meanhobo <-  function(data, summariseby = "24 hours", na.rm = T, minmax=F){
   # Preparing function content
   data <- transform(data, Date = cut(Date, summariseby))
-  # data <- aggregate(.~Date, t, mean, na.rm = na.rm)
   # Getting mean hobo 
   cols <- colnames(data)
   # parsing columns
   n <- 1:(length(cols)-1) 
   m <- cols[1+n]
-  # m=m[1:length(m)-1]
   pos <- which(m %in% "Rain") 
   if((length(pos) == 0) == T){pos <-1}
   

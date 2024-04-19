@@ -4,6 +4,7 @@
 #' Two functions that read the original data downloaded from HOBO software
 #' adding file names as metadata for each .csv file and cleans the data
 #' from duplicates creating a continuous file from all .csv's
+#'
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' @param path select the path to the directory with the csv files
 #' @param channels turn on or off additional channels in HOBO data logger, default "OFF"
@@ -14,7 +15,9 @@
 
 #' @examples 
 #' path_to_csvs <- '~mydirectory/myfiles.csv/'
+#'
 #' loadAllcsvs <- hobinder(path_to_csvs)
+#'
 #' finalcsv <- hobocleaner(loadAllcsvs)
 #' 
 #' @export

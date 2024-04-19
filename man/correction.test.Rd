@@ -5,9 +5,9 @@
 \title{Correction Test for HOBO data from calibrator}
 \usage{
 correction.test(
-  list.data = data,
-  calibrationfile = x,
-  columns = c(2, 7, 12),
+  list.data,
+  calibrationfile,
+  w.var = c(2, 7, 12),
   times = times,
   threshold = c(1, 5, 10)
 )
@@ -17,7 +17,7 @@ correction.test(
 
 \item{calibrationfile}{A data frame representing the calibration file.}
 
-\item{columns}{A vector of column indices to be used in the correction.}
+\item{w.var}{A vector of column indices to be used in the correction.}
 
 \item{times}{A vector of times for which the data is relevant.}
 
@@ -27,15 +27,18 @@ correction.test(
 A data frame with the differences for data correction, to be used with a corrector.
 }
 \description{
-This function calculates the difference among HOBO loggers to calibrate
-the data using a base correction. It's designed to adjust HOBO data based
+This function calculates the difference among HOBO loggers, finding the variance
+and using it as a base correction. It's designed to adjust HOBO data based
 on calibration files and specified thresholds.
 }
 \examples{
 path <- "~/Desktop/testsky/calibration/originalfiles/"
+
 calibrationfiles <- read.csv(paste0(path, "your_calibration_file.csv"))
-corrector(list.data, calibrationfiles, columns = c(2, 7, 12), 
-          times = c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00"), threshold = c(1, 5, 10))
+
+corrector(list.data, calibrationfiles, w.var = c(2, 7, 12), 
+          times = c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00"), 
+          threshold = c(1, 5, 10))
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

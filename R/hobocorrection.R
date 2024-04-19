@@ -17,8 +17,11 @@
 
 #' @examples 
 #' path = "~/Desktop/testsky/calibration/originalfiles/"
+#'
 #' filestocorrect <- calibritor(calibrationfiles)
+#'
 #' calibratedfiles <- correction(data, calibration, calibrate=)
+
 #' @export
 
 correction<- function(data, w.var = "FULL", calibrate =calibrate){

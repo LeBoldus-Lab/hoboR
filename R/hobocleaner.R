@@ -13,12 +13,14 @@
 #' 
 #' @importFrom lubridate mdy_hms ymd_hms dmy_hms
 #' @importFrom dplyr arrange
-
+#'
 #' @examples 
 #' path_to_csvs <- "path/to/hobo.csv"
+#'
 #' csvs <- hobinder(path_to_csvs)
+#'
 #' cleancsvs <- hobocleaner(csvs)
-#' 
+ 
 #' @export
 
 hobocleaner <- function(file, format = "ymd", na.rm = T){

@@ -22,11 +22,12 @@
 #' 
 #' @examples 
 #' files <- hobinder(path)
+#'
 #' cleaned <- hobocleaner(files, format = "ymd")
 #' 
 #' timestamp <- timestamp(cleaned, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 100, na.rm = TRUE, plot = TRUE, var = "Temp")
-#' @export
-#' 
+
+#' @export 
 
 timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 100, na.rm = T, plot = TRUE, var = "Temp") {
   stamptime <- as.POSIXct(stamp, format = "%Y-%m-%d %H:%M", tz = "UTC")

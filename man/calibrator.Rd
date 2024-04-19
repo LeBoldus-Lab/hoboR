@@ -4,38 +4,30 @@
 \alias{calibrator}
 \title{Calibrator HOBO data in CSV format}
 \usage{
-calibrator(
-  list.data = data,
-  formula = "y = a + b",
-  columns = c(2, 7, 12),
-  times = times,
-  round = 7
-)
+calibrator(list.data = data, columns = c(2, 7, 12), times = times, round = 7)
 }
 \arguments{
-\item{times}{a series of times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00")}
+\item{a}{list containing the HOBO csv files}
 
-\item{data}{a list of CVS data containing the hobo}
+\item{select}{the times in a vector of dates to be included in the calibration process}
 }
 \value{
 a data frame with the difrences for data correction, to use with corrector
 }
 \description{
-Additive function to calculate the difference among hobo loggers to calibrate
-using a base correction to the data
+Calculates the difference between HOBO devices under controlled conditions. This additive function calculates the difference among hobo loggers using a base correction to HOBO loggers.
 }
 \examples{
 path = "~/Desktop/testsky/calibration/originalfiles/"
 file.exists(path)
 folder=paste0(rep("canopy", 24), 1:24)
-pathtoread=calibrationfiles=hobocleaned=data=list()
+a=b=d=list()
 for (i in seq_along(folder)){
- pathtoread[[i]] <- paste0(path, folder[i])
- calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" ) # channels is a new feature
- data[[i]]=hobocleaned[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd")
+ a[[i]] <- paste0(path, folder[i])
+ b[[i]] <- hobinder(as.character(a[i]), channels = "ON" )
+ d[[i]] <- hobocleaner(b[[i]], format = "ymd")
 }
 data.calibrated <- calibritor(calibrationfiles)
-
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

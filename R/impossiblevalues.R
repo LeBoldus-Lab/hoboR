@@ -3,17 +3,19 @@
 #' 
 #' Functions that gets the mean by date of the cleaned data downloaded from the 
 #' HOBO software
+#'
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' @param data Cleaned hobo data frame from `original csv` or `hobocleaner` and `hobotime`
 #' @param showrows Number of rows to show for maximum values, default is 10
 #' @return Gives the rows with impossible values
 #' 
 #' @importFrom dplyr group_by
-
-
+#'
 #' @examples 
 #' data <- hobocleaner(loadAllcsvs)
-#' impossiblevalues(data)
+#'
+#' impossiblevalues(data, showrows = 10)
+#'
 #' @export
 
 impossiblevalues <- function(data, showrows = 10, ...){

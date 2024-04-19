@@ -2,29 +2,28 @@
 % Please edit documentation in R/hobotime.R
 \name{hobotime}
 \alias{hobotime}
-\title{summarise date by specified intervals
-This function calculates hobo weather by minutes
-HOBO software}
+\title{Summarise HOBO data by time intervals}
 \usage{
 hobotime(data, summariseby = "5 mins", na.rm = T)
 }
 \arguments{
 \item{data}{a data frame with the hobo data and a \code{Date} column}
 
-\item{summariseby=}{a time interval in minmutes}
+\item{summariseby}{a time interval in minmutes}
+
+\item{na.rm}{logical vector TRUE or FALSE}
 }
 \value{
 a data frame summarised by minutes
 }
 \description{
-summarise date by specified intervals
 This function calculates hobo weather by minutes
 HOBO software
 }
 \examples{
-files <- hobinder(path)
-cleaned <- hobocleaner(files, format = "ymd")
-cleanesum <- hobotime(cleaned, summariseby = 5)
+hobocleaned <- hobocleaner(files, format = "ymd")
+
+hobosubset <- hobotime(cleaned, summariseby = 5)
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

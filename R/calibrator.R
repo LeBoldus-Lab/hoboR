@@ -25,7 +25,7 @@
 
 #'for (i in seq_along(folder)){
 #'  a[[i]] <- paste0(path, folder[i])
-#'  b[[i]] <- hobinder(as.character(a[i]), channels = "ON" ) # channels is a new feature
+#'  b[[i]] <- hobinder(as.character(a[i]), channels = "ON" )
 #'  d[[i]] <- hobocleaner(b[[i]], format = "ymd")
 #'}
 
@@ -33,7 +33,7 @@
 
 #' @export
 
-calibrator <- function(list.data=data, formula = "y = a + b", columns= c(2, 7, 12), times = times, round = 7){
+calibrator <- function(list.data=data, columns= c(2, 7, 12), times = times, round = 7){
   # from character to UTC times
   time=as.POSIXct(times, tz = "UTC")
   # subset by times of interest

@@ -38,6 +38,7 @@ HOBO software
 }
 \examples{
 files <- hobinder(path)
+
 cleaned <- hobocleaner(files, format = "ymd")
 
 timestamp <- timestamp(cleaned, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 100, na.rm = TRUE, plot = TRUE, var = "Temp")

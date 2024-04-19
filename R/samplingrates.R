@@ -6,17 +6,17 @@
 #' HOBO software
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' @param samples a csv with the format 
+#' @param n Mandatory. Specifies the number of replicates of the experiment
+#' @param round Optional. Specifies the number of decimal places for rounding the output.
 #' incidence calculated from a csv table designed for baiting Phytophtora
 #' @return smaller data frame with incidence and rates
 #' 
-#' @importFrom dplyr group_by
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
+#' @importFrom dplyr group_by mutate select
 #' @importFrom lubridate ymd
-
-
+#'
 #' @examples 
 #' samples <- read.cv(sampling.data)
+#'
 #' samp.rates <- samplingrates(samples)
 #' @export
 #' 

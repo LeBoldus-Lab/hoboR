@@ -8,8 +8,6 @@ deprehobinder(path, ...)
 }
 \arguments{
 \item{path}{to indicate the path to the csv files}
-
-\item{files}{get the bind csv file, remove duplicates and merge the data}
 }
 \value{
 large csv file
@@ -21,8 +19,11 @@ from duplicates creating a continuous file from all .csv's
 }
 \examples{
 path_to_csvs <- '~mydirectory/myfiles.csv/'
+
 loadAllcsvs <- hobinder(path_to_csvs)
+
 finalcsv <- hobocleaner(loadAllcsvs)
+
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

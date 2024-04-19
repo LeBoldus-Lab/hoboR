@@ -21,7 +21,9 @@ from duplicates creating a continuous file from all .csv's
 }
 \examples{
 path_to_csvs <- '~mydirectory/myfiles.csv/'
+
 loadAllcsvs <- hobinder(path_to_csvs)
+
 finalcsv <- hobocleaner(loadAllcsvs)
 
 }

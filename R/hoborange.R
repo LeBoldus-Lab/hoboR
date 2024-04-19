@@ -8,7 +8,6 @@
 #' @param data A data frame containing the HOBO data, including a `Date` column in POSIXct format.
 #' @param start The start of the date range in "yyyy-mm-dd HH:MM" format.
 #' @param end The end of the date range in "yyyy-mm-dd HH:MM" format.
-#' @param round Logical indicating whether to round the results (not used in the example, consider removing or implementing).
 #' @param na.rm A logical value indicating whether NA values should be removed before calculation.
 #' @return A subset of the original data frame limited to the specified date range.
 #'
@@ -16,7 +15,9 @@
 #'
 #' @examples 
 #' samples <- read.cvs(sampling.data)
+#'
 #' site.ranges <- ho.range(samples, start = "1910/09/16",  end = "1920/12/01")
+#'
 #' @export
 #' 
 
@@ -43,4 +44,3 @@ hoborange <- function(data, start = "1910-09-16 06:00", end = "1920-12-01 12:00"
   }
   return(rango)
 }
-

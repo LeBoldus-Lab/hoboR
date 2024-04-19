@@ -19,8 +19,6 @@ hoborange(
 \item{end}{The end of the date range in "yyyy-mm-dd HH:MM" format.}
 
 \item{na.rm}{A logical value indicating whether NA values should be removed before calculation.}
-
-\item{round}{Logical indicating whether to round the results (not used in the example, consider removing or implementing).}
 }
 \value{
 A subset of the original data frame limited to the specified date range.
@@ -31,7 +29,9 @@ over a specified date range. It's designed for use with data exported from HOBO 
 }
 \examples{
 samples <- read.cvs(sampling.data)
+
 site.ranges <- ho.range(samples, start = "1910/09/16",  end = "1920/12/01")
+
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

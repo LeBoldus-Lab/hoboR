@@ -16,7 +16,9 @@
 #' 
 #' @examples 
 #' files <- hobinder(path)
+#'
 #' cleaned <- hobocleaner(files, format = "ymd")
+#'
 #' hobocorrelation(cleaned, summariseby = "month", by = "mean", na.rm = FALSE)
 #' 
 #' @export

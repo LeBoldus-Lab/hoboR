@@ -10,7 +10,7 @@
 #' 
 #' HOBO software
 #' 
-#' @param data Remove impossible values from HOBO data frame from `original csv` 
+#' @param data Convert to NA the impossible values from HOBO data frame from `original csv` 
 #'             OR `hobocleaner` OR `hobotime`
 #' @param condition The condition for removal, one of (">", "<", "==", ">=", "<=")
 #' @param threshold Numeric vector specifying the threshold values for removal

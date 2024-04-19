@@ -69,4 +69,3 @@ correction.test <- function(list.data, calibrationfile, w.var = c(2, 7, 12), tim
             cat(ifelse(all(res), "\033[32mHOBO's passed the test\033[39m\n", 
                        "\033[31mWarning: Some of your HOBO's did not passed the test.\033[39m\n"))
 }
-  

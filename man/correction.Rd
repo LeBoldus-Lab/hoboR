@@ -22,7 +22,9 @@ using a base correction to the data
 }
 \examples{
 path = "~/Desktop/testsky/calibration/originalfiles/"
+
 filestocorrect <- calibritor(calibrationfiles)
+
 calibratedfiles <- correction(data, calibration, calibrate=)
 }
 \author{

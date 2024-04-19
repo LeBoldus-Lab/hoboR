@@ -20,7 +20,9 @@ HOBO software
 }
 \examples{
 data <- hobocleaner(loadAllcsvs)
-impossiblevalues(data)
+
+impossiblevalues(data, showrows = 10)
+
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

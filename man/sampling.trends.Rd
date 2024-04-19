@@ -2,37 +2,37 @@
 % Please edit documentation in R/sampling.trends.R
 \name{sampling.trends}
 \alias{sampling.trends}
-\title{calcula sampling bate rates temperature using weather data and
-sampling rates for data collection
+\title{Calculate the sampling rates using the baiting incidence and weather data
 This function calculates hobo weather means for sampling rates
-Noted that
-Ex: phytophthora collected on dates for baited and removed leaves
-HOBO software}
+Ex: phytophthora collected on dates for baited and removed leaves}
 \usage{
 sampling.trends(hobomeans, samp.rates, round, na.rm = T)
 }
 \arguments{
-\item{samp.rates}{a data frame with incidence summary of collected dates
-for baiting Phytophtora}
+\item{hobomeans}{a data frame with the hobo means}
 
-\item{hobodata}{a data frame with the hobo means}
+\item{samp.rates}{a data frame with incidence summary of collected dates}
+
+\item{round}{Optional. Specifies the number of decimal places for rounding the output.}
+
+\item{na.rm}{remove NA's from data}
 }
 \value{
 A data frame with summarized weather variables by data and location,
 as incidence rates
 }
 \description{
-calcula sampling bate rates temperature using weather data and
-sampling rates for data collection
+Calculate the sampling rates using the baiting incidence and weather data
 This function calculates hobo weather means for sampling rates
-Noted that
 Ex: phytophthora collected on dates for baited and removed leaves
-HOBO software
 }
 \examples{
 samples <- read.cv(sampling.data)
+
 hobomeans <- meanhobo(hobocleaned)
+
 samp.rates <- samplingrates(samples, n = 9, round = 2)
+
 Site <- sampling.trends(hobomeans, samp.rates, round = 2)
 }
 \author{

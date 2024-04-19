@@ -6,14 +6,18 @@
 #' from duplicates creating a continuous file from all .csv's
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' @param path to indicate the path to the csv files
-#' @param files get the bind csv file, remove duplicates and merge the data 
 #' @return large csv file
 #' 
+#' @importFrom tidyr separate
+#' @importFrom reshape merge_all
+#'
 #' @examples 
 #' path_to_csvs <- '~mydirectory/myfiles.csv/'
+#'
 #' loadAllcsvs <- hobinder(path_to_csvs)
+#'
 #' finalcsv <- hobocleaner(loadAllcsvs)
-#' @importFrom tidyr separate
+#'
 #' @export
   
 deprehobinder <- function(path, ...){
@@ -28,7 +32,6 @@ deprehobinder <- function(path, ...){
                read.csv(x, ...) #header = T, skip = 1)
                })
                )
-  #hobocn <- lapply(hobos, colnames)
   col.names <- lapply(lapply(hobos, colnames), 
                       function(x) sapply(strsplit(x, "[.]"), "[", 1))
   hobos <- Map(setNames, hobos, col.names)

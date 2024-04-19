@@ -1,36 +1,35 @@
-
-#' calcula sampling bate rates temperature using weather data and
-#' sampling rates for data collection
+#'
+#' Calculate the sampling rates using the baiting incidence and weather data
 #' This function calculates hobo weather means for sampling rates 
-#' Noted that 
 #' Ex: phytophthora collected on dates for baited and removed leaves
-#' HOBO software
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
-#' @param hobodata a data frame with the hobo means 
-#' @param  samp.rates a data frame with incidence summary of collected dates 
-#' for baiting Phytophtora
+#' @param hobomeans a data frame with the hobo means 
+#' @param samp.rates a data frame with incidence summary of collected dates 
+#' @param round Optional. Specifies the number of decimal places for rounding the output. 
+#' @param na.rm remove NA's from data
+
 #' @return A data frame with summarized weather variables by data and location, 
 #' as incidence rates
 #'
 #' @importFrom purrr is_empty 
-#' @importFrom dplyr group_by
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
+#' @importFrom dplyr group_by mutate select
 #' @importFrom lubridate ymd
-
 
 #' @examples 
 #' samples <- read.cv(sampling.data)
+#'
 #' hobomeans <- meanhobo(hobocleaned)
+#'
 #' samp.rates <- samplingrates(samples, n = 9, round = 2)
+#'
 #' Site <- sampling.trends(hobomeans, samp.rates, round = 2)
+
 #' @export
-#' 
 
 sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
   rows = NULL
   for (k in 1:nrow(samp.rates)){
-    if (is_empty(which(hobomeans$Date == samp.rates$Leaves.In[k])) == TRUE){ 
+    if (purrr::is_empty(which(hobomeans$Date == samp.rates$Leaves.In[k])) == TRUE){ 
       cat(paste0("Missing in row ", k, ", start date: ", samp.rates$Leaves.In[k], '\r\n'))
      y <- which(hobomeans$Date <= samp.rates$Leaves.In[k]) |>
            max()
@@ -38,13 +37,11 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
     } else {
       y <- which(hobomeans$Date == samp.rates$Leaves.In[k])
     }
-    if (is_empty(which(hobomeans$Date == samp.rates$Leaves.Out[k])) == TRUE){
+    if (purrr::is_empty(which(hobomeans$Date == samp.rates$Leaves.Out[k])) == TRUE){
       cat(paste0("Missing in row ", k, ", end date: ", samp.rates$Leaves.Out[k], '\r\n'))
       cat(paste0("        Last recorded date: ", max(hobomeans$Date), '\r\n', 
                  "    NA's may be present as a result of missing dates, proceed with caution", '\r\n'))
       #### Getting 
-      # n = length(samp.rates$Leaves.Out) - k
-      # x <- which(hobomeans$Date == samp.rates$Leaves.Out[k-n])
       x <- which(hobomeans$Date <= samp.rates$Leaves.Out[k]) |>
             max()
     } else {

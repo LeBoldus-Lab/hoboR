@@ -7,7 +7,11 @@
 samplingrates(samples, n, round)
 }
 \arguments{
-\item{samples}{a csv with the format
+\item{samples}{a csv with the format}
+
+\item{n}{Mandatory. Specifies the number of replicates of the experiment}
+
+\item{round}{Optional. Specifies the number of decimal places for rounding the output.
 incidence calculated from a csv table designed for baiting Phytophtora}
 }
 \value{
@@ -20,6 +24,7 @@ HOBO software
 }
 \examples{
 samples <- read.cv(sampling.data)
+
 samp.rates <- samplingrates(samples)
 }
 \author{
