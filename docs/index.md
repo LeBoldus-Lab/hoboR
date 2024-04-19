@@ -110,10 +110,10 @@ Check the variability every 12 hours, at midnight and noon for 100 days.
 ```R
 # Snapshot of a time interval 
 a <- timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours",
-          days = 100, na.rm = TRUE, plot = T, var = "Temp")
+          days = 100, na.rm = TRUE, plot = F, var = "Temp")
 a$Group <- rep("night", nrow(a))
 b <- timestamp(hobocleaned, stamp = "2022-08-05 12:01", by = "24 hours",
-               days = 100, na.rm = TRUE, plot = T, var = "Temp")
+               days = 100, na.rm = TRUE, plot = F, var = "Temp")
 b$Group <- rep("day", nrow(b))
 
 daynight <- rbind(a, b)
