@@ -56,79 +56,83 @@ library(hoboR)
 ```
 
 ## **Example:**
-Suppose you have multiple CSV files in a directory called site A. 
-
+The data was collected in China Creek in Southern Oregon using a weather station. The measurements were recorded every minute over a period of 5 months, from in Summer and Fall 2022. The weather variables collected were humidity (Wetness), temperature (Temp), relative humidity (RH), and rain (Rain). 
 ```R
-# Specify your site location name 
-site = "A"
 # Add the PATH to your sites for weather data (from hobo)
-path = paste0("path/your/site_", site)
+path = paste0("~/Desktop/Adam/site_12_date_adj2/")
 # make sure the path to your CSV files exists
-file.exists(path)        # this will return a logical value TRUE
+file.exists(path)     # this will return a logical value TRUE
 ```
+Confirm that the path exist, then proceed with binding all the csv files, and clean the data.
 
-All the CSV from site A will be merged with `hobinder()`, note that some HOBO files format are different. Some HOBO write the headers in column 1, and other in column 2. Inspect the file, and choose how many rows you need to skip to read the header.
+> After merging all records are present, including duplicate entriee. The `hobocleaner()` function clean duplicate entries, and rename columns. The format argument should match the HOBO format type: "ymd" for YYYY/MM/DD, "myd" for MM/YYYY/DD", and "yymd" corresponds to two digits year YY/MM/DD. Be mindful with your format selection, otherwise proceed with caution.
+
 ```R
 # loading all hobo files
 hobofiles <- hobinder(path, skip = 1)
-```
-After merging all records are present, including duplicate entriee. The `hobocleaner()` function clean duplicate entries, and rename columns. The format argument should match the HOBO format type: "ymd" for YYYY/MM/DD, "myd" for MM/YYYY/DD", and "yymd" corresponds to two digits year YY/MM/DD. Be mindful with your format selection, otherwise proceed with caution.
-```R
-# cleaning hobo files, add format
-hobocleaned <- hobocleaner(hobofiles, format = "ymd")
+hobocleaned <- hobocleaner(hobofiles, format = "yymd")
 head(hobocleaned)
 ```
-The clean data can be aggregated by time interval, e.g. `"5 mins"`, `"12 h"`, `"1 day"`, etc., the `hobotime()` function or obtaining the mean, the minimum and maximum, and other summary statistcs by implementing `meanhobo()`.
+Let's summarize the data every 30 min, and get the means for 1 day or get the mean every 24 hours
+
+> Note: that the original data was recorded every minute.
 
 ```R
 # getting hobo mean summary by time
-hobot <- hobotime(hobocleaned, summariseby = "5 mins", na.rm = T)
-head(hobot)
+hobot5 <- hobotime(hobocleaned, summariseby = "30 mins", na.rm = T)
+hobomeans5 <- meanhobo(hobot5, summariseby = "1 day",  na.rm = T)
+head(hobomeans5)
 
 # getting hobo means by date
-hobomeans <- meanhobo(hobocleaned, summariseby = "1 day",  na.rm = T)
+hobomeans <- meanhobo(hobocleaned, summariseby = "24 h",  na.rm = T)
 head(hobomeans)
 ```
+> The clean data can be aggregated by time interval, e.g. `"5 mins"`, `"12 h"`, `"1 day"`, etc., the `hobotime()` function or obtaining the mean, the minimum and maximum, and other summary statistcs by implementing `meanhobo()`.
 
-### **Additional Features**
-
-```
-# Specify a window range 
-hoborange(hobocleaned, start="2022-06-04", end="2022-10-22")
-
-# Snapshot of a time interval 
-timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours",
-          days = 100, na.rm = TRUE, plot = T, var = "Temp")
-
-# Obtain the maximum and minimum values
-impossiblevalues(hobocleaned, showrows = 3)
-
-# Identify sensor failures
-NA_data <- sensorfailures(hobocleaned, condition = ">", threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))
-```
-
-
-### **Plot Weather Graphics **  
-
-A guide to visualize weather data with `ggplot2`, whether you are visualizing one or two variables. By providing the code, you can customize the plot, color, and formatting of your data. 
+Check the difference between both methods, summarizing and getting the mean, or mean only.
 
 ```R
-library(ggplot2)
-library(scales)
-
-# Plot one variable: temperateure
-ggplot(hobocleaned, aes(x=as.POSIXct(Date), y = Temp)) +
-  geom_line(alpha= 0.5) +
-  scale_y_continuous( name = "Temperature °C")+
-  ggtitle("Temperature: Oct 14 - Nov 11, 2021")+
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_x_datetime(labels = date_format("%Y-%m-%d"))+
-  theme_bw()
+plot(1:nrow(hobomeans), hobomeans$x.Temp, type = "line")
+lines(1:nrow(hobomeans5), hobomeans5$x.Temp, type = "line", col = "red")
 ```
 
-<img src="images/hobo_one_var.png" alt="weather 1var" style="width: 600px;"/> 
+If you are interested to spot a time range, you can specify the dates using `hoborange`, and aadd the starting and end dates of interest.
 
-Fig. 1) Visualization of the summary statistics of temperature in Southern Oregon from October 2021 to January 2022.
+```R
+# Specify a window range 
+#timerange <- hoborange(hobocleaned, start="2022-08-08", end="2022-12-12")
+#head(timerange)
+
+```
+
+Check the variability every 12 hours, at midnight and noon for 100 days. 
+
+```R
+# Snapshot of a time interval 
+a <- timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours",
+          days = 100, na.rm = TRUE, plot = T, var = "Temp")
+a$Group <- rep("night", nrow(a))
+b <- timestamp(hobocleaned, stamp = "2022-08-05 12:01", by = "24 hours",
+               days = 100, na.rm = TRUE, plot = T, var = "Temp")
+b$Group <- rep("day", nrow(b))
+
+daynight <- rbind(a, b)
+```
+
+Plot with `ggplot2` 
+
+```R
+ggplot(daynight, aes(x = Date, y = Temp, group = Group, color = Group)) +
+  geom_line() +
+  scale_x_datetime() +
+  scale_y_continuous(limits = c(0, 30)) +
+  scale_color_manual(values = c("orange", "black")) +
+  labs(color = "Source") +
+  theme_minimal()
+```
+
+<img src="images/hobo-daynight.png" alt="weather 1var" style="width: 600px;"/> 
+Fig. 1) Visualization of the summary results calculated with hoboR of the weather recorded between October 2021 and December 2021, in Brookings, Southern Oregon.
 
 ```R
 # two vars
@@ -147,9 +151,8 @@ ggplot(hobocleaned, aes(x=as.POSIXct(Date))) +
   theme_bw()
 ```
 
-<img src="images/hobo_two_vars.png" alt="weather 2var" style="width: 600px;"/> 
-
-Fig. 2) Visualization of the summary statistics of two weather variables (temperature and humidity) in Southern Oregon from October 2021 to January 2022.
+<img src="images/hobo-two-vars.png" alt="weather 2var" style="width: 600px;"/> 
+Fig. 2) Visualization of the summary statistics of two weather variables (temperature and humidity) in Southern Oregon from October to December 2021.
 
 
 There is a function to analyze the correlation between the weather variables
