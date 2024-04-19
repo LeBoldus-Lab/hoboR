@@ -100,8 +100,8 @@ If you are interested to spot a time range, you can specify the dates using `hob
 
 ```R
 # Specify a window range 
-#timerange <- hoborange(hobocleaned, start="2022-08-08", end="2022-12-12")
-#head(timerange)
+timerange <- hoborange(hobocleaned, start="2022-08-08", end="2022-12-12")
+head(timerange)
 
 ```
 
@@ -132,6 +132,7 @@ ggplot(daynight, aes(x = Date, y = Temp, group = Group, color = Group)) +
 ```
 
 <img src="images/hobo-daynight.png" alt="weather 1var" style="width: 600px;"/> 
+
 Fig. 1) Visualization of the summary results calculated with hoboR of the weather recorded between October 2021 and December 2021, in Brookings, Southern Oregon.
 
 ```R
@@ -152,19 +153,8 @@ ggplot(hobocleaned, aes(x=as.POSIXct(Date))) +
 ```
 
 <img src="images/hobo-two-vars.png" alt="weather 2var" style="width: 600px;"/> 
+
 Fig. 2) Visualization of the summary statistics of two weather variables (temperature and humidity) in Southern Oregon from October to December 2021.
 
-
-There is a function to analyze the correlation between the weather variables
-```R
-# horrelation
-horrelation(hobocleaned, summariseby = "month", by = "mean", na.rm = F)
-```
-
-<img src="images/hobo_heatmap.png" alt="weather correlation" style="width: 400px;"/> 
-
-Fig. 3) Visualization of the correaltion betwen weather variables. 
-
 <p>Funded by:</p>
-<img src="images/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
-<img src="images/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>
+<img src="images/osu-usda-logo.png" alt="OSU Logo" style="width: 200px;"/>

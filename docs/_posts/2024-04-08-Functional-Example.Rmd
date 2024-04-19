@@ -93,6 +93,7 @@ ggplot(daynight, aes(x = as.POSIXct(Date), y = Temp, group = Group, color = Grou
 ggplot(hobocleaned, aes(x=as.POSIXct(Date))) +
   geom_line( aes(y=Temp, col = "red"), alpha = 0.5) + 
   geom_line( aes(y= Wetness, col = "blue"), alpha = 0.5) + 
+  xlab(NULL)+
   scale_y_continuous(
     # Features of the first axis
     name = "Temperature °C",
