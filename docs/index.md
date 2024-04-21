@@ -110,10 +110,10 @@ Check the variability every 12 hours, at midnight and noon for 100 days.
 ```R
 # Snapshot of a time interval 
 a <- timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours",
-          days = 100, na.rm = TRUE, plot = F, var = "Temp")
+          days = 100, na.rm = FALSE, plot = F, var = "Temp")
 a$Group <- rep("night", nrow(a))
 b <- timestamp(hobocleaned, stamp = "2022-08-05 12:01", by = "24 hours",
-               days = 100, na.rm = TRUE, plot = F, var = "Temp")
+               days = 100, na.rm = FALSE, plot = F, var = "Temp")
 b$Group <- rep("day", nrow(b))
 
 daynight <- rbind(a, b)
@@ -156,5 +156,13 @@ ggplot(hobocleaned, aes(x=as.POSIXct(Date))) +
 
 Fig. 2) Visualization of the summary statistics of two weather variables (temperature and humidity) in Southern Oregon from October to December 2021.
 
-<p>Funded by:</p>
+Thank you for exploring the hoboR package. This tool is designed to facilitate statistical analyses and visualizations for ecology research. We will continue improving hoboR, incorporating new findings and feedback from the community to enhance its utility and functionality.
+
+Acknowledgements:
+Special thanks to the LeBoldus Lab at Oregon State University's Botany and Plant Pathology and Forest Engineering, Resources, and Management Department and The Grunwald Lab at the USDA Horticultural Crops Research Unit for their invaluable insights and support. We also acknowledge contributors and testers who have helped refine hoboR.
+**Work funded by the National Science Foundation (NSF) and the United States Department of Agriculture (USDA).**
+
+Further Support
+For further support or to contribute to the project, please visit our [GitHub repository](https://github.com/LeBoldus-Lab/hoboR).
+
 <img src="images/osu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
