@@ -47,4 +47,4 @@ summarybates()| summarises the weather data by sample collection | custom functi
 
 
 <p>Funded by:</p>
-<img src="images/osu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
+<img src="../images/osu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
