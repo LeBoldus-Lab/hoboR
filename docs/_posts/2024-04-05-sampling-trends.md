@@ -27,4 +27,4 @@ write.csv(hobocleaned, "new_hobo_combined_file.csv")
 
 
 <p>Funded by:</p>
-<img src="../images/osu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
+<img src="{{ site.baseurl }}/images/osu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
