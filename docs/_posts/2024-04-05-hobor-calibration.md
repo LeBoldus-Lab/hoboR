@@ -115,5 +115,4 @@ If the data list throws Warnings, you can use `testhobolist(data, times)` to che
 
 
 <p>Funded by:</p>
-<img src="{{ site.baseurl }}/images/osu-logo.png" alt="OSU Logo" style="width: 200px;"/>
-<img src="{{ site.baseurl }}/images/USDA-logo.png" alt="USDA Logo" style="width: 100px;"/>
+<img src="images/osu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
