@@ -46,9 +46,9 @@ This work is subject to the [MIT License](https://github.com/LeBoldus-Lab/hoboR/
 
 ## Acknowledgements
 
-Grant 123456, and XYZ.
+United States Department of Agriculture Co-operative agreement number: 58-2072-1-039
 
 ## Contributors and Errors
 
 Welcome pull submission through Github [pull request](https://help.github.com/articles/using-pull-requests/).
-Please report any errors or requests using GitHub [issues](https://github.com/LeBoldus_Lab/hoboR/issues).
+Please report errors or requests using GitHub [issues](https://github.com/LeBoldus_Lab/hoboR/issues).
