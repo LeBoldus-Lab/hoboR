@@ -13,6 +13,7 @@ output: html_document
 # Load libraries 
 library(reshape)
 library(lubridate)
+library(scales)
 library(tidyr)
 library(ggplot2)
 library(hoboR)

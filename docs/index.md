@@ -128,6 +128,8 @@ ggplot(daynight, aes(x = Date, y = Temp, group = Group, color = Group)) +
   scale_y_continuous(limits = c(0, 30)) +
   scale_color_manual(values = c("orange", "black")) +
   labs(color = "Source") +
+  scale_y_continuous(name = "Temperature °C")+
+  scale_x_datetime(name = "Months")+
   theme_minimal()
 ```
 
@@ -146,9 +148,9 @@ ggplot(hobocleaned, aes(x=as.POSIXct(Date))) +
     # Add a second axis and specify its features
     sec.axis = sec_axis(~., name="Humidity")
   ) +
-  labs(title = "Temperature: Oct 14 - Nov 11, 2021", color = "Legend") +
+  labs(title = "Temperature: August - December, 2021", color = "Legend") +
   scale_color_manual(labels = c("Humidity", "Temp"), values = c("blue", "red")) +
-  scale_x_datetime(labels = date_format("%Y-%m-%d"))+
+  scale_x_datetime(name= "Date", labels = date_format("%Y-%m-%d"))+
   theme_bw()
 ```
 
