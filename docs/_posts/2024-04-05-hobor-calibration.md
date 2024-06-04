@@ -1,12 +1,12 @@
-## Calibration set up set up in a controlled environment.
-Before placing HOBO devices in the field, it is important to know the variation among individual devices. Especially for microclimate studies, because the differences between the environments could be very small, and you would avoid misconducting the weather data from the device variance. So a pre-field calibration is crucial to know the differences between your hobo devices for each environmental variable.  
+## Calibration setup in a controlled environment.
+Knowing the variation among individual HOBO devices is crucial before placing them in the field. This is especially true for microclimate studies, where the differences between the environments could be very small, and you would avoid misinterpreting the weather data from the device variance. So, a pre-field calibration is crucial to knowing the differences between your HOBO devices for each environmental variable.  
 
-To calibrate the HOBO devices, you need to put all the devices in an incubator or control environment to have consistent temperature, humidity, or any other measurements you need to calibrate. If you do not have access to a control environment device, leave them in a location with similar conditions for several days. Make sure the hobos are not directly exposed to sunlight. Be aware that some HOBO devices (i.e.MX2301A,https://www.onsetcomp.com/products/data-loggers/mx2301a) can be set to work with channels to record min, max, and mean values for each of the measurements for the recorded data.
+To calibrate the HOBO devices, you need to put all the devices in an incubator or control environment to have a consistent temperature, humidity, or any other measurements you need to calibrate. If you cannot access a control environment device, leave it in a location with similar conditions for several days. Make sure the hobos are not exposed directly to sunlight. HOBO devices can be set to work with channels  (i.e., MX2301A,https://www.onsetcomp.com/products/data-loggers/mx2301a) to record min, max, and mean values for each of the measurements for the recorded data.
 
 Once you collect the data from the data loggers, you can use the hoboR function `calibration()` to calculate the differences and the function `correction()` to correct the weather measurements recorded from the field plots.
 
 ## Usage
-Load `library(hoboR)` and then continue setting the `path` to your calibration files. For example, if you have 24 HOBO loggers, you need to create a unique folder for each HOBO, e.g., hobo1, hobo2, hobo3, ... hobo24, then put all the CSV files from the same HOBO in its unique folder. It is recommended that you inspect your files to make sure you have the information you need for the calibration. 
+Load `library(hoboR)` and then continue setting the `path` to your calibration files. For example, if you have 24 HOBO loggers, you need to create a unique folder for each HOBO, e.g., hobo1, hobo2, hobo3, ... hobo24, and then put all the CSV files from the same HOBO in its unique folder. We recommend inspecting the files to confirm you have the information needed for the calibration.
 
 ```R
 # Set the path
@@ -51,13 +51,11 @@ calibrationmeans
 # Manually add the calculated HOBO numbers (i.e. HOBO15) into "calibrationmeans", if any.
 calibrationmeans[15,] <- c(-0.003056, 0.48528, 0.38472)  
 ```
-The result of `hobor::calibrator()` is the difference of hobo1 compared to HOBO2,
-until completed the comparison. We use HOBO1 as the baseline, and these differences show the differences of each hobo
-from the baseline HOBO (which is HOBO1 here).
+The result of `hobor::calibrator()` is the difference of HOBO1 compared to HOBO2, until completed the comparison. We use HOBO1 as the baseline, and these differences show the differences of each HOBO from the baseline HOBO (which is HOBO1 here).
 You can evaluate if the correction of your data loggers is as expected. We
 recommend allowing a variability of less than 1°C.
 ```R
-correction.test(list.data=data, calibrationfile=x, columns = c(2, 7, 12), 
+correction.test(list.data=data, calibrationfile=calibrationmeans, w.var = c(2, 7, 12), 
                 times = times, threshold = c(1, 5, 10))
 ```
 
@@ -86,7 +84,7 @@ list.files(path_all)
 
 # Load the combined field files, already processed with `hobinder` and `hobocleaner`.  
 
-# This is a generic way to load multiple csv files
+# Load multiple csv files without merging so you can correct each HOBO data
 files <- list.files(path=path_all, pattern = "\\.csv", full.names = T)
 field <- lapply(files, function(x) {
   read.csv(x)})

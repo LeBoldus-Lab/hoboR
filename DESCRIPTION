@@ -4,8 +4,20 @@ Version: 1.0
 Authors@R: 
     person("Ricardo I", "Alcala", , "ricardo.alcalabriseno@oregonstate.edu", role = c("aut", "cre"),
            comment = c(SCHOLARGOOGLE = "https://scholar.google.com/citations?user=SkBxudIAAAAJ&hl=en"))
-Description: Load multiple csv files and remove unique entries.
+Description: Provides function to load, clean and summarize weather data from multiple HOBO csv files.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
+Depends: R (>= 4.0.0)
+Imports: 
+    dplyr,
+    plyr,
+    lubridate,
+    reshape,
+    ggplot2,
+    readr,
+    tidyr,
+    stringr,
+    tibble
+Suggests: testthat

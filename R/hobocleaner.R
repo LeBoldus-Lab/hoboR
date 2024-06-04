@@ -30,22 +30,22 @@ hobocleaner <- function(file, format = "ymd", na.rm = T){
   init <- dim(file)[1]
   if (format == "mdy"){ 
   # formating hobo dates to UTC mdy
-  temp$Date <- lubridate::mdy_hms(temp$Date, truncated = 1)
+  temp$Date <- lubridate::mdy_hms(temp$Date, truncated = 1, tz = "UTC")
   }
   if (format == "ymd"){
   # formating hobo dates to UTC ymd
-  temp$Date <- lubridate::ymd_hms(temp$Date, truncated = 1)
+  temp$Date <- lubridate::ymd_hms(temp$Date, truncated = 1, tz = "UTC")
   }
   if (format == "dmy"){
     # formating hobo dates to UTC dmy
-    temp$Date <- lubridate::dmy_hms(temp$Date, truncated = 1)
+    temp$Date <- lubridate::dmy_hms(temp$Date, truncated = 1, tz = "UTC")
   }  
   if (format == "yymd"){
   # formating hobo dates to UTC yymd
   temp$Date <- gsub(":", "-", temp$Date)
   temp$Date <- gsub(" ", "-", temp$Date)
   temp$Date <- gsub("^", "20", temp$Date)
-  temp$Date <- lubridate::ymd_hms(temp$Date, truncated = 1)
+  temp$Date <- lubridate::ymd_hms(temp$Date, truncated = 1, tz = "UTC")
   }
   # rounding time and in order
   temp$Date <- round(temp$Date, units = "mins")

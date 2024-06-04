@@ -28,8 +28,6 @@
 #'           threshold = c(1, 5, 10))
 #' @export
 
-
-
 correction.test <- function(list.data, calibrationfile, w.var = c(2, 7, 12), times = times, threshold = c(1, 5, 10)){
             # Convert times from character to POSIXct UTC times
             time=as.POSIXct(times, tz = "UTC")
@@ -64,8 +62,6 @@ correction.test <- function(list.data, calibrationfile, w.var = c(2, 7, 12), tim
             result <- apply(res, c(1, 2), function(x) if(x) "passed" else "not passed")
             rownames(result) <- paste0("hobo", 1:nrow(result))
             
-            print(result)
-            
-            cat(ifelse(all(res), "\033[32mHOBO's passed the test\033[39m\n", 
-                       "\033[31mWarning: Some of your HOBO's did not passed the test.\033[39m\n"))
+            return(list(result, message == cat(ifelse(all(res), "\033[32mHOBO's passed the test\033[39m\n", 
+                       "\033[31mWarning: Some of your HOBO's did not passed the test.\033[39m\n")))[[1]])
 }

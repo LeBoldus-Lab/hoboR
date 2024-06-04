@@ -50,15 +50,15 @@ timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 10
       dplyr::select(Date, y=`var`)
    
    # to plot
-  q  <- ggplot(toplot, aes(x = as.POSIXct(Date), y = y )) +
-       geom_line(alpha = 0.9, color = "orange") +
-       scale_y_continuous(name = paste(var, "every", by)) +
-       ggtitle(paste(var, "from", as.Date(toplot$Date[1]), 
-                    "to", as.Date(toplot$Date[days]))) +
-       theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-       scale_x_datetime(labels = scales::date_format(format = "%Y-%m-%d"))+
-       theme_bw() 
-  return(q)
+  q <- ggplot2::ggplot(toplot, ggplot2::aes(x = as.POSIXct(Date), y = y )) +
+         geom_line(alpha = 0.9, color = "orange") +
+         scale_y_continuous(name = paste(var, "every", by)) +
+         ggtitle(paste(var, "from", as.Date(toplot$Date[1]), 
+          "to", as.Date(toplot$Date[days]))) +
+         theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+         scale_x_datetime(labels = scales::date_format(format = "%Y-%m-%d"))+
+         theme_bw() 
+  print(q)
   
   }
   return(sstamp)

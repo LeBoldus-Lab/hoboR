@@ -63,7 +63,7 @@ timestamp(hobocleaned, stamp = "2022-08-05 00:01", by = "24 hours",
 impossiblevalues(hobocleaned, showrows = 3)
 
 # identify sensor failures
-na_data <- NAsensorfailures(hobocleaned, condition = ">", threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))
+na_data <- sensorfailures(hobocleaned, condition = ">", threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))
 ```
 
 
@@ -102,10 +102,10 @@ ggplot(hobocleaned, aes(x=as.POSIXct(Date))) +
 
 There is a function to analyze the correlation between the weather variables
 ```R
-# horrelation
-horrelation(hobocleaned, summariseby = "month", by = "mean", na.rm = F)
+# hobo data correlation
+hobocorrelations(hobocleaned, summariseby = "month", by = "mean", na.rm = F)
 ```
-
+Here you can check with the function heatmap
 ```
 heatmap(cor(as.matrix(hobocleaned[,2:4])))
 test <- na.omit(hobocleaned[,2:5])
