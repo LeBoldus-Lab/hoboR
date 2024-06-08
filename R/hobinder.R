@@ -25,9 +25,10 @@
 hobinder <- function(path, channels = "OFF", ...){
   if (file.exists(path)) {	
    # read files from working directory
-  files <- list.files(path=path, pattern = "\\.csv", full.names = T)
+  files <- list.files(path = path, pattern = "\\.csv", full.names = TRUE)
   } else {
-	print("No such files in directory")
+	message("No such files in directory")
+  return(NULL)
 	}
     # get names from files
   names <- as.data.frame(files) |>

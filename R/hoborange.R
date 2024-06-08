@@ -23,16 +23,18 @@
 
 hoborange <- function(data, start = "1910-09-16 06:00", end = "1920-12-01 12:00", na.rm = T ){
   # Convert start and end to POSIXct, assuming data$Date is already in POSIXct or coerced it
-  if (!is.Date(lubridate::as_datetime(start, format = "%Y-%m-%d")) == F){
-    print("Provided dates are out of range")
+  if ( any(as.Date(data$Date) %in%  as.Date(start)) == F){
+    warning("Provided dates are out of range")
+    return(stop)
   } else {
-  x <- which(data$Date %in% lubridate::as_datetime(start, format = "%Y-%m-%d"))|>
+  x <- which(as.Date(data$Date) %in% as.Date(start))|>
         min()
   }
-  if (!is.Date(lubridate::as_datetime(end, format = "%Y-%m-%d")) == F){
-    print("Provided dates are out of range")
+  if (any(as.Date(data$Date) %in%  as.Date(end)) == F){
+    warning("Provided dates are out of range")
+    return(stop)
   } else {
-  y <- which(data$Date %in% lubridate::as_datetime(end, format = "%Y-%m-%d")) |>
+  y <- which(as.Date(data$Date) %in% as.Date(end)) |>
         max()
   }
   
@@ -42,5 +44,5 @@ hoborange <- function(data, start = "1910-09-16 06:00", end = "1920-12-01 12:00"
   if (nrow(rango) == 0) {
     warning("No data found in the provided range.")
   }
-  return(rango)
+  return(rango[order(rango$Date, decreasing = F),])
 }

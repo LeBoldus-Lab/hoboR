@@ -24,10 +24,25 @@
 #' @export
 
 hobocleaner <- function(file, format = "ymd", na.rm = T){
-  temp <- file[,-1]  
+  temp <- file[,-1]
+  
+  # if data frame is empty
+  if (nrow(temp) == 0) {
+    warning("Empty input")
+    return(file) 
+  }
+  
+  # if the 'Date' column exists
+  if (!"Date" %in% colnames(temp)) {
+    stop("Date not found")
+  }
+  
+  # pass to next functions
   temp <- temp[,apply(temp, 2, 
               function(col) !any(col %in% c("", "Logged")))]
   init <- dim(file)[1]
+
+  # conditional format    
   if (format == "mdy"){ 
   # formating hobo dates to UTC mdy
   temp$Date <- lubridate::mdy_hms(temp$Date, truncated = 1, tz = "UTC")
@@ -68,7 +83,7 @@ hobocleaner <- function(file, format = "ymd", na.rm = T){
   # evaluating command
   dat <- eval(cmd) 
   clean <- dim(dat)[1]
-  cat(paste0(" proccesed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
+  message(paste0(" proccesed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
              "\n   total: ", clean, " unique entries \n" ))
   return(dat)
 }
