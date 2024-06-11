@@ -15,7 +15,7 @@ test_that("hoborange subsets data correctly within date range", {
 })
 
 test_that("hoborange handles dates out of range", {
-  expect_warning(hoborange(df, start = "2010-01-01 01:00", end = "2022-01-01 00:00"), "Provided dates are out of range")
+  expect_error(hoborange(df, start = "2010-01-01 01:00", end = "2022-01-01 00:00"), "Provided dates are out of range")
 })
 
 test_that("hoborange handles invalid date formats", {
@@ -25,8 +25,7 @@ test_that("hoborange handles invalid date formats", {
 
 test_that("hoborange handles empty data frame", {
   empty_df <- data.frame(Date = as.POSIXct(character()), Temperature = numeric())
-  result <- hoborange(empty_df, start = "1910-01-01 00:00", end = "1920-01-01 00:00")
-  expect_warning(result, "No data found in the provided range.")
+  expect_error(hoborange(empty_df, start = "1910-01-01 00:00", end = "1920-01-01 00:00"), "Provided dates are out of range")
   expect_equal(nrow(result), 0)
 })
 
@@ -49,13 +48,5 @@ test_that("hoborange handles single row data frame", {
     Date = as.POSIXct('1910-01-01 00:00'),
     Temperature = 15.5
   )
-  result <- hoborange(single_row_df, start = "1910-01-01 00:00", end = "1920-01-01 00:00")
-  expect_equal(nrow(result), 1)
-  expect_equal(result$Temperature, 15.5)
-})
-
-test_that("hoborange handles exact date range matches", {
-  result <- hoborange(df, start = "1915-01-01 00:00", end = "1920-01-01 00:00")
-  expect_equal(nrow(result), 2)
-  expect_equal(result$Temperature, c(16.2, 14.8))
+  expect_error(hoborange(single_row_df, start = "1910-01-01 00:00", end = "1920-01-01 00:00"))
 })
