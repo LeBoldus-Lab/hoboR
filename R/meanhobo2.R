@@ -21,6 +21,12 @@
 #' @export
 
 meanhobo <-  function(data, summariseby = "24 hours", na.rm = T, minmax=F){
+  # if data frame is empty
+  if (nrow(data) == 0) {
+    warning("Empty input")
+    return(file) 
+  }
+  
   # Preparing function content
   data <- transform(data, Date = cut(Date, summariseby))
   # Getting mean hobo 

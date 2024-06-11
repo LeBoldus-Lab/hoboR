@@ -19,6 +19,7 @@
 #' @importFrom lubridate is.Date
 #' @importFrom scales date_format
 #' @importFrom dplyr select
+#' @importFrom ggplot2 ggplot geom_line scale_y_continuous ggtitle theme scale_x_datetime theme_bw
 #' 
 #' @examples 
 #' files <- hobinder(path)
@@ -43,23 +44,21 @@ timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 10
     }
   }  
   
-  if (!plot) {
-    print("No plot")
-  } else {
+  if (plot) {
    toplot <- sstamp |>
       dplyr::select(Date, y=`var`)
    
    # to plot
-  q <- ggplot2::ggplot(toplot, ggplot2::aes(x = as.POSIXct(Date), y = y )) +
-         geom_line(alpha = 0.9, color = "orange") +
-         scale_y_continuous(name = paste(var, "every", by)) +
-         ggtitle(paste(var, "from", as.Date(toplot$Date[1]), 
+  plot <- ggplot2::ggplot(toplot, ggplot2::aes(x = as.POSIXct(Date), y = y )) +
+       ggplot2::geom_line(alpha = 0.9, color = "orange") +
+        ggplot2::scale_y_continuous(name = paste(var, "every", by)) +
+        ggplot2::ggtitle(paste(var, "from", as.Date(toplot$Date[1]), 
           "to", as.Date(toplot$Date[days]))) +
-         theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-         scale_x_datetime(labels = scales::date_format(format = "%Y-%m-%d"))+
-         theme_bw() 
-  print(q)
-  
+        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)) +
+        ggplot2::scale_x_datetime(labels = scales::date_format(format = "%Y-%m-%d"))+
+        ggplot2::theme_bw() 
+  } else {
+  print("No plot")
   }
-  return(sstamp)
+  return(list(data=sstamp, plot=plot))
 }

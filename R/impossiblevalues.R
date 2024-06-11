@@ -19,6 +19,12 @@
 #' @export
 
 impossiblevalues <- function(data, showrows = 10, ...){
+  # if data frame is empty
+  if (nrow(data) == 0) {
+    warning("Empty input")
+    return(file) 
+  }
+  # get values
   top_vals <- matrix(NA, nrow = showrows, ncol = ncol(data), dimnames = list(NULL, names(data)))
   maxs <- apply(data[-1], 2, function(x) {
              rbind(head(sort(x, decreasing = TRUE), showrows), 
