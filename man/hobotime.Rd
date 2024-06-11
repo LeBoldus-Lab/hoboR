@@ -4,7 +4,7 @@
 \alias{hobotime}
 \title{Summarise HOBO data by time intervals}
 \usage{
-hobotime(data, summariseby = "5 mins", na.rm = T)
+hobotime(data, summariseby = "5 mins", na.rm = TRUE, ...)
 }
 \arguments{
 \item{data}{a data frame with the hobo data and a \code{Date} column}
@@ -12,9 +12,11 @@ hobotime(data, summariseby = "5 mins", na.rm = T)
 \item{summariseby}{a time interval in minmutes}
 
 \item{na.rm}{logical vector TRUE or FALSE}
+
+\item{na.action}{na.omit remove rows with NA's, na.pass keeps NA's}
 }
 \value{
-a data frame summarised by minutes
+a data frame summarized by minutes
 }
 \description{
 This function calculates hobo weather by minutes
@@ -23,7 +25,7 @@ HOBO software
 \examples{
 hobocleaned <- hobocleaner(files, format = "ymd")
 
-hobosubset <- hobotime(cleaned, summariseby = 5)
+hobosubset <- hobotime(cleaned, summariseby = 5, na.rm = TRUE, na.action = na.pass)
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
