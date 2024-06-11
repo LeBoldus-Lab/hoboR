@@ -26,7 +26,6 @@ test_that("hoborange handles invalid date formats", {
 test_that("hoborange handles empty data frame", {
   empty_df <- data.frame(Date = as.POSIXct(character()), Temperature = numeric())
   expect_error(hoborange(empty_df, start = "1910-01-01 00:00", end = "1920-01-01 00:00"), "Provided dates are out of range")
-  expect_equal(nrow(result), 0)
 })
 
 test_that("hoborange handles NA values correctly", {
@@ -50,3 +49,4 @@ test_that("hoborange handles single row data frame", {
   )
   expect_error(hoborange(single_row_df, start = "1910-01-01 00:00", end = "1920-01-01 00:00"))
 })
+
