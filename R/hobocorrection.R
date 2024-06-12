@@ -40,7 +40,7 @@ correction<- function(data, w.var = "FULL", calibrate =calibrate){
       dat <- eval(cmd)
       return(dat)
     } else {
-      print("Weather variables do not match")
+      warning("Weather variables do not match")
     }
   } else {
     data[w.var] <- data[w.var] + as.numeric(calibrate)

@@ -1,30 +1,60 @@
 library(hoboR)
 library(testthat)
 
-test_that("load hobo data with multiple files", {
-  path <- "inst/extdata/calibration/"
-  # Create an empty list to feed through looping to your data
-  pathtoread=calibrationfiles=hobocleaned=data=list()
-  folder=paste0(rep("canopy", 24), 1:24)
-  
-  for (i in seq_along(folder)){
-    pathtoread[[i]] <- paste0(path, folder[i])
-    # Loading all hobo files
-    calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" ) # channels is a new feature
-    data[[i]] <- hobocleaner(calibrationfiles[[i]], format = "mdy") # change the format to "mdy" if your DateTime format is MM/DD/YYYY
-  }  
+# Sample data for testing
+set.seed(123)
+times <- seq(from = as.POSIXct("2023-06-01 00:00:00", tz = "UTC"), 
+             by = "hour", length.out = 10)
+list.data <- list(
+  data.frame(Date = times, Temp = rnorm(10, 20, 1), Rain = rnorm(10, 50, 5), HR = rnorm(10, 90, 10)),
+  data.frame(Date = times, Temp = rnorm(10, 21, 1), Rain = rnorm(10, 55, 5), HR = rnorm(10, 88, 10)),
+  data.frame(Date = times, Temp = rnorm(10, 19, 1), Rain = rnorm(10, 52, 5), HR = rnorm(10, 91, 10))
+)
+columns <- c("Temp", "Rain", "HR")
 
-  # Check if the result is a data frame
-  expect_true(is.list(calibrationfiles[[1]]))
+times_of_interest <- as.POSIXct(c("2023-06-01 01:00:00",  "2023-06-01 03:00:00", 
+                                  "2023-06-01 06:00:00", "2023-06-01 09:00:00"), tz = "UTC")
+
+
+test_that("calibrator calculates differences correctly", {
+  result <- calibrator(list.data = list.data, columns = columns, times = times_of_interest)
   
-  # Check if the data frame is not empty
-  expect_gt(nrow(calibrationfiles[[1]]), 0)
+  expect_equal(nrow(result), 3) 
+  expect_equal(ncol(result), length(columns)) 
+  expect_true(all(rownames(result) == paste0("hobo", 1:3))) 
+})
+
+test_that("calibrator handles unequal data frame sizes", {
+  # Creating a list with unequal sizes
+  unequal_data <- list(
+    data.frame(Date = times, Temp = rnorm(10, 20, 1), Rain = rnorm(10, 50, 5), HR = rnorm(10, 1013, 10)),
+    data.frame(Date = times[1:8], Temp = rnorm(8, 21, 1), Rain = rnorm(8, 55, 5), HR = rnorm(8, 1015, 10))
+  )
   
-  # Check if the data frame has expected columns
-  actual_variables <- names(calibrationfiles[[1]])
+  expect_warning(result <- calibrator(list.data = unequal_data, columns = columns, times = times_of_interest),
+                 "Input Error: Attempting to subtract data frames of unequal size")
+  expect_true(any(is.nan(result)))
+})
+
+test_that("calibrator subsets columns correctly", {
+  result <- calibrator(list.data = list.data, columns = columns, times = times_of_interest)
   
-  expect_named(calibrationfiles[[1]], actual_variables)
+  expect_true(all(colnames(result) == columns)) # Columns should match
+})
+
+test_that("calibrator handles invalid columns", {
+  invalid_columns <- c("Nonexistent", "Temp")
   
-  # Check if the data frame has data loaded from files
-  expect_true(all(file.exists(files)))
+  expect_error(calibrator(list.data = list.data, columns = invalid_columns, times = times_of_interest),
+               "undefined columns selected")
+})
+
+test_that("calibrator handles empty data frames", {
+  empty_data <- list(
+    data.frame(Date = as.POSIXct(character()), Temp = numeric(), Rain = numeric(), HR = numeric()),
+    data.frame(Date = as.POSIXct(character()), Temp = numeric(), Rain = numeric(), HR = numeric()),
+    data.frame(Date = as.POSIXct(character()), Temp = numeric(), Rain = numeric(), HR = numeric())
+  )
+  
+  expect_true(any(is.nan(result <- calibrator(list.data = empty_data, columns = columns, times = times_of_interest))))
 })

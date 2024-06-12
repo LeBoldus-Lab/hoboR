@@ -10,7 +10,7 @@
 #' @param calibrationfile A data frame representing the calibration file.
 #' @param w.var A vector of column indices to be used in the correction.
 #' @param times A vector of times for which the data is relevant.
-#' @param threshold A vector of threshold values for passing the correction test.
+#' @param threshold A vector of threshold values for passing the correction test. The smaller the value the highest precision.
 #' @return A data frame with the differences for data correction, to be used with a corrector.
 #'
 #' @importFrom dplyr group_by
@@ -23,12 +23,13 @@
 #'
 #' calibrationfiles <- read.csv(paste0(path, "your_calibration_file.csv"))
 #'
-#' corrector(list.data, calibrationfiles, w.var = c(2, 7, 12), 
+#' corrector(list.data, calibrationfiles, w.var = c("Temp", "Rain", "RH"), 
 #'           times = c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00"), 
 #'           threshold = c(1, 5, 10))
 #' @export
 
-correction.test <- function(list.data, calibrationfile, w.var = c(2, 7, 12), times = times, threshold = c(1, 5, 10)){
+correction.test <- function(list.data, calibrationfile, w.var = c("Temp", "Rain", "RH"), times = times, threshold = c(1, 5, 10)){
+  
             # Convert times from character to POSIXct UTC times
             time=as.POSIXct(times, tz = "UTC")
             # Subset data by selected times 
@@ -36,10 +37,21 @@ correction.test <- function(list.data, calibrationfile, w.var = c(2, 7, 12), tim
               df[as.POSIXct(df$Date, tz = "UTC") %in% time, ]
             })
             
+            # check if empty
+            if (nrow(y[[1]]) == 0) {
+              stop("Empty input")
+            }
+            # report if variables do not match
+            if (!any(colnames(y[[1]]) %in% c("Date", w.var))){
+            stop("Weather variables do not match")
+            }
+            
             # Correct data with calibration file to each CSV
             z <- split(calibrationfile, seq(nrow(calibrationfile)))
-            new <-  mapply(function(y, z) {
-                            y[,w.var] +  z 
+            new <- mapply(function(y, z) {
+              ss <- y[, w.var]
+              zrow <- z[rep(1, nrow(ss)), ]
+              ss + zrow
             }, y, z, SIMPLIFY = FALSE)
             
             # Subtract base HOBO from other HOBOs for correction
@@ -62,6 +74,10 @@ correction.test <- function(list.data, calibrationfile, w.var = c(2, 7, 12), tim
             result <- apply(res, c(1, 2), function(x) if(x) "passed" else "not passed")
             rownames(result) <- paste0("hobo", 1:nrow(result))
             
-            return(list(result, message == cat(ifelse(all(res), "\033[32mHOBO's passed the test\033[39m\n", 
-                       "\033[31mWarning: Some of your HOBO's did not passed the test.\033[39m\n")))[[1]])
+            # Print message
+            testmessage <- ifelse(all(res), "HOBO's passed the test", "Warning: Some of your HOBO's did not pass the test.")
+            message(testmessage)
+            
+            # result and message
+            return(list(result = result, message = testmessage))
 }

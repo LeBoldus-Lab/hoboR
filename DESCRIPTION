@@ -1,6 +1,6 @@
 Package: hoboR
 Title: Data Analysis and Manipulation of HOBO Weather Stations
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: 
     c(person("Ricardo I", "Alcala Briseno", , "ricardo.alcalabriseno@oregonstate.edu", role = c("aut", "cre")),
 	person("Adam", "Carson",  role = "ctb"),
@@ -14,7 +14,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
-Depends: R (>= 4.0.0)
+Depends: R (>= 4.3.0)
 Imports: 
     dplyr,
     plyr,

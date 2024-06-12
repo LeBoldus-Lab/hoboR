@@ -32,6 +32,8 @@ hobocleaner <- function(file, format = "ymd", na.rm = T){
     return(file) 
   }
   
+  # coerce any Date to Date
+  colnames(temp)[colnames(temp) == grep("Date", colnames(temp), value = TRUE)] <- "Date"
   # if the 'Date' column exists
   if (!"Date" %in% colnames(temp)) {
     stop("Date not found")

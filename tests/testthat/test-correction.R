@@ -1,43 +1,72 @@
 library(hoboR)
 library(testthat)
 
-# Full example 
-path <- "inst/extdata/calibration/"
-# Create an empty list to feed through looping to your data
-pathtoread=calibrationfiles=hobocleaned=data=list()
-folder=paste0(rep("canopy", 24), 1:24)
-for (i in seq_along(folder)){
-  pathtoread[[i]] <- paste0(path, folder[i])
-  # Loading all hobo files
-  calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" ) # channels is a new feature
-  data[[i]] <- hobocleaner(calibrationfiles[[i]], format = "mdy") # change the format to "mdy" if your DateTime format is MM/DD/YYYY
-}  
-times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 
-           "2022-03-22 04:00","2022-03-22 05:00", "2022-03-22 06:00", 
-           "2022-03-22 07:00", "2022-03-22 08:00","2022-03-22 09:00") 
-calibrationmeans <- calibrator(data, columns = c(2,7,12), times = times)
-colnames(calibrationmeans) <- c("Temperature", "RH", "Dew") # Change to fit your weather variables
+# Sample data for testing
+set.seed(123)
+times <- seq(from = as.POSIXct("2023-06-01 00:00:00", tz = "UTC"), 
+             by = "hour", length.out = 10)
+list.data <- list(
+  data.frame(Date = times, Temp = rnorm(10, 20, 1), Rain = rnorm(10, 50, 5), HR = rnorm(10, 90, 10)),
+  data.frame(Date = times, Temp = rnorm(10, 21, 1), Rain = rnorm(10, 55, 5), HR = rnorm(10, 88, 10)),
+  data.frame(Date = times, Temp = rnorm(10, 19, 1), Rain = rnorm(10, 52, 5), HR = rnorm(10, 91, 10))
+)
 
-# files to calibrate
-path_all = "inst/extdata/calibration/files_to_correct"
-files <- list.files(path=path_all, pattern = "\\.csv", full.names = T)
-field <- lapply(files, function(x) {
-  read.csv(x)})
-# file to test
-calibrated <- correction(field, w.var = "FULL", calibrate = calibrationmeans)
 
-test_that("correct hobo data with calibration", {
-  
-  # Check if the result is a data frame
-  expect_true(is.list(calibrated))
-  
-  # Check if the data frame is not empty
-  expect_gt(nrow(calibrated[[1]]), 0)
+calibrate <- data.frame(
+  Temp = c(0.5, -0.5, 1),
+  Rain = c(-2, 1.5, 0.5),
+  HR = c(3, -3, 2)
+)
 
-  # Check column names
-  actual_variables <- colnames(calibrated[[1]])
-  expect_named(calibrated[[1]], actual_variables)
+test_that("correction applies calibration correctly for FULL", {
+  result <- correction(list.data, w.var = "FULL", calibrate = calibrate)
   
-  # Check if the data frame has data loaded from files
-  expect_true(all(file.exists(files)))
+  for (i in seq_along(result)) {
+    expect_equal(result[[i]]$Temp, list.data[[i]]$Temp + calibrate$Temp[i])
+    expect_equal(result[[i]]$Rain, list.data[[i]]$Rain + calibrate$Rain[i])
+    expect_equal(result[[i]]$HR, list.data[[i]]$HR + calibrate$HR[i])
+  }
+})
+
+test_that("correction applies calibration correctly for specific weather variable", {
+  specific_calibration <- 2.5
+  result <- correction(list.data[[1]], w.var = "Temp", calibrate = specific_calibration)
+  
+  expect_equal(result$Temp, list.data[[1]]$Temp + specific_calibration)
+  expect_equal(result$Rain, list.data[[1]]$Rain)
+  expect_equal(result$HR, list.data[[1]]$HR)
+})
+
+test_that("correction handles mismatched weather variables", {
+  calibrate_invalid <- data.frame(
+    WindSpeed = c(1, 2, 3)
+  )
+  
+  expect_warning(correction(list.data, w.var = "FULL", calibrate = calibrate_invalid), "Weather variables do not match")
+})
+
+test_that("correction handles invalid calibration values gracefully", {
+  invalid_calibration <- "invalid"
+  
+  expect_warning(correction(list.data[[1]], w.var = "Temp", calibrate = invalid_calibration), "NAs introduced by coercion")
+})
+
+test_that("correction handles empty data frames", {
+  empty_data <- list(
+    data.frame(Date = as.POSIXct(character()), Temp = numeric(), Rain = numeric(), HR = numeric()),
+    data.frame(Date = as.POSIXct(character()), Temp = numeric(), Rain = numeric(), HR = numeric()),
+    data.frame(Date = as.POSIXct(character()), Temp = numeric(), Rain = numeric(), HR = numeric())
+  )
+  
+  
+  result <- correction(empty_data, w.var = "FULL", calibrate = calibrate)
+  expect_equal(nrow(result[[1]]), 0)
+})
+
+test_that("correction handles missing weather variables", {
+  incomplete_data <- list(
+    data.frame(Date = times, Temp = rnorm(10, 20, 1))
+  )
+  
+  expect_warning(correction(incomplete_data, w.var = "FULL", calibrate = calibrate), "Weather variables do not match")
 })
