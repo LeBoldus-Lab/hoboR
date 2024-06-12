@@ -7,7 +7,7 @@
 correction.test(
   list.data,
   calibrationfile,
-  w.var = c(2, 7, 12),
+  w.var = c("Temp", "Rain", "RH"),
   times = times,
   threshold = c(1, 5, 10)
 )
@@ -21,7 +21,7 @@ correction.test(
 
 \item{times}{A vector of times for which the data is relevant.}
 
-\item{threshold}{A vector of threshold values for passing the correction test.}
+\item{threshold}{A vector of threshold values for passing the correction test. The smaller the value the highest precision.}
 }
 \value{
 A data frame with the differences for data correction, to be used with a corrector.
@@ -36,7 +36,7 @@ path <- "~/Desktop/testsky/calibration/originalfiles/"
 
 calibrationfiles <- read.csv(paste0(path, "your_calibration_file.csv"))
 
-corrector(list.data, calibrationfiles, w.var = c(2, 7, 12), 
+corrector(list.data, calibrationfiles, w.var = c("Temp", "Rain", "RH"), 
           times = c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00"), 
           threshold = c(1, 5, 10))
 }

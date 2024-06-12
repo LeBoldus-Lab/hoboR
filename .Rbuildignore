@@ -2,3 +2,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 paper/
+docs/
+R/sampling.trends.R
+R/samplingrates.R

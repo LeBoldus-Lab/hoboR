@@ -1,6 +1,6 @@
 Package: hoboR
 Title: Data Analysis and Manipulation of HOBO Weather Stations
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: 
     c(person("Ricardo I", "Alcala Briseno", , "ricardo.alcalabriseno@oregonstate.edu", role = c("aut", "cre")),
 	person("Adam", "Carson",  role = "ctb"),

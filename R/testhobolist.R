@@ -14,7 +14,16 @@
 #' @export
 
 testhobolist <- function(data, times){
-        x <- lapply(data, function(x)  as.POSIXct(x$Date, tz="UTC") %in% as.POSIXct(times, tz="UTC"))
+  
+        # as time
+        time <- as.POSIXct(times, tz = "UTC")
+      
+        # report if variables do not match
+        if (!any(data[[1]]$Date %in% time)){
+          stop("The specified time ranges do not match any entries")
+        }
+        # add results
+        x <- lapply(data, function(x)  as.POSIXct(x$Date, tz="UTC") %in% time)
         y <- lapply(x, function(y) table(y))
         results <- do.call(rbind, y)
         results[,1] <- results[,1]+results[,2]
