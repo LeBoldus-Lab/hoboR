@@ -28,16 +28,16 @@ hoborange <- function(data, start = "1910-09-16 06:00", end = "1920-12-01 12:00"
   end <- try(as.POSIXct(end, tz = "UTC"), silent = TRUE)
   
   # Convert start and end to POSIXct, assuming data$Date is already in POSIXct or coerced it
-  if ( any(as.Date(data$Date) %in%  start) == F){
+  if ( any(as.Date(data$Date) %in%  as.Date(start)) == F){
     stop("Provided dates are out of range")
   } else {
-  x <- which(as.Date(data$Date) %in% start)|>
+  x <- which(as.Date(data$Date) %in% as.Date(start))|>
         min()
   }
-  if (any(as.Date(data$Date) %in%  end) == F){
+  if (any(as.Date(data$Date) %in%  as.Date(end)) == F){
     stop("Provided dates are out of range")
   } else {
-  y <- which(as.Date(data$Date) %in% end) |>
+  y <- which(as.Date(data$Date) %in% as.Date(end)) |>
         max()
   }
   

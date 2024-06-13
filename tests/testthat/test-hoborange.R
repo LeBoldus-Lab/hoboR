@@ -9,13 +9,13 @@ df <- data.frame(
 )
 
 test_that("hoborange subsets data correctly within date range", {
-  result <- hoborange(df, start = "2010-01-01 00:00", end = "2013-01-01 00:00")
+  result <- hoborange(df, start = "2010-01-01 00:00:00", end = "2013-01-01 00:00:00")
   expect_equal(nrow(result), 3)
   expect_equal(result$Temperature, c(15.5, 16.2, 14.8))
 })
 
 test_that("hoborange handles dates out of range", {
-  expect_error(hoborange(df, start = "2010-01-01 01:00", end = "2022-01-01 00:00"), "Provided dates are out of range")
+  expect_error(hoborange(df, start = "2010-01-01 01:00", end = "2022-01-01 01:00"), "Provided dates are out of range")
 })
 
 test_that("hoborange handles invalid date formats", {
