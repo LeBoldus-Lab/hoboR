@@ -27,4 +27,4 @@ Imports:
     scales
 Suggests: testthat
 URL: https://www.r-project.org, https://leboldus-lab.github.io/hoboR/
-BugReports:https://github.com/LeBoldus-Lab/hoboR/issues
+BugReports: https://github.com/LeBoldus-Lab/hoboR/issues

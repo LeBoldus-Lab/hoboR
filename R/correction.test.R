@@ -49,12 +49,10 @@ correction.test <- function(list.data, calibrationfile, w.var = c("Temp", "Rain"
             }
             
             # Correct data with calibration file to each CSV
-            z <- split(calibrationfile, seq(nrow(calibrationfile)))
+            # z <- split(calibrationfile, seq(nrow(calibrationfile)))
             new <- mapply(function(y, z) {
               ss <- y[, w.var]
-              zrow <- z[rep(1, nrow(ss)), ]
-              ss + zrow
-            }, y, z, SIMPLIFY = FALSE)
+            }, y, SIMPLIFY = FALSE)
             
             # Subtract base HOBO from other HOBOs for correction
             base <- y[[1]][,w.var]
