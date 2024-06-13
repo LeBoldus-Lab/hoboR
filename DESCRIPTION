@@ -1,6 +1,6 @@
 Package: hoboR
-Title: Data Analysis and Manipulation of HOBO Weather Stations
-Version: 1.0.6
+Title: An R package to summarize and manipulate weather station data
+Version: 1.0.7
 Authors@R: 
     c(person("Ricardo I", "Alcala Briseno", , "ricardo.alcalabriseno@oregonstate.edu", role = c("aut", "cre")),
 	person("Adam", "Carson",  role = "ctb"),
@@ -10,7 +10,7 @@ Authors@R:
 	person("Jared M", "LeBoldus",  role = "ctb"))
 Author: Ricardo I Alcala Briseno [aut, cre], Adam Carson [ctb], Yung-Hsiang Lan [ctb], Ebba Peterson [ctb], Niklaus J Grunwald [ctb], Jared M LeBoldus [ctb]
 Maintainer: Ricardo I Alcala Briseno <ricardo.alcalabriseno@oregonstate.edu>
-Description: Provides function to load, clean and summarize data from HOBO weather stations.
+Description: Provides function to load, clean and summarize HOBO weather station data.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
