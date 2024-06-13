@@ -14,6 +14,7 @@
 
 #' @importFrom tidyr separate
 #' @importFrom utils read.csv
+#' @importFrom stats setNames
 #' @examples 
 #' \dontrun{
 #' path_to_csvs <- '/mydirectory/myfiles.csv/'
@@ -60,7 +61,7 @@ hobinder <- function(path, channels = "OFF", ...){
   }
   
   # cleaning and formating 
-  hobos <- Map(setNames, hobos, col.names)
+  hobos <- Map(stats::setNames, hobos, col.names)
   hobo <- reshape::merge_all(hobos, keep.all = T)
   hobo[,1] <- rownames(hobo)
   return(hobo[, !is.na(colnames(hobo))])

@@ -14,7 +14,7 @@
 #' @importFrom purrr is_empty 
 #' @importFrom dplyr group_by mutate select
 #' @importFrom lubridate ymd
-#' @importFrom stats sd na.omit setNames
+#' @importFrom stats sd na.omit
 #' @examples 
 #' \dontrun{
 #' samples <- read.cv(sampling.data)
