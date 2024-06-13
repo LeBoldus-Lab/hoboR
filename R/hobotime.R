@@ -25,7 +25,7 @@
 
 utils::globalVariables(c("Date"))
 
-hobotime <- function(data, summariseby = "5 mins", na.rm = TRUE, na.action = TRUE){
+hobotime <- function(data, summariseby = "5 mins", na.rm = TRUE, na.action = na.omit){
   # check Date
   if (!"Date" %in% colnames(data)) {
     stop("Date not found")

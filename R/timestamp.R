@@ -34,14 +34,18 @@
 utils::globalVariables(c("Date", "y"))
 
 timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 100, na.rm = T, plot = TRUE, var = "Temp") {
+  # if data frame is empty
+  if (nrow(data) == 0) {
+    stop("Empty input")
+  }
   stamptime <- as.POSIXct(stamp, format = "%Y-%m-%d %H:%M", tz = "UTC")
   range <- seq(from = stamptime, by = lubridate::duration(by), length.out = days )
   # select range
   if (!lubridate::is.Date(as.Date(stamptime))) {
-    warning("value is not a Date")
+    stop("value is not a Date")
   } else {
     if (!any(data$Date == stamptime)) {
-      warning("Date out of range")
+      stop("Date out of range")
     } else {
       sstamp <- data[data$Date %in% range, ]
     }

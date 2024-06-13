@@ -47,10 +47,10 @@ test_that("timestamp handles plot = FALSE", {
 
 test_that("timestamp handles empty data frame", {
   empty_df <- data.frame(Date = as.POSIXct(character()), Temp = numeric(), Humidity = numeric(), Rain = numeric())
-  expect_warning(timestamp(empty_df, stamp = "2023-06-01 01:00:00", by = "24 hours", days = 2, na.rm = TRUE, plot = FALSE, var = "Temp"))
+  expect_error(timestamp(empty_df, stamp = "2023-06-01 01:00:00", by = "24 hours", days = 2, na.rm = TRUE, plot = FALSE, var = "Temp"), "Empty input")
 })
 
 test_that("timestamp handles timestamp out of range", {
-  expect_warning(timestamp(df, stamp = "2025-06-01 00:00", by = "24 hours", days = 2, na.rm = TRUE, plot = FALSE, var = "Temp"), "Date out of range")
+  expect_error(timestamp(df, stamp = "2025-06-01 00:00", by = "24 hours", days = 2, na.rm = TRUE, plot = FALSE, var = "Temp"), "Date out of range")
 })
 
