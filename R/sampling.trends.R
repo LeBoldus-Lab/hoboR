@@ -14,7 +14,7 @@
 #' @importFrom purrr is_empty 
 #' @importFrom dplyr group_by mutate select
 #' @importFrom lubridate ymd
-#' @importFrom stats sd na.omit  
+#' @importFrom stats sd na.omit setNames
 #' @examples 
 #' \dontrun{
 #' samples <- read.cv(sampling.data)
@@ -59,7 +59,7 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
                                                 yes = round(mean(rango$x.Wetness), round), 
                                                  no = round(mean(rango$x.Wetness, na.rm = na.rm), round))),
                           # round(mean(rango$x.Wetness), round),
-                        se.wet = round(sd(rango$x.Wetness, na.rm = na.rm)/
+                        se.wet = round(stats::sd(rango$x.Wetness, na.rm = na.rm)/
                                          # sqrt(length(na.omit(rango$x.Wetness))), round),
                                          sqrt(ifelse(test = isFALSE(na.rm) == T, 
                                                 yes = length(rango$x.Wetness), 
@@ -68,7 +68,7 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
                                                 yes = round(mean(rango$x.Temp), round), 
                                                  no = round(mean(rango$x.Temp, na.rm = na.rm),  round))),
                           # round(mean(rango$x.Temp), round),
-                        se.temp = round(sd(rango$x.Temp, na.rm = na.rm)/
+                        se.temp = round(stats::sd(rango$x.Temp, na.rm = na.rm)/
                                           # sqrt(length(na.omit(rango$x.Temp))), round),
                                           sqrt(ifelse(test = isFALSE(na.rm) == T, 
                                                       yes = length(rango$x.Temp), 
@@ -79,7 +79,7 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
                                               yes = round(mean(rango$x.RH), round), 
                                                no = round(mean(rango$x.RH, na.rm = na.rm), round))),
                           #round(mean(rango$x.RH), round),
-                        se.RH = round(sd(rango$x.RH, na.rm = na.rm)/
+                        se.RH = round(stats::sd(rango$x.RH, na.rm = na.rm)/
                                         #sqrt(length(rango$x.RH)), round),
                                           sqrt(ifelse(test = isFALSE(na.rm) == T, 
                                                        yes = length(rango$x.RH), 
@@ -88,7 +88,7 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
                         mean.max.rain = max(rango$sum.Rain, na.rm = na.rm),
                         mean.min.rain = min(rango$sum.Rain, na.rm = na.rm),
                         mean.rain = round(mean(rango$sum.Rain, na.rm = na.rm), round),
-                        sd.rain = round(sd(rango$sum.Rain, na.rm = na.rm)), #/
+                        sd.rain = round(stats::sd(rango$sum.Rain, na.rm = na.rm)), #/
                                           # sqrt(length(na.omit(rango$x.Rain))), round),
                                           # sqrt(ifelse(test = isFALSE(na.rm) == T, 
                                           #            yes = length(rango$x.Rain), 
