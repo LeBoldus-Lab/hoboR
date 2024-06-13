@@ -3,7 +3,7 @@
 ^\.Rproj\.user$
 ^\.Rhistory$
 ^\.gitignore$
-^\.git$
+^\.git$/
 ^\.DS_Store$
 ^paper/
 ^docs/
