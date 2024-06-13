@@ -16,7 +16,8 @@ test_that("load hobo data with multiple files", {
   expect_true(is.data.frame(hobofiles))
   
   # Check if the data frame is not empty
-  expect_gt(nrow(hobofiles), 0)
+  n <- nrow(hobofiles)
+  expect_gt(n, 0)
   
   # Check if the data frame has expected columns
   expect_named(hobofiles, c("X", "Date", "Wetness", "Temp", "RH", "Rain"))
