@@ -1,5 +1,5 @@
 library(testthat)
-library(lubridate)
+library(hoboR)
 library(dplyr)
 
 # Sample data for testing
@@ -9,7 +9,7 @@ df <- data.frame(
     '2023-06-02 00:00:00', '2023-06-02 01:00:00', '2023-06-02 02:00:00'
   )),
   Temp = c(15, 16, 15.5, 17, 18, 17.5),
-  Rain = c(0, 1, 0, 2, 1, 1),
+  Rain = c(0, 1, 0, 2, 1, 1)
   )
 
 test_that("meanhobo calculates means and standard deviations correctly", {
@@ -47,3 +47,4 @@ test_that("meanhobo handles different time intervals", {
   expect_equal(nrow(result), 6)
   expect_equal(result$x.Temp, c(15, 16, 15.5, 17, 18, 17.5))
 })
+
