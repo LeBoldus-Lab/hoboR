@@ -1,6 +1,6 @@
 Package: hoboR
 Title: Data Analysis and Manipulation of HOBO Weather Stations
-Version: 1.0.5
+Version: 1.0.6
 Authors@R: 
     c(person("Ricardo I", "Alcala Briseno", , "ricardo.alcalabriseno@oregonstate.edu", role = c("aut", "cre")),
 	person("Adam", "Carson",  role = "ctb"),
@@ -26,5 +26,5 @@ Imports:
     purrr,
     scales
 Suggests: testthat
-URL: https://www.r-project.org, https://leboldus-lab.github.io/hoboR
-BugReports: https://github.com/LeBoldus-Lab/hoboR/issues
+URL: https://www.r-project.org, https://leboldus-lab.github.io/hoboR/
+BugReports:https://github.com/LeBoldus-Lab/hoboR/issues
