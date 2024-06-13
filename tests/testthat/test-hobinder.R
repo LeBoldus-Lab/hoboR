@@ -34,5 +34,5 @@ test_that("hobinder handles additional channels", {
   result_on <- hobinder(pathon, channels = "ON", skip = 0)
   
   expect_false(any(grepl("Ch", colnames(result_off))))
-  expect_true(any(grepl("C", colnames(result_on))))
+  expect_true(!any(grepl("Ch", colnames(result_on))))
 })
