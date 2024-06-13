@@ -3,9 +3,6 @@
 \name{hobocorrelations}
 \alias{hobocorrelations}
 \title{Correlation plot for variables within a time range}
-\usage{
-hobocorrelations(data, summariseby = "month", by = "mean", na.rm = FALSE)
-}
 \arguments{
 \item{data}{A data frame with the HOBO data and a \code{Date} column}
 

@@ -4,7 +4,7 @@
 #' HOBO software
 #' 
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
-#' 
+#' @name timestamp
 #' @param data A data frame with the HOBO data and a `Date` column
 #' @param stamp Provide a date
 #' @param by Provide the interval date to present (e.g., "24 hours")
@@ -29,6 +29,8 @@
 #' timestamp <- timestamp(cleaned, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 100, na.rm = TRUE, plot = TRUE, var = "Temp")
 
 #' @export 
+
+utils::globalVariables(c("Date", "y"))
 
 timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 100, na.rm = T, plot = TRUE, var = "Temp") {
   stamptime <- as.POSIXct(stamp, format = "%Y-%m-%d %H:%M", tz = "UTC")

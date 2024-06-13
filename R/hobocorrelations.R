@@ -4,7 +4,7 @@
 #' HOBO software
 #' 
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
-#' 
+#' @name hobocorrelations
 #' @param data A data frame with the HOBO data and a `Date` column
 #' @param summariseby Provide the interval date to present (e.g., "month")
 #' @param by Summary function for aggregation (e.g., "mean")
@@ -13,6 +13,7 @@
 #' 
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot geom_tile scale_fill_gradient2 theme_minimal labs
+#' @importFrom stats aggregate
 #' 
 #' @examples 
 #' files <- hobinder(path)
@@ -23,6 +24,7 @@
 #' 
 #' @export
 
+utils::globalVariables(c("Var1", "Var2", "value", "Date"))
 
 hobocorrelations <- function(data, summariseby = "month", by = "mean", na.rm = FALSE){
   # if data frame is empty

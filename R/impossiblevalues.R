@@ -7,9 +7,11 @@
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' @param data Cleaned hobo data frame from `original csv` or `hobocleaner` and `hobotime`
 #' @param showrows Number of rows to show for maximum values, default is 10
+#' @param ... arguments to be passed to methods
 #' @return Gives the rows with impossible values
 #' 
 #' @importFrom dplyr group_by
+#' @importFrom utils head tail
 #'
 #' @examples 
 #' data <- hobocleaner(loadAllcsvs)

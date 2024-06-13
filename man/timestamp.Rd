@@ -3,17 +3,6 @@
 \name{timestamp}
 \alias{timestamp}
 \title{Timestamp for Specific Intervals}
-\usage{
-timestamp(
-  data,
-  stamp = "yyyy/mm/dd: ss",
-  by = "24 hours",
-  days = 100,
-  na.rm = T,
-  plot = TRUE,
-  var = "Temp"
-)
-}
 \arguments{
 \item{data}{A data frame with the HOBO data and a \code{Date} column}
 

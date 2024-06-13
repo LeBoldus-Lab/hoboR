@@ -14,7 +14,7 @@
 #' @importFrom purrr is_empty 
 #' @importFrom dplyr group_by mutate select
 #' @importFrom lubridate ymd
-
+#' @importFrom utils sd na.omit 
 #' @examples 
 #' samples <- read.cv(sampling.data)
 #'

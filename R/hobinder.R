@@ -8,13 +8,14 @@
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' @param path select the path to the directory with the csv files
 #' @param channels turn on or off additional channels in HOBO data logger, default "OFF"
+#' @param ... arguments to be passed to methods
 #'
-#' @return large csv file
-#' 
-#' @importFrom tidyr separate
+#' @return large csv file 
 
+#' @importFrom tidyr separate
+#' @importFrom utils read.csv
 #' @examples 
-#' path_to_csvs <- '~mydirectory/myfiles.csv/'
+#' path_to_csvs <- '/mydirectory/myfiles.csv/'
 #'
 #' loadAllcsvs <- hobinder(path_to_csvs)
 #'

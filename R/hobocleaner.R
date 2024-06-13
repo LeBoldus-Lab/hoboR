@@ -13,6 +13,7 @@
 #' 
 #' @importFrom lubridate mdy_hms ymd_hms dmy_hms
 #' @importFrom dplyr arrange
+#' @importFrom utils capture.output
 #'
 #' @examples 
 #' path_to_csvs <- "path/to/hobo.csv"

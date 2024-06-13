@@ -10,6 +10,8 @@ hobinder(path, channels = "OFF", ...)
 \item{path}{select the path to the directory with the csv files}
 
 \item{channels}{turn on or off additional channels in HOBO data logger, default "OFF"}
+
+\item{...}{arguments to be passed to methods}
 }
 \value{
 large csv file
@@ -20,7 +22,7 @@ adding file names as metadata for each .csv file and cleans the data
 from duplicates creating a continuous file from all .csv's
 }
 \examples{
-path_to_csvs <- '~mydirectory/myfiles.csv/'
+path_to_csvs <- '/mydirectory/myfiles.csv/'
 
 loadAllcsvs <- hobinder(path_to_csvs)
 

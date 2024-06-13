@@ -3,9 +3,6 @@
 \name{hobotime}
 \alias{hobotime}
 \title{Summarise HOBO data by time intervals}
-\usage{
-hobotime(data, summariseby = "5 mins", na.rm = TRUE, ...)
-}
 \arguments{
 \item{data}{a data frame with the hobo data and a \code{Date} column}
 
@@ -14,6 +11,8 @@ hobotime(data, summariseby = "5 mins", na.rm = TRUE, ...)
 \item{na.rm}{logical vector TRUE or FALSE}
 
 \item{na.action}{na.omit remove rows with NA's, na.pass keeps NA's}
+
+\item{...}{arguments to be passed to methods}
 }
 \value{
 a data frame summarized by minutes

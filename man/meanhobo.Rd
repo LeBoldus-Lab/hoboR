@@ -3,11 +3,10 @@
 \name{meanhobo}
 \alias{meanhobo}
 \title{mean HOBO data in CSV format}
-\usage{
-meanhobo(data, summariseby = "24 hours", na.rm = T, minmax = F)
-}
 \arguments{
-\item{data}{cleaned hobo data frame from \code{hobocleaner}}
+\item{data}{cleaned hobo data frame from \code{hobocleaner}i}
+
+\item{summarisedby}{select a time interval 60 min, 24 hours, 1 day}
 
 \item{na.rm}{TRUE or FALSE to remove NAs, TRUE is default}
 

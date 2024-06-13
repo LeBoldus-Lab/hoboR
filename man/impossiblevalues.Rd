@@ -10,6 +10,8 @@ impossiblevalues(data, showrows = 10, ...)
 \item{data}{Cleaned hobo data frame from \verb{original csv} or \code{hobocleaner} and \code{hobotime}}
 
 \item{showrows}{Number of rows to show for maximum values, default is 10}
+
+\item{...}{arguments to be passed to methods}
 }
 \value{
 Gives the rows with impossible values

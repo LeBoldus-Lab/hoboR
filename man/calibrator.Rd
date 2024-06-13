@@ -4,12 +4,16 @@
 \alias{calibrator}
 \title{Calibrator HOBO data in CSV format}
 \usage{
-calibrator(list.data = data, columns = c(2, 7, 12), times = times, round = 7)
+calibrator(list.data, columns = c(2, 7, 12), times, round = 7)
 }
 \arguments{
-\item{a}{list containing the HOBO csv files}
+\item{list.data}{A list containing the HOBO CSV files.}
 
-\item{select}{the times in a vector of dates to be included in the calibration process}
+\item{columns}{The columns to be used for calibration.}
+
+\item{times}{The times in a vector of dates to be included in the calibration process.}
+
+\item{round}{The number of decimal places to round the results to.}
 }
 \value{
 a data frame with the difrences for data correction, to use with corrector
@@ -18,7 +22,7 @@ a data frame with the difrences for data correction, to use with corrector
 Calculates the difference between HOBO devices under controlled conditions. This additive function calculates the difference among hobo loggers using a base correction to HOBO loggers.
 }
 \examples{
-path = "~/Desktop/testsky/calibration/originalfiles/"
+path = "/Desktop//calibration/files/"
 file.exists(path)
 folder=paste0(rep("canopy", 24), 1:24)
 a=b=d=list()

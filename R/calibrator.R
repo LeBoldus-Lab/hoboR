@@ -3,19 +3,18 @@
 #' 
 #' Calculates the difference between HOBO devices under controlled conditions. This additive function calculates the difference among hobo loggers using a base correction to HOBO loggers.
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
-#' @param a list containing the HOBO csv files
-#' @param select the times in a vector of dates to be included in the calibration process
-#'
+#' @param list.data A list containing the HOBO CSV files.
+#' @param columns The columns to be used for calibration.
+#' @param times The times in a vector of dates to be included in the calibration process.
+#' @param round The number of decimal places to round the results to.
 #' @return a data frame with the difrences for data correction, to use with corrector
 #' 
-#' @importFrom dplyr group_by
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
+#' @importFrom dplyr group_by mutate
 #' @importFrom lubridate as_datetime
 
 
 #' @examples 
-#' path = "~/Desktop/testsky/calibration/originalfiles/"
+#' path = "/Desktop//calibration/files/"
 
 #'file.exists(path)
 
@@ -33,17 +32,14 @@
 
 #' @export
 
-calibrator <- function(list.data=data, columns= c(2, 7, 12), times = times, round = 7){
+calibrator <- function(list.data, columns= c(2, 7, 12), times, round = 7){
   # from character to UTC times
   time=as.POSIXct(times, tz = "UTC")
   # subset by times of interest
   x <- lapply(list.data, function(df) {
     df[as.POSIXct(df$Date, tz = "UTC") %in% time, ]
   })
-  # get the base columns - probably to remove
-  # base <- lapply(x, function(df){
-  #   df[1,columns]
-  # })
+  # get the base columns
   base <- x[[1]][,columns]
   # subsampling only columns of interest
   sall <- lapply(x, function(df){
@@ -53,8 +49,7 @@ calibrator <- function(list.data=data, columns= c(2, 7, 12), times = times, roun
   corr <- lapply(sall, function(df){
     tryCatch({ base - df
     }, error = function(cond) {
-      # This function is executed if an error occurs
-      # Check if the error message matches the specific case you're interested in
+      # This execute an error
       if(grepl("‘-’ only defined for equally-sized data frames", cond$message)) {
         warning("Input Error: Attempting to subtract data frames of unequal size. 
                 Please make sure all hobo files have the same number of records.")

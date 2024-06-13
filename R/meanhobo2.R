@@ -3,7 +3,9 @@
 #' 
 #' Functions that gets the summary statistics by summarizing by date the cleaned data downloaded from the HOBO software
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
-#' @param data cleaned hobo data frame from `hobocleaner`
+#' @name meanhobo
+#' @param data cleaned hobo data frame from `hobocleaner`i
+#' @param summarisedby select a time interval 60 min, 24 hours, 1 day 
 #' @param na.rm TRUE or FALSE to remove NAs, TRUE is default
 #' @param minmax TRUE or FALSE to retain min and max temperatures
 #' @return smaller data frame with means and standard deviation
@@ -12,6 +14,7 @@
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
 #' @importFrom lubridate as_datetime
+#' @importFrom utils capture.output
 #' 
 #' @examples 
 #' hoboclean <- hobocleaner(loadAllcsvs)
@@ -19,6 +22,8 @@
 #' hobomeans <- meanhobo(cleanedcsv)
 
 #' @export
+
+utils::globalVariables("Date")
 
 meanhobo <-  function(data, summariseby = "24 hours", na.rm = T, minmax=F){
   # if data frame is empty
