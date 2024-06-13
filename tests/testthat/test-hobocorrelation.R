@@ -1,5 +1,5 @@
 library(testthat)
-library(hobor)
+library(hoboR)
 
 # Sample data for testing
 df <- data.frame(
@@ -48,5 +48,7 @@ test_that("hobocorrelations handles single row data frame", {
     Humidity = 50,
     Rain = 0
   )
+  result_hour <- hobocorrelations(single_row_df, summariseby = "hour", by = mean, na.rm = TRUE)
+  
   expect_s3_class(result_hour, "ggplot")
 })
