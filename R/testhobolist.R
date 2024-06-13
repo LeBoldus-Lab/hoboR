@@ -9,8 +9,9 @@
 #' @return a data frame with the total entries and the count of entries present in each data set
 #' 
 #' @examples 
+#' \dontrun{
 #' data <- testhobolist(data, times)
-
+#' }
 #' @export
 
 testhobolist <- function(data, times){

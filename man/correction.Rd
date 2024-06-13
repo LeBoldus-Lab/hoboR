@@ -21,11 +21,13 @@ Additive function to calculate the difference among hobo loggers to calibrate
 using a base correction to the data
 }
 \examples{
+\dontrun{
 path = "~/Desktop/testsky/calibration/originalfiles/"
 
 filestocorrect <- calibritor(calibrationfiles)
 
 calibratedfiles <- correction(data, calibration, calibrate=)
+}
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

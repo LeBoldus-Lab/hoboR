@@ -22,12 +22,13 @@
 #' @importFrom ggplot2 ggplot geom_line scale_y_continuous ggtitle theme scale_x_datetime theme_bw
 #' 
 #' @examples 
-#' files <- hobinder(path)
+#' \dontrun{
+#' files <- hobinder()
 #'
 #' cleaned <- hobocleaner(files, format = "ymd")
 #' 
 #' timestamp <- timestamp(cleaned, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 100, na.rm = TRUE, plot = TRUE, var = "Temp")
-
+#' }
 #' @export 
 
 utils::globalVariables(c("Date", "y"))

@@ -19,9 +19,11 @@ smaller data frame with means and standard deviation
 Functions that gets the summary statistics by summarizing by date the cleaned data downloaded from the HOBO software
 }
 \examples{
+\dontrun{
 hoboclean <- hobocleaner(loadAllcsvs)
 
 hobomeans <- meanhobo(cleanedcsv)
+}
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

@@ -8,7 +8,7 @@ Authors@R:
 	person("Ebba", "Peterson", role = "ctb"),
 	person("Niklaus J", "Grunwald",  role = "ctb"),
 	person("Jared M", "LeBoldus",  role = "ctb"))
-Author: Ricardo I Alcala Briseno, Adam Carson, Yung-Hsiang, Ebba Peterson, Niklaus J Grunwald, Jared M LeBoldus
+Author: Ricardo I Alcala Briseno [aut, cre], Adam Carson [ctb], Yung-Hsiang Lan [ctb], Ebba Peterson [ctb], Niklaus J Grunwald [ctb], Jared M LeBoldus [ctb]
 Maintainer: Ricardo I Alcala Briseno <ricardo.alcalabriseno@oregonstate.edu>
 Description: Provides function to load, clean and summarize data from HOBO weather stations.
 License: MIT + file LICENSE
@@ -18,15 +18,11 @@ RoxygenNote: 7.3.1
 Depends: R (>= 4.3.0)
 Imports: 
     dplyr,
-    plyr,
     lubridate,
     reshape,
     reshape2,
     ggplot2,
-    readr,
     tidyr,
-    stringr,
-    tibble,
     purrr,
     scales
 Suggests: testthat

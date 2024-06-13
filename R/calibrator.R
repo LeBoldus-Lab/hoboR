@@ -14,22 +14,23 @@
 
 
 #' @examples 
-#' path = "/Desktop//calibration/files/"
-
-#'file.exists(path)
-
-#'folder=paste0(rep("canopy", 24), 1:24)
-
-#'a=b=d=list()
-
-#'for (i in seq_along(folder)){
-#'  a[[i]] <- paste0(path, folder[i])
-#'  b[[i]] <- hobinder(as.character(a[i]), channels = "ON" )
-#'  d[[i]] <- hobocleaner(b[[i]], format = "ymd")
-#'}
-
+#' \dontrun{
+#' path ="/Desktop//calibration/files/"
+#'
+#' file.exists(path)
+#'
+#' folder=paste0(rep("canopy", 24), 1:24)
+#'
+#' a=b=d=list()
+#'
+#' for (i in seq_along(folder)){
+#'   a[[i]] <- paste0(path, folder[i])
+#'   b[[i]] <- hobinder(as.character(a[i]), channels = "ON" )
+#'   d[[i]] <- hobocleaner(b[[i]], format = "ymd")
+#' }
+#'
 #' data.calibrated <- calibritor(calibrationfiles)
-
+#' }
 #' @export
 
 calibrator <- function(list.data, columns= c(2, 7, 12), times, round = 7){
@@ -50,7 +51,7 @@ calibrator <- function(list.data, columns= c(2, 7, 12), times, round = 7){
     tryCatch({ base - df
     }, error = function(cond) {
       # This execute an error
-      if(grepl("‘-’ only defined for equally-sized data frames", cond$message)) {
+      if(grepl("'-' only defined for equally-sized data frames", cond$message)) {
         warning("Input Error: Attempting to subtract data frames of unequal size. 
                 Please make sure all hobo files have the same number of records.")
       } else {

@@ -14,12 +14,12 @@
 #' @importFrom lubridate as_datetime
 #'
 #' @examples 
+#' \dontrun{
 #' samples <- read.cvs(sampling.data)
 #'
 #' site.ranges <- ho.range(samples, start = "1910/09/16",  end = "1920/12/01")
-#'
+#' }
 #' @export
-#' 
 
 hoborange <- function(data, start = "1910-09-16 06:00", end = "1920-12-01 12:00", na.rm = T ){
 

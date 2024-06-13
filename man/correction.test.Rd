@@ -32,6 +32,7 @@ and using it as a base correction. It's designed to adjust HOBO data based
 on calibration files and specified thresholds.
 }
 \examples{
+\dontrun{
 path <- "~/Desktop/testsky/calibration/originalfiles/"
 
 calibrationfiles <- read.csv(paste0(path, "your_calibration_file.csv"))
@@ -39,6 +40,7 @@ calibrationfiles <- read.csv(paste0(path, "your_calibration_file.csv"))
 corrector(list.data, calibrationfiles, w.var = c("Temp", "Rain", "RH"), 
           times = c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00"), 
           threshold = c(1, 5, 10))
+}           
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

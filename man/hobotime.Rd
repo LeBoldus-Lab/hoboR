@@ -22,9 +22,11 @@ This function calculates hobo weather by minutes
 HOBO software
 }
 \examples{
+\dontrun{
 hobocleaned <- hobocleaner(files, format = "ymd")
 
 hobosubset <- hobotime(cleaned, summariseby = 5, na.rm = TRUE, na.action = na.pass)
+}
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

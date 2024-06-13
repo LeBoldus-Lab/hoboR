@@ -14,8 +14,9 @@
 #' @importFrom purrr is_empty 
 #' @importFrom dplyr group_by mutate select
 #' @importFrom lubridate ymd
-#' @importFrom utils sd na.omit 
+#' @importFrom stats sd na.omit  
 #' @examples 
+#' \dontrun{
 #' samples <- read.cv(sampling.data)
 #'
 #' hobomeans <- meanhobo(hobocleaned)
@@ -23,8 +24,7 @@
 #' samp.rates <- samplingrates(samples, n = 9, round = 2)
 #'
 #' Site <- sampling.trends(hobomeans, samp.rates, round = 2)
-
-#' @export
+#' }
 
 sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
   rows = NULL

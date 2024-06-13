@@ -20,11 +20,13 @@ Returns the numbers of  NAs for the impossible values
 HOBO software
 }
 \examples{
+\dontrun{
 df <- hobocleaner(df)
 
 NAdata <- sensorfailures(data, condition = "<", threshold = c(0, 0), w.var = c("Rain", "Wetness"))
 
 count_NAs(NAdata, "Temp")
+}
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

@@ -1,4 +1,4 @@
-#'
+
 #' HOBO count NA's
 #'  
 #' This function counts the number of NA's in your data set
@@ -11,14 +11,14 @@
 #' 
 #' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
 #' 
-#'  
 #' @examples 
+#' \dontrun{
 #' df <- hobocleaner(df)
 #' 
 #' NAdata <- sensorfailures(data, condition = "<", threshold = c(0, 0), w.var = c("Rain", "Wetness"))
 #' 
 #' count_NAs(NAdata, "Temp")
-
+#' }
 #' @export
 
 count_NAs <- function(data, w.var) {

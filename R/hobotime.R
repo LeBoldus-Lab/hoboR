@@ -16,10 +16,11 @@
 #' @importFrom stats aggregate
 #'
 #' @examples 
+#' \dontrun{
 #' hobocleaned <- hobocleaner(files, format = "ymd")
 #'
 #' hobosubset <- hobotime(cleaned, summariseby = 5, na.rm = TRUE, na.action = na.pass)
-
+#' }
 #' @export
 
 utils::globalVariables(c("Date"))

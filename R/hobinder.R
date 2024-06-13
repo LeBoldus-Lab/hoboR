@@ -15,12 +15,13 @@
 #' @importFrom tidyr separate
 #' @importFrom utils read.csv
 #' @examples 
+#' \dontrun{
 #' path_to_csvs <- '/mydirectory/myfiles.csv/'
 #'
 #' loadAllcsvs <- hobinder(path_to_csvs)
 #'
 #' finalcsv <- hobocleaner(loadAllcsvs)
-#' 
+#' }
 #' @export
   
 hobinder <- function(path, channels = "OFF", ...){

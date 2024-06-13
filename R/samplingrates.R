@@ -13,15 +13,15 @@
 #' 
 #' @importFrom dplyr group_by mutate select
 #' @importFrom lubridate ymd
-#' @importFrom utils na.omit
+#' @importFrom stats na.omit
 #'
 #' @examples 
+#' \dontrun{
 #' samples <- read.cv(sampling.data)
 #'
 #' samp.rates <- samplingrates(samples)
+#' }
 
-#' @export
- 
 utils::globalVariables(c("Sites", "Location", "Tree", "Treatment", "Leaves.Out", "Count", "Week", "Leaves.In")) 
 
 samplingrates <- function(samples, n, round) {

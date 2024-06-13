@@ -21,10 +21,11 @@ Functions that gets the mean by date of the cleaned data downloaded from the
 HOBO software
 }
 \examples{
+\dontrun{
 data <- hobocleaner(loadAllcsvs)
 
 impossiblevalues(data, showrows = 10)
-
+}
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

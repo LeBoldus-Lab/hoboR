@@ -28,10 +28,11 @@ This function calculates the means for weather data collected by HOBO loggers
 over a specified date range. It's designed for use with data exported from HOBO software.
 }
 \examples{
+\dontrun{
 samples <- read.cvs(sampling.data)
 
 site.ranges <- ho.range(samples, start = "1910/09/16",  end = "1920/12/01")
-
+}
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

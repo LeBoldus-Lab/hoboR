@@ -13,15 +13,16 @@
 #' 
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot geom_tile scale_fill_gradient2 theme_minimal labs
-#' @importFrom stats aggregate
+#' @importFrom stats aggregate na.omit cor
 #' 
 #' @examples 
+#' \dontrun{
 #' files <- hobinder(path)
 #'
 #' cleaned <- hobocleaner(files, format = "ymd")
 #'
 #' hobocorrelation(cleaned, summariseby = "month", by = "mean", na.rm = FALSE)
-#' 
+#' }
 #' @export
 
 utils::globalVariables(c("Var1", "Var2", "value", "Date"))

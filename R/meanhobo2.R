@@ -17,9 +17,11 @@
 #' @importFrom utils capture.output
 #' 
 #' @examples 
+#' \dontrun{
 #' hoboclean <- hobocleaner(loadAllcsvs)
 #' 
 #' hobomeans <- meanhobo(cleanedcsv)
+#' }
 
 #' @export
 

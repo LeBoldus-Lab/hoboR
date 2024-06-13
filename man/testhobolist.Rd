@@ -18,7 +18,9 @@ a data frame with the total entries and the count of entries present in each dat
 Check if the times date are present in the list of HOBO files
 }
 \examples{
+\dontrun{
 data <- testhobolist(data, times)
+}
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

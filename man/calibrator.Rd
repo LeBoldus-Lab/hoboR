@@ -22,16 +22,23 @@ a data frame with the difrences for data correction, to use with corrector
 Calculates the difference between HOBO devices under controlled conditions. This additive function calculates the difference among hobo loggers using a base correction to HOBO loggers.
 }
 \examples{
-path = "/Desktop//calibration/files/"
+\dontrun{
+path ="/Desktop//calibration/files/"
+
 file.exists(path)
+
 folder=paste0(rep("canopy", 24), 1:24)
+
 a=b=d=list()
+
 for (i in seq_along(folder)){
- a[[i]] <- paste0(path, folder[i])
- b[[i]] <- hobinder(as.character(a[i]), channels = "ON" )
- d[[i]] <- hobocleaner(b[[i]], format = "ymd")
+  a[[i]] <- paste0(path, folder[i])
+  b[[i]] <- hobinder(as.character(a[i]), channels = "ON" )
+  d[[i]] <- hobocleaner(b[[i]], format = "ymd")
 }
+
 data.calibrated <- calibritor(calibrationfiles)
+}
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}

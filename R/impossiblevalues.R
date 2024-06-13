@@ -14,10 +14,11 @@
 #' @importFrom utils head tail
 #'
 #' @examples 
+#' \dontrun{
 #' data <- hobocleaner(loadAllcsvs)
 #'
 #' impossiblevalues(data, showrows = 10)
-#'
+#' }
 #' @export
 
 impossiblevalues <- function(data, showrows = 10, ...){

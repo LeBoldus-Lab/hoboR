@@ -22,11 +22,13 @@ Functions that cleans the original data downloaded from the HOBO software,
 cleans the data and removes duplicates creating a continuous file from all .csv's
 }
 \examples{
+\dontrun{
 path_to_csvs <- "path/to/hobo.csv"
 
 csvs <- hobinder(path_to_csvs)
 
 cleancsvs <- hobocleaner(csvs)
+}
 }
 \author{
 Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
