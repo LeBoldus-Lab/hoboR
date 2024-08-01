@@ -37,7 +37,7 @@ bibliography: paper.bib
 
 # Summary
 
-Meteorological records from weather stations and data loggers can accumulate large datasets. Efforts to create weather station networks, and projects on microclimates and smart agriculture have increased their use `[@:Estevez2011; @Lembrechts2021; @Hachimi2023]`. These large datasets can be difficult to analyze for non-expert users. HOBO (ONSET, United Kingdom) data loggers are among the most popular affordable weather stations and ease of use, but the HOBO graphical interface does not process statistical analysis. To address this, we developed hoboR, an R package for reading, combining, and manipulating CSV files. This package removes redundant data, creates meteorological summaries by time and date, identify sensor failures and out-of-range values, and calculate summary statistics.
+Meteorological records from weather stations and data loggers can accumulate large datasets. Efforts to create weather station networks and smart agriculture have increased their use `[@:Estevez2011; @Lembrechts2021; @Hachimi2023]`. These large datasets can be difficult to analyze. HOBO (ONSET, United Kingdom) data loggers are among the most popular, affordable, and easy to use weather stations. However, the HOBO graphical interface does not conduct statistical analyses. To address this, we developed hoboR, an R package for reading, combining, and manipulating CSV files dowloaded from HOBO weather stations. This package removes redundant data, creates meteorological summaries by time and date, identifies sensor failures, out-of-range values, and calculates summary statistics.
 
 # Statement of need
 
