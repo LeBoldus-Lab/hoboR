@@ -10,15 +10,20 @@ The HOBO files as CSV, time formats accepted: DD/MM/YYYY, MM/DD/YYYY, YY/MM/DD
 
 This project is available on GitHub at `http://github.com/LeBoldus` and can be installed using `devtools`. We are working on a CRAN version.
 
+> For Windows
+'install from R cran', then you need to install from the [Rtools45 installer](https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-6536-6492.exe) or [64-bit ARM Rtools45 installer](https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe).
+
+
 ```R
 install.packages("devtools")
 library("devtools")
 # Installing hoboR through devtools
 devtools::install_github("LeBoldus-Lab/hoboR")
-library(hobor)
+library(hoboR)
 ```
 
-Required dependencies
+
+Required dependencies if not installed
 ```r
 install.packages("dplyr")
 install.packages("plyr")
@@ -30,6 +35,12 @@ install.packages("devtools")
 
 ------ 
 HoboR usage
+
+Download the `csv` files from `inst/extdata/`
+
+```
+path <- "~/inst/exdata"
+```
 
 ```R
 hobofiles <- hobinder(path)
