@@ -88,7 +88,7 @@ hobocleaner <- function(file, format = "ymd", na.rm = T){
   # evaluating command
   dat <- eval(cmd) 
   clean <- dim(dat)[1]
-  message(paste0(" proccesed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
+  message(paste0("processed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
              "\n   total: ", clean, " unique entries \n" ))
   return(dat)
 }
