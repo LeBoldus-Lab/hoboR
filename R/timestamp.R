@@ -1,4 +1,4 @@
-#' Timestamp for Specific Intervals
+ #' Timestamp for Specific Intervals
 #' 
 #' This function provides a time point for a specified number of days.
 #' HOBO software
@@ -47,16 +47,18 @@ timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 10
     if (!any(data$Date == stamptime)) {
       stop("Date out of range")
     } else {
-      sstamp <- data[data$Date %in% range, ]
+      sstamp <- data[as.POSIXct(data$Date) %in% range, ]
     }
   }  
   
-  if (plot) {
+  sstamp$Date <- as.POSIXct(sstamp$Date)
+  
+  if (plot) { 
    toplot <- sstamp |>
-      dplyr::select(Date, y=`var`)
+      dplyr::select(Date, w=all_of(`var`))
    
    # to plot
-  plot <- ggplot2::ggplot(toplot, ggplot2::aes(x = as.POSIXct(Date), y = y )) +
+  plot <- ggplot2::ggplot(toplot, ggplot2::aes(x = as.POSIXct(Date), y = w )) +
        ggplot2::geom_line(alpha = 0.9, color = "orange") +
         ggplot2::scale_y_continuous(name = paste(var, "every", by)) +
         ggplot2::ggtitle(paste(var, "from", as.Date(toplot$Date[1]), 

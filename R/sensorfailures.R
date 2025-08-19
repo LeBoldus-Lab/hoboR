@@ -87,10 +87,14 @@ sensorfailures <- function(data, condition = ">", threshold = c(34, 8), w.var = 
       warning(paste("Column", col, "not found in the dataset. Skipping..."))
     }
   }
-  res <-  count_NAs(data, w.var)
-  cat("Number of NA's removed:\n")
-  sapply(names(res), function(col) {
-    cat(col, ":", res[[col]], "\n")
-  })
+  res <- count_NAs(data, w.var)
+  
+  cat("Detected sensor anomalies:\n")
+  
+  sapply(seq_along(w.var), function(i) {
+    col <- w.var[i]
+    thresh <- threshold[i]
+    cat(sprintf("  - %s (%s %s): %d\n", col, condition, thresh, res[[col]]))  })
   return(data)
 }
+

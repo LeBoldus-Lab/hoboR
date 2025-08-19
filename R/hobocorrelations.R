@@ -42,10 +42,11 @@ hobocorrelations <- function(data, summariseby = "month", by = "mean", na.rm = F
   } else {
     c <- cor(as.matrix(data[,2:ncol(data)]))
   }
+  c[upper.tri(c)] <- NA
   m <- reshape2::melt(c)
   q <- ggplot2::ggplot(m, ggplot2::aes(x = Var1, y = Var2, fill = value)) +
     ggplot2::geom_tile() +
-    ggplot2::scale_fill_gradient2(low = "#0F52BA", high = "#D22B2B", mid = "beige", midpoint = 0) +
+    ggplot2::scale_fill_gradient2(low = "#0F52BA", high = "#D22B2B", mid = "beige", midpoint = 0, na.value = "white") +
     ggplot2::theme_minimal() +
     ggplot2::labs(title = "Correlation Heatmap",
          x = NULL,
