@@ -35,5 +35,5 @@ site.ranges <- ho.range(samples, start = "1910/09/16",  end = "1920/12/01")
 }
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 }

@@ -29,5 +29,5 @@ hobosubset <- hobotime(cleaned, summariseby = 5, na.rm = TRUE, na.action = na.pa
 }
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 }

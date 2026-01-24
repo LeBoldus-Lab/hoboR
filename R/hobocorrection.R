@@ -3,7 +3,7 @@
 #' 
 #' Additive function to calculate the difference among hobo loggers to calibrate
 #' using a base correction to the data
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @param data a list of CVS data containing the hobo 
 #' @param w.var a column to correct the weather variable e.g., Temperature, RH (relative humidity), or FULL, will use the output of calibrator
 #' @param calibrate a value to correct the weather variable, must be numeric or USEFILE, will use the output of calibrator 

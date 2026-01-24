@@ -2,7 +2,7 @@
 #' mean HOBO data in CSV format
 #' 
 #' Functions that gets the summary statistics by summarizing by date the cleaned data downloaded from the HOBO software
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @name meanhobo
 #' @param data cleaned hobo data frame from `hobocleaner`i
 #' @param summarisedby select a time interval 60 min, 24 hours, 1 day 

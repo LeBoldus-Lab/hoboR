@@ -4,7 +4,7 @@
 \alias{hobocleaner}
 \title{Reads HOBO data in CSV format}
 \usage{
-hobocleaner(file, format = "ymd", na.rm = T)
+hobocleaner(file, format = "ymd", na.rm = TRUE)
 }
 \arguments{
 \item{file}{CSV from \code{hobinder}}
@@ -31,5 +31,5 @@ cleancsvs <- hobocleaner(csvs)
 }
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5292@psu.edu}
 }

@@ -4,7 +4,7 @@
 #' This function calculates incidence and rates for baiting 
 #' phytophthora collected on dates for baited and removed leaves
 #' HOBO software
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @param samples a csv with the format 
 #' @param n Mandatory. Specifies the number of replicates of the experiment
 #' @param round Optional. Specifies the number of decimal places for rounding the output.

@@ -2,7 +2,7 @@
 #' Calculate the sampling rates using the baiting incidence and weather data
 #' This function calculates hobo weather means for sampling rates 
 #' Ex: phytophthora collected on dates for baited and removed leaves
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @param hobomeans a data frame with the hobo means 
 #' @param samp.rates a data frame with incidence summary of collected dates 
 #' @param round Optional. Specifies the number of decimal places for rounding the output. 

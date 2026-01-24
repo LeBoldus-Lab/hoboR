@@ -4,7 +4,7 @@
 #' This function calculates the means for weather data collected by HOBO loggers
 #' over a specified date range. It's designed for use with data exported from HOBO software.
 #'
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @param data A data frame containing the HOBO data, including a `Date` column in POSIXct format.
 #' @param start The start of the date range in "yyyy-mm-dd HH:MM" format.
 #' @param end The end of the date range in "yyyy-mm-dd HH:MM" format.

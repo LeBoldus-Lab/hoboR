@@ -35,5 +35,5 @@ timestamp <- timestamp(cleaned, stamp = "yyyy/mm/dd: ss", by = "24 hours", days 
 }
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 }

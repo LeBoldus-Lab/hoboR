@@ -30,5 +30,5 @@ calibratedfiles <- correction(data, calibration, calibrate=)
 }
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 }

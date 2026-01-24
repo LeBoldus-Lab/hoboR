@@ -4,7 +4,7 @@
 #' Functions that gets the mean by date of the cleaned data downloaded from the 
 #' HOBO software
 #'
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @param data Cleaned hobo data frame from `original csv` or `hobocleaner` and `hobotime`
 #' @param showrows Number of rows to show for maximum values, default is 10
 #' @param ... arguments to be passed to methods

@@ -3,7 +3,7 @@
 #'
 #' This function calculates hobo weather by minutes 
 #' HOBO software
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @name hobotime
 #' @param data a data frame with the hobo data and a `Date` column  
 #' @param summariseby a time interval in minmutes

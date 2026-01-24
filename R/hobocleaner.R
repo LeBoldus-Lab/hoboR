@@ -2,7 +2,7 @@
 #' 
 #' Functions that cleans the original data downloaded from the HOBO software,
 #' cleans the data and removes duplicates creating a continuous file from all .csv's
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5292@psu.edu}
 #' 
 #' @param file CSV from `hobinder`
 #' @param format Select the time format, month, day, and year (mdy), year, month, and day (ymd) or
@@ -26,7 +26,7 @@
  
 #' @export
 
-hobocleaner <- function(file, format = "ymd", na.rm = T){
+hobocleaner <- function(file, format = "ymd", na.rm = TRUE){
   temp <- file[,-1]
   
   # if data frame is empty
@@ -90,5 +90,5 @@ hobocleaner <- function(file, format = "ymd", na.rm = T){
   clean <- dim(dat)[1]
   message(paste0("processed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
              "\n   total: ", clean, " unique entries \n" ))
-  return(dat)
+  return(dat) 
 }

@@ -3,7 +3,7 @@
 #' Test HOBO data for calibration
 #' 
 #' Check if the times date are present in the list of HOBO files
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @param data a list of CVS data containing the hobo 
 #' @param times a series of times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00")
 #' @return a data frame with the total entries and the count of entries present in each data set

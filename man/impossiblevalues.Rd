@@ -28,5 +28,5 @@ impossiblevalues(data, showrows = 10)
 }
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 }

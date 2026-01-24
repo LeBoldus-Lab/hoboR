@@ -3,7 +3,7 @@
 #' This function provides a time point for a specified number of days.
 #' HOBO software
 #' 
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @name timestamp
 #' @param data A data frame with the HOBO data and a `Date` column
 #' @param stamp Provide a date

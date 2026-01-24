@@ -13,6 +13,7 @@ This project is available on GitHub at `http://github.com/LeBoldus` and can be i
 > For Windows
 'install from R cran', then you need to install from the [Rtools45 installer](https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-6536-6492.exe) or [64-bit ARM Rtools45 installer](https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe).
 
+> ggplo2 (4.0.1) incompatible with rlang, use ggplot2 4.0.0.
 
 ```R
 install.packages("devtools")
@@ -39,16 +40,20 @@ HoboR usage
 Download the `csv` files from `inst/extdata/`
 
 ```
-path <- "~/inst/exdata"
+path <- "~/directory/csv_files"
 ```
 
 ```R
-hobofiles <- hobinder(path)
+# Important data structure formsy, ypu may need to skip some rows
+#  channels must bet set on OFF, unless you are calibrating [see calibration](https://leboldus-lab.github.io/hoboR//2024/04/05/hobor-calibration.html)
+hobofiles <- hobinder(path, header = T, skip = 1, channels = "OFF") 
 cleanfiles <- hobocleaner(hobofiles, format = "ymd")
+
 # get summary statistics
 hobodata <- meanhobo(cleanfiles, summariseby = "5 mins", na.rm = T)
 ```
-[**Manual**](https://leboldus-lab.github.io/hoboR/)
+
+Read the [**Manual**](https://leboldus-lab.github.io/hoboR/)
 
 
 ## License
