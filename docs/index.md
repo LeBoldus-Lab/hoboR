@@ -130,7 +130,7 @@ plot(cleanfiles$Date, cleanfiles$Temp, type = "s", col = "black",
      ylab = "Temperature (°C)")
 ```
 
-<img src="images/timeintervals.png" alt="weather 3var" style="width: 600px;"/> 
+<img src="images/timeintervals.png" alt="weather 2range" style="width: 600px;"/> 
 
 
 Check the variability every 12 hours, at midnight and noon for 100 days. 
