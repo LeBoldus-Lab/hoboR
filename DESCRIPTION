@@ -1,6 +1,6 @@
 Package: hoboR
 Title: An R package to summarize and manipulate weather station data
-Version: 1.0.8
+Version: 1.0.9
 Authors@R: 
     c(person("Ricardo I", "Alcala Briseno", , "ria5282@psu.edu", role = c("aut", "cre")),
 	person("Adam", "Carson",  role = "ctb"),
@@ -23,8 +23,9 @@ Imports:
     reshape2,
     ggplot2,
     tidyr,
-    purrr,
     scales
-Suggests: testthat
+Suggests: 
+    testthat (>= 3.0.0)
 URL: https://www.r-project.org, https://leboldus-lab.github.io/hoboR/
 BugReports: https://github.com/LeBoldus-Lab/hoboR/issues
+Config/testthat/edition: 3

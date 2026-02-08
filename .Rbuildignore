@@ -7,5 +7,6 @@
 ^\.DS_Store$
 ^paper/
 ^docs/
+^results/
 ^R/sampling\.trends\.R$
 ^R/samplingrates\.R$

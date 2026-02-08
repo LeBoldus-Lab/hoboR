@@ -28,14 +28,19 @@
 #' 
 #' data_clean <- hobocleaner(data)
 #' 
-#' sensorfailures(data, condition = ">", threshold = c(50, 3000, 101), opt = c("Temp", "Rain", "Wetness"))
+#' sensorfailures(data, condition = ">", 
+#'                 threshold = c(50, 3000, 101), 
+#'                 opt = c("Temp", "Rain", "Wetness"))
 #' 
-#' NAdata <- sensorfailures(data, condition = "<", threshold = c(0, 0), opt = c("Rain", "Wetness"))
+#' NAdata <- sensorfailures(data, condition = "<", 
+#'                 threshold = c(0, 0), 
+#'                 opt = c("Rain", "Wetness"))
 #' }
 #' @export
 
 
-sensorfailures <- function(data, condition = ">", threshold = c(34, 8), w.var = c("Temp", "Rain")){
+sensorfailures <- function(data, condition = ">", 
+                           threshold = c(34, 8), w.var = c("Temp", "Rain")){
   if (!all(w.var %in% names(data))) {
     stop("One or more weather variables do not exist")
   }

@@ -34,9 +34,12 @@ correction.test <- function(list.data, calibrationfile, w.var = c("Temp", "Rain"
   
             # Convert times from character to POSIXct UTC times
             time=as.POSIXct(times, tz = "UTC")
+            # format Date
+            list.data <- lapply(list.data, \(x) { names(x)[grep("^Date", names(x))] <- "Date"; x })
+            
             # Subset data by selected times 
             y <- lapply(list.data, function(df) {
-              df[as.POSIXct(df$Date, tz = "UTC") %in% time, ]
+              df[as.POSIXct(df$Date, format = "%m-%d-%Y %H:%M:%S", tz = "UTC") %in% time, ]
             })
             
             # check if empty

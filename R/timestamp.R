@@ -18,8 +18,9 @@
 #' @importFrom lubridate as_datetime
 #' @importFrom lubridate is.Date
 #' @importFrom scales date_format
-#' @importFrom dplyr select
-#' @importFrom ggplot2 ggplot geom_line scale_y_continuous ggtitle theme scale_x_datetime theme_bw
+#' @importFrom dplyr select all_of
+#' @importFrom ggplot2 ggplot geom_line scale_y_continuous ggtitle theme 
+#'              scale_x_datetime theme_bw
 #' 
 #' @examples 
 #' \dontrun{
@@ -27,19 +28,24 @@
 #'
 #' cleaned <- hobocleaner(files, format = "ymd")
 #' 
-#' timestamp <- timestamp(cleaned, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 100, na.rm = TRUE, plot = TRUE, var = "Temp")
+#' timestamp <- timestamp(cleaned, stamp = "yyyy/mm/dd: ss", 
+#'                         by = "24 hours", days = 100, na.rm = TRUE, 
+#'                         plot = TRUE, var = "Temp")
 #' }
 #' @export 
 
-utils::globalVariables(c("Date", "y"))
+utils::globalVariables(c("Date", "w"))
 
-timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 100, na.rm = T, plot = TRUE, var = "Temp") {
+timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", 
+                      days = 100, na.rm = T, plot = TRUE, var = "Temp") {
   # if data frame is empty
   if (nrow(data) == 0) {
     stop("Empty input")
   }
   stamptime <- as.POSIXct(stamp, format = "%Y-%m-%d %H:%M", tz = "UTC")
-  range <- seq(from = stamptime, by = lubridate::duration(by), length.out = days )
+  range <- seq(from = stamptime, 
+               by = lubridate::duration(by), 
+               length.out = days )
   # select range
   if (!lubridate::is.Date(as.Date(stamptime))) {
     stop("value is not a Date")
@@ -55,7 +61,7 @@ timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 10
   
   if (plot) { 
    toplot <- sstamp |>
-      dplyr::select(Date, w=all_of(`var`))
+      dplyr::select(Date, w=dplyr::all_of(`var`))
    
    # to plot
   plot <- ggplot2::ggplot(toplot, ggplot2::aes(x = as.POSIXct(Date), y = w )) +
@@ -63,8 +69,10 @@ timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", days = 10
         ggplot2::scale_y_continuous(name = paste(var, "every", by)) +
         ggplot2::ggtitle(paste(var, "from", as.Date(toplot$Date[1]), 
           "to", as.Date(toplot$Date[days]))) +
-        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)) +
-        ggplot2::scale_x_datetime(labels = scales::date_format(format = "%Y-%m-%d"))+
+        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, 
+                                                           hjust = 1)) +
+        ggplot2::scale_x_datetime(
+                  labels = scales::date_format(format = "%Y-%m-%d"))+
         ggplot2::theme_bw() 
   } else {
   print("No plot")

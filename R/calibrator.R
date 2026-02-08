@@ -36,9 +36,12 @@
 calibrator <- function(list.data, columns= c(2, 7, 12), times, round = 7){
   # from character to UTC times
   time=as.POSIXct(times, tz = "UTC")
+  # format Date
+  list.data <- lapply(list.data, \(x) { names(x)[grep("^Date", names(x))] <- "Date"; x })
+  
   # subset by times of interest
   x <- lapply(list.data, function(df) {
-    df[as.POSIXct(df$Date, tz = "UTC") %in% time, ]
+    df[as.POSIXct(df$Date,  format = "%m-%d-%Y %H:%M:%S", tz = "UTC") %in% time, ]
   })
   # get the base columns
   base <- x[[1]][,columns]

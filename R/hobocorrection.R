@@ -24,14 +24,16 @@
 #' }
 #' @export
 
-correction<- function(data, w.var = "FULL", calibrate =calibrate){
+correction <- function(data, w.var = "FULL", calibrate =calibrate){
   if ( w.var == "FULL" ) {
     if ( all(colnames(calibrate) %in% colnames(data[[1]]))){
     # For each row in calibration results apply the correction to the data list 
       vars <- colnames(calibrate)
       cmd <- capture.output(
         cat( "lapply(seq_along(data), function(i) {\n",
-              paste0("data[[i]]$",vars, " <- data[[i]]$", vars, " + calibrate[i,", "'",vars,"'", "]\n"),
+             "  if (!is.data.frame(data[[i]])) data[[i]] <- as.data.frame(data[[i]])\n", 
+              paste0("data[[i]]$", vars, " <- data[[i]]$", vars, 
+                     " + calibrate[i, '", vars, "' ]\n"),
              "return(data[[i]])})"
              )
            )
@@ -43,7 +45,8 @@ correction<- function(data, w.var = "FULL", calibrate =calibrate){
       warning("Weather variables do not match")
     }
   } else {
-    data[w.var] <- data[w.var] + as.numeric(calibrate)
+    data[[w.var]] <- data[[w.var]] + as.numeric(calibrate)
     return(data)
     }
 } 
+
