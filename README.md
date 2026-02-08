@@ -8,10 +8,10 @@ The HOBO files as CSV, time formats accepted: DD/MM/YYYY, MM/DD/YYYY, YY/MM/DD
 
 ## Install using devtools
 
-This project is available on GitHub at `http://github.com/LeBoldus` and can be installed using `devtools`. We are working on a CRAN version.
+This project is available on GitHub at `https://github.com/LeBoldus-Lab/hoboR` and can be installed using `devtools`. CRAN pending.
 
 > For Windows
-'install from R cran', then you need to install from the [Rtools45 installer](https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-6536-6492.exe) or [64-bit ARM Rtools45 installer](https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe).
+'install from R cran', then you need to install from the [Rtools45 installer](https://cran.r-project.org/bin/windows/Rtools/) or [64-bit ARM Rtools45 installer](https://cran.r-project.org/bin/windows/Rtools/).
 
 > ggplo2 (4.0.1) incompatible with rlang, use ggplot2 4.0.0.
 
@@ -66,5 +66,5 @@ United States Department of Agriculture Co-operative agreement number: 58-2072-1
 
 ## Contributors and Errors
 
-Welcome pull submission through Github [pull request](https://help.github.com/articles/using-pull-requests/).
-Please report errors or requests using GitHub [issues](https://github.com/LeBoldus_Lab/hoboR/issues).
+Welcome pull submission through Github [pull request](https://github.com/LeBoldus-Lab/hoboR/pulls).
+Please report errors or requests using GitHub [issues](https://github.com/LeBoldus-Lab/hoboR/issues).

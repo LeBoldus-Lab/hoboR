@@ -1,7 +1,3 @@
-library(hoboR)
-library(testthat)
-
-
 test_that("hobocleaner removes duplicates and formats date correctly", {
   df <- data.frame(
     X = c(1, 2, 3, 4),

@@ -1,7 +1,3 @@
-library(hoboR)
-library(testthat)
-
-
 test_that("hobinder handles invalid paths", {
   expect_message(hobinder("invalid_path"), "No such files in directory")
 })

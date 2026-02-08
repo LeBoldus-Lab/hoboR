@@ -1,6 +1,3 @@
-library(testthat)
-library(hoboR)
-
 # Sample data for testing
 df <- data.frame(
   Date = as.POSIXct(c(
