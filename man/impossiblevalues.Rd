@@ -7,7 +7,8 @@
 impossiblevalues(data, showrows = 10, ...)
 }
 \arguments{
-\item{data}{Cleaned hobo data frame from \verb{original csv} or \code{hobocleaner} and \code{hobotime}}
+\item{data}{Cleaned hobo data frame from \verb{original csv} or \code{hobocleaner}
+and \code{hobotime}}
 
 \item{showrows}{Number of rows to show for maximum values, default is 10}
 
@@ -21,11 +22,15 @@ Functions that gets the mean by date of the cleaned data downloaded from the
 HOBO software
 }
 \examples{
-\dontrun{
-data <- hobocleaner(loadAllcsvs)
 
-impossiblevalues(data, showrows = 10)
-}
+path <- system.file("extdata", package = "hoboR")
+
+csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+
+cleancsv <- hobocleaner(csvfiles)
+
+impossiblevalues(cleancsv, showrows = 10)
+
 }
 \author{
 Ricardo I Alcala Briseno, \email{ria5282@psu.edu}

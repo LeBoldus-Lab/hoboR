@@ -36,10 +36,13 @@ Returns the data with NAs for the impossible values
 HOBO software
 }
 \examples{
-\dontrun{
-data <- hobinder(loadAllcsvs)
 
-data_clean <- hobocleaner(data)
+path <- system.file("extdata", package = "hoboR")
+
+csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+
+data <- hobocleaner(csvfiles)
+
 
 sensorfailures(data, condition = ">", 
                 threshold = c(50, 3000, 101), 
@@ -48,8 +51,8 @@ sensorfailures(data, condition = ">",
 NAdata <- sensorfailures(data, condition = "<", 
                 threshold = c(0, 0), 
                 opt = c("Rain", "Wetness"))
-}
+
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 }

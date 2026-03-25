@@ -1,5 +1,3 @@
-library(hoboR)
-library(testthat)
 
 # Sample data for testing
 set.seed(123)

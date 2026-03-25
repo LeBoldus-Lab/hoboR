@@ -20,13 +20,15 @@ This function provides a time point for a specified number of days.
 HOBO software
 }
 \examples{
-\dontrun{
-files <- hobinder(path)
 
-cleaned <- hobocleaner(files, format = "ymd")
+path <- system.file("extdata", package = "hoboR")
+
+csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+
+cleaned <- hobocleaner(csvfiles, format = "ymd")
 
 hobocorrelation(cleaned, summariseby = "month", by = "mean", na.rm = FALSE)
-}
+
 }
 \author{
 Ricardo I Alcala Briseno, \email{ria5282@psu.edu}

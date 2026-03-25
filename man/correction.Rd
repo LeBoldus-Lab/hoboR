@@ -21,13 +21,26 @@ Additive function to calculate the difference among hobo loggers to calibrate
 using a base correction to the data
 }
 \examples{
-\dontrun{
-path = "~/Desktop/testsky/calibration/originalfiles/"
 
-filestocorrect <- calibritor(calibrationfiles)
+path <- system.file("extdata/calibration", package = "hoboR")
 
-calibratedfiles <- correction(data, calibration, calibrate=)
-}
+path=paste0(path, "/canopy1")
+
+hobofiles <- hobinder(path, header = TRUE, skip = 0, channels = "ON")
+ 
+# Double-check you enter the same date format
+times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 
+            "2022-03-22 04:00","2022-03-22 05:00", "2022-03-22 06:00", 
+            "2022-03-22 07:00", "2022-03-22 08:00","2022-03-22 09:00") 
+            
+variables <- c(3, 8, 13) # Select the weather variables 
+
+meanvars <- calibrator(data, columns = variables, times = times)
+                
+calibratedfiles <- correction(data = data, 
+                              w.var = "FULL", 
+                              calibrate = meanvars)
+
 }
 \author{
 Ricardo I Alcala Briseno, \email{ria5282@psu.edu}

@@ -20,14 +20,18 @@ Returns the numbers of  NAs for the impossible values
 HOBO software
 }
 \examples{
-\dontrun{
-df <- hobocleaner(df)
+path <- system.file("extdata", package = "hoboR")
 
-NAdata <- sensorfailures(data, condition = "<", threshold = c(0, 0), w.var = c("Rain", "Wetness"))
+csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
 
+cleancsv <- hobocleaner(csvfiles)
+
+NAdata <- sensorfailures(cleancsv, condition = "<", threshold = c(0, 0), 
+                            w.var = c("Rain", "Wetness"))
+                            
 count_NAs(NAdata, "Temp")
-}
+
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 }

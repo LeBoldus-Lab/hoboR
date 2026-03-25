@@ -22,14 +22,14 @@ adding file names as metadata for each .csv file and cleans the data
 from duplicates creating a continuous file from all .csv's
 }
 \examples{
-\dontrun{
-path_to_csvs <- '/mydirectory/myfiles.csv/'
 
-loadAllcsvs <- hobinder(path_to_csvs)
+path <- system.file("extdata", package = "hoboR")
 
-finalcsv <- hobocleaner(loadAllcsvs)
-}
+csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+
+head(csvfiles)
+
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 }

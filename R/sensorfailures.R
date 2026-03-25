@@ -18,15 +18,18 @@
 
 #' @return Returns the data with NAs for the impossible values
 #' 
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' 
 #' @importFrom dplyr group_by
 #' 
 #' @examples 
-#' \dontrun{
-#' data <- hobinder(loadAllcsvs)
 #' 
-#' data_clean <- hobocleaner(data)
+#' path <- system.file("extdata", package = "hoboR")
+#' 
+#' csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+#' 
+#' data <- hobocleaner(csvfiles)
+#' 
 #' 
 #' sensorfailures(data, condition = ">", 
 #'                 threshold = c(50, 3000, 101), 
@@ -35,7 +38,7 @@
 #' NAdata <- sensorfailures(data, condition = "<", 
 #'                 threshold = c(0, 0), 
 #'                 opt = c("Rain", "Wetness"))
-#' }
+#'
 #' @export
 
 
@@ -94,12 +97,13 @@ sensorfailures <- function(data, condition = ">",
   }
   res <- count_NAs(data, w.var)
   
-  cat("Detected sensor anomalies:\n")
+  message("Detected sensor anomalies:\n")
   
   sapply(seq_along(w.var), function(i) {
     col <- w.var[i]
     thresh <- threshold[i]
-    cat(sprintf("  - %s (%s %s): %d\n", col, condition, thresh, res[[col]]))  })
+    message(sprintf("  - %s (%s %s): %d\n", col, 
+                    condition, thresh, res[[col]]))  })
   return(data)
 }
 

@@ -5,7 +5,7 @@
 #' and using it as a base correction. It's designed to adjust HOBO data based
 #' on calibration files and specified thresholds.
 #' 
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @param list.data A list of CSV data frames containing the HOBO data.
 #' @param calibrationfile A data frame representing the calibration file.
 #' @param w.var A vector of column indices to be used in the correction.
@@ -19,27 +19,44 @@
 #' @importFrom lubridate as_datetime
 #'
 #' @examples 
-#' \dontrun{
-#' path <- "~/Desktop/testsky/calibration/originalfiles/"
+#' 
+#' path <- system.file("extdata/calibration", package = "hoboR")
+#' 
+#' path=paste0(path, "/canopy1")
+#' 
+#' hobofiles <- hobinder(path, header = TRUE, skip = 0, channels = "ON")
+#'  
+#' # Double-check you enter the same date format
+#' times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 
+#'             "2022-03-22 04:00","2022-03-22 05:00", "2022-03-22 06:00", 
+#'             "2022-03-22 07:00", "2022-03-22 08:00","2022-03-22 09:00") 
+#'             
+#' variables <- c(3, 8, 13) # Select the weather variables 
+#' 
+#' meanvars <- calibrator(data, columns = variables, times = times)
+#'  
+#' correction.test(list.data = data, calibrationfile = meanvars, 
+#'                 w.var = c(3, 8, 13), 
+#'                 times = times, 
+#'                 threshold = c(1, 5, 10))
 #'
-#' calibrationfiles <- read.csv(paste0(path, "your_calibration_file.csv"))
-#'
-#' corrector(list.data, calibrationfiles, w.var = c("Temp", "Rain", "RH"), 
-#'           times = c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00"), 
-#'           threshold = c(1, 5, 10))
-#' }           
 #' @export
 
-correction.test <- function(list.data, calibrationfile, w.var = c("Temp", "Rain", "RH"), times = times, threshold = c(1, 5, 10)){
+correction.test <- function(list.data, calibrationfile, 
+                            w.var = c("Temp", "Rain", "RH"), 
+                            times = times, threshold = c(1, 5, 10)){
   
             # Convert times from character to POSIXct UTC times
             time=as.POSIXct(times, tz = "UTC")
             # format Date
-            list.data <- lapply(list.data, \(x) { names(x)[grep("^Date", names(x))] <- "Date"; x })
+            list.data <- lapply(list.data, \(x) { 
+                              names(x)[grep("^Date", names(x))] <- "Date"; x })
             
             # Subset data by selected times 
             y <- lapply(list.data, function(df) {
-              df[as.POSIXct(df$Date, format = "%m-%d-%Y %H:%M:%S", tz = "UTC") %in% time, ]
+              df[as.POSIXct(df$Date, 
+                              #format = "%m-%d-%Y %H:%M:%S", 
+                              tz = "UTC") %in% time, ]
             })
             
             # check if empty
@@ -68,17 +85,21 @@ correction.test <- function(list.data, calibrationfile, w.var = c("Temp", "Rain"
               x <- sapply(df, mean, na.rm = TRUE) 
               })
             
-            res <- mapply(function(a, b){
-              sapply(a, function(a){
-                    ( b * -1 < a) | (a > b)
-                  })
-              }, res, threshold) |> t()
-          
-            result <- apply(res, c(1, 2), function(x) if(x) "passed" else "not passed")
+            # Prepare a list for comparison
+            thres <- rep(list(threshold), length(res))
+            # Compare both     
+            pass <- mapply(function(a, b){
+                  ( b * -1 < a) | (a > b)
+            }, res, thres) |> t()
+            
+            result <- apply(pass, c(1, 2), function(x) 
+                                              if(x) "passed" else "not passed")
             rownames(result) <- paste0("hobo", 1:nrow(result))
             
             # Print message
-            testmessage <- ifelse(all(res), "HOBO's passed the test", "Warning: Some of your HOBO's did not pass the test.")
+            testmessage <- ifelse(all(pass), 
+                                  "HOBO's passed the test", 
+                        "Warning: Some of your HOBO's did not pass the test.")
             message(testmessage)
             
             # result and message

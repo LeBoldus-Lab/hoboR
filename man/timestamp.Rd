@@ -3,6 +3,17 @@
 \name{timestamp}
 \alias{timestamp}
 \title{Timestamp for Specific Intervals}
+\usage{
+timestamp(
+  data,
+  stamp = "yyyy/mm/dd: ss",
+  by = "24 hours",
+  days = 100,
+  na.rm = TRUE,
+  plot = TRUE,
+  var = "Temp"
+)
+}
 \arguments{
 \item{data}{A data frame with the HOBO data and a \code{Date} column}
 
@@ -26,15 +37,17 @@ This function provides a time point for a specified number of days.
 HOBO software
 }
 \examples{
-\dontrun{
-files <- hobinder()
+
+path <- system.file("extdata", package = "hoboR")
+
+files <- hobinder(path, header = TRUE, skip = 1, channels = "OFF")
 
 cleaned <- hobocleaner(files, format = "ymd")
 
 timestamp <- timestamp(cleaned, stamp = "yyyy/mm/dd: ss", 
                         by = "24 hours", days = 100, na.rm = TRUE, 
                         plot = TRUE, var = "Temp")
-}
+
 }
 \author{
 Ricardo I Alcala Briseno, \email{ria5282@psu.edu}

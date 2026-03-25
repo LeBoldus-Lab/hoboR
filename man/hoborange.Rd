@@ -6,9 +6,9 @@
 \usage{
 hoborange(
   data,
-  start = "1910-09-16 06:00",
-  end = "1920-12-01 12:00",
-  na.rm = T
+  start = "2022-08-05 11:59",
+  end = "2022-10-24 23:59",
+  na.rm = TRUE
 )
 }
 \arguments{
@@ -28,11 +28,18 @@ This function calculates the means for weather data collected by HOBO loggers
 over a specified date range. It's designed for use with data exported from HOBO software.
 }
 \examples{
-\dontrun{
-samples <- read.cvs(sampling.data)
 
-site.ranges <- ho.range(samples, start = "1910/09/16",  end = "1920/12/01")
-}
+path <- system.file("extdata", package = "hoboR")
+
+csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+
+cleancsv <- hobocleaner(csvfiles)
+
+site.ranges <- hoborange(cleancsv, start = "2022-08-05 11:59",  
+                          end = "2022-10-24 23:59")
+
+head(site.ranges)
+
 }
 \author{
 Ricardo I Alcala Briseno, \email{ria5282@psu.edu}

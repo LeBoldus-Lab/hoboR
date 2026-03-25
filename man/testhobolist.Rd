@@ -7,12 +7,14 @@
 testhobolist(data, times)
 }
 \arguments{
-\item{data}{a list of CVS data containing the hobo}
+\item{data}{a list of CVS data containing hobo data}
 
-\item{times}{a series of times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00")}
+\item{times}{a series of times <- c("2022-03-22 01:00", "2022-03-22 02:00",
+"2022-03-22 03:00")}
 }
 \value{
-a data frame with the total entries and the count of entries present in each data set
+a data frame with the total entries and the count of entries present
+in each data set
 }
 \description{
 Check if the times date are present in the list of HOBO files

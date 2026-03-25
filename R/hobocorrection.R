@@ -15,13 +15,26 @@
 #' @importFrom lubridate as_datetime
 #'
 #' @examples 
-#' \dontrun{
-#' path = "~/Desktop/testsky/calibration/originalfiles/"
+#' 
+#' path <- system.file("extdata/calibration", package = "hoboR")
+#' 
+#' path=paste0(path, "/canopy1")
+#' 
+#' hobofiles <- hobinder(path, header = TRUE, skip = 0, channels = "ON")
+#'  
+#' # Double-check you enter the same date format
+#' times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 
+#'             "2022-03-22 04:00","2022-03-22 05:00", "2022-03-22 06:00", 
+#'             "2022-03-22 07:00", "2022-03-22 08:00","2022-03-22 09:00") 
+#'             
+#' variables <- c(3, 8, 13) # Select the weather variables 
+#' 
+#' meanvars <- calibrator(data, columns = variables, times = times)
+#'                 
+#' calibratedfiles <- correction(data = data, 
+#'                               w.var = "FULL", 
+#'                               calibrate = meanvars)
 #'
-#' filestocorrect <- calibritor(calibrationfiles)
-#'
-#' calibratedfiles <- correction(data, calibration, calibrate=)
-#' }
 #' @export
 
 correction <- function(data, w.var = "FULL", calibrate =calibrate){
@@ -31,12 +44,12 @@ correction <- function(data, w.var = "FULL", calibrate =calibrate){
       vars <- colnames(calibrate)
       cmd <- capture.output(
         cat( "lapply(seq_along(data), function(i) {\n",
-             "  if (!is.data.frame(data[[i]])) data[[i]] <- as.data.frame(data[[i]])\n", 
-              paste0("data[[i]]$", vars, " <- data[[i]]$", vars, 
-                     " + calibrate[i, '", vars, "' ]\n"),
-             "return(data[[i]])})"
-             )
-           )
+      "if (!is.data.frame(data[[i]])) data[[i]] <- as.data.frame(data[[i]])\n", 
+            paste0("data[[i]]$", vars, " <- data[[i]]$", vars, 
+                   " + calibrate[i, '", vars, "' ]\n"),
+           "return(data[[i]])})"
+            ) 
+          )
       cmd <- str2expression(cmd)
       # evaluating command
       dat <- eval(cmd)
@@ -49,4 +62,3 @@ correction <- function(data, w.var = "FULL", calibrate =calibrate){
     return(data)
     }
 } 
-

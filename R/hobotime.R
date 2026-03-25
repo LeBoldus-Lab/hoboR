@@ -9,23 +9,26 @@
 #' @param summariseby a time interval in minmutes
 #' @param na.rm logical vector TRUE or FALSE
 #' @param na.action na.omit remove rows with NA's, na.pass keeps NA's 
-#' @param ... arguments to be passed to methods
 #' @return a data frame summarized by minutes  
 #'
 #' @importFrom lubridate as_datetime
 #' @importFrom stats aggregate
 #'
 #' @examples 
-#' \dontrun{
-#' hobocleaned <- hobocleaner(files, format = "ymd")
-#'
-#' hobosubset <- hobotime(cleaned, summariseby = 5, na.rm = TRUE, na.action = na.pass)
-#' }
+#' 
+#' path <- system.file("extdata", package = "hoboR")
+#' 
+#' csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+#' 
+#' subset <- hobotime(csvfiles, summariseby = 5, 
+#'                     na.rm = TRUE, na.action = na.pass)
+#' 
+#' head(subset)
+#' 
 #' @export
 
-utils::globalVariables(c("Date"))
-
-hobotime <- function(data, summariseby = "5 mins", na.rm = TRUE, na.action = na.omit){
+hobotime <- function(data, summariseby = "5 mins", 
+                     na.rm = TRUE, na.action = na.omit){
   # check Date
   if (!"Date" %in% colnames(data)) {
     stop("Date not found")
@@ -45,3 +48,5 @@ hobotime <- function(data, summariseby = "5 mins", na.rm = TRUE, na.action = na.
   data$Date <- lubridate::as_datetime(data$Date)
   return(data)
 }
+
+utils::globalVariables(c("Date"))

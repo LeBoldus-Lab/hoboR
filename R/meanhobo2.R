@@ -17,17 +17,24 @@
 #' @importFrom utils capture.output
 #' 
 #' @examples 
-#' \dontrun{
-#' hoboclean <- hobocleaner(loadAllcsvs)
 #' 
-#' hobomeans <- meanhobo(cleanedcsv)
-#' }
+#' path <- system.file("extdata", package = "hoboR")
+#' 
+#' csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+#' 
+#' cleancsv <- hobocleaner(csvfiles, format = "ymd") 
+#' 
+#' hobodata <- meanhobo(cleanfiles, summariseby = "5 mins", 
+#'                                     na.rm = TRUE, minmax = TRUE)
+#'
 
 #' @export
 
 utils::globalVariables("Date")
 
-meanhobo <-  function(data, summariseby = "24 hours", na.rm = T, minmax=F){
+meanhobo <-  function(data, summariseby = "24 hours", 
+                        na.rm = TRUE, 
+                        minmax = FALSE){
   # if data frame is empty
   if (nrow(data) == 0) {
     warning("Empty input")
@@ -42,9 +49,9 @@ meanhobo <-  function(data, summariseby = "24 hours", na.rm = T, minmax=F){
   n <- 1:(length(cols)-1) 
   m <- cols[1+n]
   pos <- which(m %in% "Rain") 
-  if((length(pos) == 0) == T){pos <-1}
+  if((length(pos) == 0) == TRUE){pos <-1}
   
-  if (minmax == F){
+  if (minmax == FALSE){
     if (m[pos] == "Rain" ){
       operations <- capture.output(
         cat("dplyr::group_by(data, Date) |>",
@@ -53,7 +60,8 @@ meanhobo <-  function(data, summariseby = "24 hours", na.rm = T, minmax=F){
               paste0(
                 paste0("x.", m), " = mean(", m, ", na.rm = ", na.rm, "), ",  
                 paste0("sd.", m), " = sd(", m,", na.rm = ", na.rm, "), ",
-                paste0("sum.", m[pos]), " = sum(", m[pos],", na.rm = ", na.rm, "),"
+                paste0("sum.", m[pos]), " = sum(", m[pos],", na.rm = ", 
+                na.rm, "),"
               ))))
     } else {
       operations <- capture.output(
@@ -74,9 +82,12 @@ meanhobo <-  function(data, summariseby = "24 hours", na.rm = T, minmax=F){
               paste0(
                 paste0("x.", m), " = mean(", m, ", na.rm = ", na.rm, "), ", 
                 paste0("sd.", m), " = sd(", m,", na.rm = ", na.rm, "), ",
-                paste0("sum.", m[pos]), " = sum(", m[pos],", na.rm = ", na.rm, "),",
-                paste0("min.", m[m=="Temp"]), " = min(", m[m=="Temp"], ", na.rm = ", na.rm, "), ",
-                paste0("max.", m[m=="Temp"]), " = max(", m[m=="Temp"], ", na.rm = ", na.rm, "),"
+                paste0("sum.", m[pos]), " = sum(", m[pos],", na.rm = ", 
+                na.rm, "),",
+                paste0("min.", m[m=="Temp"]), " = min(", m[m=="Temp"], 
+                ", na.rm = ", na.rm, "), ",
+                paste0("max.", m[m=="Temp"]), " = max(", m[m=="Temp"], 
+                ", na.rm = ", na.rm, "),"
               ))))
     } else {
       operations <- capture.output(
@@ -86,8 +97,10 @@ meanhobo <-  function(data, summariseby = "24 hours", na.rm = T, minmax=F){
               paste0(
                 paste0("x.", m), " = mean(", m, ", na.rm = ", na.rm, "), ",  
                 paste0("sd.", m), " = sd(", m,", na.rm = ", na.rm, "),",
-                paste0("min.", m[m=="Temp"]), " = min(", m[m=="Temp"], ", na.rm = ", na.rm, "), ",
-                paste0("max.", m[m=="Temp"]), " = max(", m[m=="Temp"], ", na.rm = ", na.rm, "),"
+                paste0("min.", m[m=="Temp"]), " = min(", m[m=="Temp"], 
+                ", na.rm = ", na.rm, "), ",
+                paste0("max.", m[m=="Temp"]), " = max(", m[m=="Temp"], 
+                ", na.rm = ", na.rm, "),"
               ))))
     }
   }

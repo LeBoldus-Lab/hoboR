@@ -16,14 +16,15 @@
 #' @importFrom utils capture.output
 #'
 #' @examples 
-#' \dontrun{
-#' path_to_csvs <- "path/to/hobo.csv"
-#'
-#' csvs <- hobinder(path_to_csvs)
-#'
-#' cleancsvs <- hobocleaner(csvs)
-#' }
- 
+#' 
+#' path <- system.file("extdata", package = "hoboR")
+#' 
+#' csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+#' 
+#' cleancsv <- hobocleaner(csvfiles)
+#' 
+#' head(cleancsv)
+#' 
 #' @export
 
 hobocleaner <- function(file, format = "ymd", na.rm = TRUE){
@@ -36,7 +37,9 @@ hobocleaner <- function(file, format = "ymd", na.rm = TRUE){
   }
   
   # coerce any Date to Date
-  colnames(temp)[colnames(temp) == grep("Date", colnames(temp), value = TRUE)] <- "Date"
+  colnames(temp)[colnames(temp) == grep("Date", 
+                                        colnames(temp), 
+                                        value = TRUE)] <- "Date"
   # if the 'Date' column exists
   if (!"Date" %in% colnames(temp)) {
     stop("Date not found")
@@ -49,19 +52,19 @@ hobocleaner <- function(file, format = "ymd", na.rm = TRUE){
 
   # conditional format    
   if (format == "mdy"){ 
-  # formating hobo dates to UTC mdy
+  # formatting hobo dates to UTC mdy
   temp$Date <- lubridate::mdy_hms(temp$Date, truncated = 1, tz = "UTC")
   }
   if (format == "ymd"){
-  # formating hobo dates to UTC ymd
+  # formatting hobo dates to UTC ymd
   temp$Date <- lubridate::ymd_hms(temp$Date, truncated = 1, tz = "UTC")
   }
   if (format == "dmy"){
-    # formating hobo dates to UTC dmy
+  # formatting hobo dates to UTC dmy
     temp$Date <- lubridate::dmy_hms(temp$Date, truncated = 1, tz = "UTC")
   }  
   if (format == "yymd"){
-  # formating hobo dates to UTC yymd
+  # formatting hobo dates to UTC yymd
   temp$Date <- gsub(":", "-", temp$Date)
   temp$Date <- gsub(" ", "-", temp$Date)
   temp$Date <- gsub("^", "20", temp$Date)
@@ -88,7 +91,8 @@ hobocleaner <- function(file, format = "ymd", na.rm = TRUE){
   # evaluating command
   dat <- eval(cmd) 
   clean <- dim(dat)[1]
-  message(paste0("processed: ", init, " all entries", "\n cleaned: ", init-clean, " duplicated entries", 
+  message(paste0("processed: ", init, " all entries", "\n cleaned: ", 
+                 init-clean, " duplicated entries", 
              "\n   total: ", clean, " unique entries \n" ))
   return(dat) 
 }

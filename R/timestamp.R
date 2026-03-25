@@ -23,21 +23,21 @@
 #'              scale_x_datetime theme_bw
 #' 
 #' @examples 
-#' \dontrun{
-#' files <- hobinder()
+#'
+#' path <- system.file("extdata", package = "hoboR")
+#'
+#' files <- hobinder(path, header = TRUE, skip = 1, channels = "OFF")
 #'
 #' cleaned <- hobocleaner(files, format = "ymd")
 #' 
 #' timestamp <- timestamp(cleaned, stamp = "yyyy/mm/dd: ss", 
 #'                         by = "24 hours", days = 100, na.rm = TRUE, 
 #'                         plot = TRUE, var = "Temp")
-#' }
+#'
 #' @export 
 
-utils::globalVariables(c("Date", "w"))
-
 timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours", 
-                      days = 100, na.rm = T, plot = TRUE, var = "Temp") {
+                      days = 100, na.rm = TRUE, plot = TRUE, var = "Temp") {
   # if data frame is empty
   if (nrow(data) == 0) {
     stop("Empty input")
@@ -48,7 +48,7 @@ timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours",
                length.out = days )
   # select range
   if (!lubridate::is.Date(as.Date(stamptime))) {
-    stop("value is not a Date")
+    stop("Value is not a Date")
   } else {
     if (!any(data$Date == stamptime)) {
       stop("Date out of range")
@@ -75,7 +75,9 @@ timestamp <- function(data, stamp = "yyyy/mm/dd: ss", by = "24 hours",
                   labels = scales::date_format(format = "%Y-%m-%d"))+
         ggplot2::theme_bw() 
   } else {
-  print("No plot")
+  message("No plot")
   }
   return(list(data=sstamp, plot=plot))
 }
+
+utils::globalVariables(c("Date", "w"))

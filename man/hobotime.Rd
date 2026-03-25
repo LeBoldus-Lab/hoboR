@@ -3,6 +3,9 @@
 \name{hobotime}
 \alias{hobotime}
 \title{Summarise HOBO data by time intervals}
+\usage{
+hobotime(data, summariseby = "5 mins", na.rm = TRUE, na.action = na.omit)
+}
 \arguments{
 \item{data}{a data frame with the hobo data and a \code{Date} column}
 
@@ -11,8 +14,6 @@
 \item{na.rm}{logical vector TRUE or FALSE}
 
 \item{na.action}{na.omit remove rows with NA's, na.pass keeps NA's}
-
-\item{...}{arguments to be passed to methods}
 }
 \value{
 a data frame summarized by minutes
@@ -22,11 +23,16 @@ This function calculates hobo weather by minutes
 HOBO software
 }
 \examples{
-\dontrun{
-hobocleaned <- hobocleaner(files, format = "ymd")
 
-hobosubset <- hobotime(cleaned, summariseby = 5, na.rm = TRUE, na.action = na.pass)
-}
+path <- system.file("extdata", package = "hoboR")
+
+csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+
+subset <- hobotime(csvfiles, summariseby = 5, 
+                    na.rm = TRUE, na.action = na.pass)
+
+head(subset)
+
 }
 \author{
 Ricardo I Alcala Briseno, \email{ria5282@psu.edu}

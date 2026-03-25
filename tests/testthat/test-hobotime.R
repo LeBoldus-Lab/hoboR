@@ -1,6 +1,3 @@
-library(hoboR)
-library(testthat)
-library(lubridate)
 
 test_that("hobotime aggregates data by specified time interval", {
   df <- data.frame(
@@ -94,7 +91,7 @@ test_that("hobotime returns correct column types", {
   )
   
   result <- hobotime(df, summariseby = "5 mins")
-  expect_true(is.POSIXt(result$Date))
+  expect_true(lubridate::is.POSIXct(result$Date))
   expect_true(is.numeric(result$Value1))
   expect_true(is.numeric(result$Value2))
   expect_true(is.numeric(result$Value3))

@@ -1,4 +1,5 @@
- q# Sample data for testing
+
+# Sample data for testing
 df <- data.frame(
   Date = as.POSIXct(c("2010-01-01 01:00", "2011-01-01 01:00", "2013-01-01 01:00", "2014-01-01 01:00"), tz = "UTC"),
   Temperature = c(15.5, 16.2, 14.8, 15.0)

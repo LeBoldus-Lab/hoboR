@@ -2,7 +2,7 @@
 #' Calibrator HOBO data in CSV format
 #' 
 #' Calculates the difference between HOBO devices under controlled conditions. This additive function calculates the difference among hobo loggers using a base correction to HOBO loggers.
-#' @author Ricardo I Alcala Briseno, \email{alcalabr@@oregonstate.edu}
+#' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @param list.data A list containing the HOBO CSV files.
 #' @param columns The columns to be used for calibration.
 #' @param times The times in a vector of dates to be included in the calibration process.
@@ -14,7 +14,7 @@
 
 
 #' @examples 
-#' \dontrun{
+#' \donttest{
 #' path ="/Desktop//calibration/files/"
 #'
 #' file.exists(path)
@@ -37,11 +37,13 @@ calibrator <- function(list.data, columns= c(2, 7, 12), times, round = 7){
   # from character to UTC times
   time=as.POSIXct(times, tz = "UTC")
   # format Date
-  list.data <- lapply(list.data, \(x) { names(x)[grep("^Date", names(x))] <- "Date"; x })
+  list.data <- lapply(list.data, \(x) { names(x)[grep("^Date", 
+                                                      names(x))] <- "Date"; x })
   
   # subset by times of interest
   x <- lapply(list.data, function(df) {
-    df[as.POSIXct(df$Date,  format = "%m-%d-%Y %H:%M:%S", tz = "UTC") %in% time, ]
+    df[as.POSIXct(df$Date,  format = "%m-%d-%Y %H:%M:%S", 
+                            tz = "UTC") %in% time, ]
   })
   # get the base columns
   base <- x[[1]][,columns]
@@ -54,9 +56,10 @@ calibrator <- function(list.data, columns= c(2, 7, 12), times, round = 7){
     tryCatch({ base - df
     }, error = function(cond) {
       # This execute an error
-      if(grepl("'-' only defined for equally-sized data frames", cond$message)) {
-        warning("Input Error: Attempting to subtract data frames of unequal size. 
-                Please make sure all hobo files have the same number of records.")
+      if(grepl("'-' only defined for equally-sized data frames", cond$message))
+      {
+      warning("Input Error: Attempting to subtract data frames of unequal size. 
+              Please make sure all hobo files have the same number of records.")
       } else {
         # If it's a different error, redo it
         stop(cond)

@@ -1,6 +1,3 @@
-library(hoboR)
-library(dplyr)
-library(testthat)
 
 # Sample data for testing
 df <- data.frame(

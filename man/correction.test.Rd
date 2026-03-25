@@ -32,16 +32,28 @@ and using it as a base correction. It's designed to adjust HOBO data based
 on calibration files and specified thresholds.
 }
 \examples{
-\dontrun{
-path <- "~/Desktop/testsky/calibration/originalfiles/"
 
-calibrationfiles <- read.csv(paste0(path, "your_calibration_file.csv"))
+path <- system.file("extdata/calibration", package = "hoboR")
 
-corrector(list.data, calibrationfiles, w.var = c("Temp", "Rain", "RH"), 
-          times = c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00"), 
-          threshold = c(1, 5, 10))
-}           
+path=paste0(path, "/canopy1")
+
+hobofiles <- hobinder(path, header = TRUE, skip = 0, channels = "ON")
+ 
+# Double-check you enter the same date format
+times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 
+            "2022-03-22 04:00","2022-03-22 05:00", "2022-03-22 06:00", 
+            "2022-03-22 07:00", "2022-03-22 08:00","2022-03-22 09:00") 
+            
+variables <- c(3, 8, 13) # Select the weather variables 
+
+meanvars <- calibrator(data, columns = variables, times = times)
+ 
+correction.test(list.data = data, calibrationfile = meanvars, 
+                w.var = c(3, 8, 13), 
+                times = times, 
+                threshold = c(1, 5, 10))
+
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 }

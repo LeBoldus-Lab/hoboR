@@ -22,7 +22,7 @@ a data frame with the difrences for data correction, to use with corrector
 Calculates the difference between HOBO devices under controlled conditions. This additive function calculates the difference among hobo loggers using a base correction to HOBO loggers.
 }
 \examples{
-\dontrun{
+\donttest{
 path ="/Desktop//calibration/files/"
 
 file.exists(path)
@@ -41,5 +41,5 @@ data.calibrated <- calibritor(calibrationfiles)
 }
 }
 \author{
-Ricardo I Alcala Briseno, \email{alcalabr@oregonstate.edu}
+Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 }

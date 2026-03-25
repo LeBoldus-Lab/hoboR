@@ -1,10 +1,11 @@
+
 test_that("hobinder handles invalid paths", {
   expect_message(hobinder("invalid_path"), "No such files in directory")
 })
 
 test_that("load hobo data with multiple files", {
   path <- system.file("extdata", package = "hoboR")
-  files <- hobinder(path, skip = 1)
+  files <- hobinder(path, header = TRUE, skip = 1)
   
   # Check if the result is a data frame
   expect_true(is.data.frame(files))
@@ -28,3 +29,4 @@ test_that("hobinder handles additional channels", {
   expect_false(any(grepl("Ch", colnames(result_off))))
   expect_true(!any(grepl("Ch", colnames(result_on))))
 })
+

@@ -1,6 +1,3 @@
-library(hoboR)
-library(ggplot2)
-library(testthat)
 
 # Sample data for testing
 df <- data.frame(
@@ -23,16 +20,16 @@ test_that("timestamp selects data correctly based on the provided timestamp and 
 test_that("timestamp handles na.rm correctly", {
   df_with_na <- df
   df_with_na$Temp[2] <- NA
-  result_na_rm_true <- timestamp(df_with_na, stamp = "2023-06-01 01:00:00", by = "1 hour", days = 2, na.rm = TRUE, plot = FALSE, var = "Temp")
+  expect_message(result_na_rm_true <- timestamp(df_with_na, stamp = "2023-06-01 01:00:00", by = "1 hour", days = 2, na.rm = TRUE, plot = FALSE, var = "Temp"))
   expect_equal(nrow(result_na_rm_true$data), 2)
   expect_equal(result_na_rm_true$data$Temp, c(15, NA))
   
-  result_na_rm_false <- timestamp(df_with_na, stamp = "2023-06-01 01:00:00", by = "1 hours", days = 2, na.rm = FALSE, plot = FALSE, var = "Temp")
+  expect_message(result_na_rm_false <- timestamp(df_with_na, stamp = "2023-06-01 01:00:00", by = "1 hours", days = 2, na.rm = FALSE, plot = FALSE, var = "Temp"))
   expect_true(any(is.na(result_na_rm_false$data$Temp)))
 })
 
 test_that("timestamp correctly interprets the provided timestamp", {
-  result <- timestamp(df, stamp = "2023-06-01 01:00:00", by = "1 hour", days = 2, na.rm = TRUE, plot = FALSE, var = "Temp")
+  expect_message(result <- timestamp(df, stamp = "2023-06-01 01:00:00", by = "1 hour", days = 2, na.rm = TRUE, plot = FALSE, var = "Temp"))
   expect_equal(result$data$Date[1], as.POSIXct("2023-06-01 01:00:00", tz = "UTC"))
 })
 
@@ -42,7 +39,7 @@ test_that("timestamp generates a plot when plot = TRUE", {
 })
 
 test_that("timestamp handles plot = FALSE", {
-  expect_output(timestamp(df, stamp = "2023-06-01 01:00:00", by = "24 hours", days = 2, na.rm = TRUE, plot = FALSE, var = "Temp"), "No plot")
+  expect_message(timestamp(df, stamp = "2023-06-01 01:00:00", by = "24 hours", days = 2, na.rm = TRUE, plot = FALSE, var = "Temp"), "No plot", fixed = TRUE)
 })
 
 test_that("timestamp handles empty data frame", {
