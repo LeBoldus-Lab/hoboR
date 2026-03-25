@@ -117,7 +117,7 @@ legend("topright", legend = c("1 minute", "5 minutes", "60 minutes"),
 
 ```
 
-<img src="images/threetimes.png" alt="weather 3var" style="width: 600px;"/> 
+<img src="images/threetimes.png" alt="weather 3var" style="width: 800px;"/> 
 
 
 If you want to select a time range, you can specify the date intervals using `hoborange`. Just specify the starting and end dates.
@@ -128,9 +128,10 @@ timerange <- hoborange(cleanfiles, start="2022-08-08", end="2022-10-12")
 plot(cleanfiles$Date, cleanfiles$Temp, type = "s", col = "black",
      xlab = "Months",
      ylab = "Temperature (°C)")
+lines(timerange$Date, timerange$Temp, type = "line", col = "red")
 ```
 
-<img src="images/timeintervals.png" alt="weather 2range" style="width: 600px;"/> 
+<img src="images/timeintervals.png" alt="weather 2range" style="width: 800px;"/> 
 
 
 Check the variability every 12 hours, at midnight and noon for 100 days. 
@@ -162,7 +163,7 @@ ggplot(daynight, aes(x = Date, y = Temp, group = Group, color = Group)) +
   theme_minimal()
 ```
 
-<img src="images/hobo-daynight.png" alt="weather 1var" style="width: 600px;"/> 
+<img src="images/hobo-daynight.png" alt="weather 1var" style="width: 800px;"/> 
 
 Fig. 1) Visualization of the summary results calculated with hoboR of the weather recorded between October 2021 and December 2021, in Brookings, Southern Oregon.
 
@@ -183,7 +184,7 @@ ggplot(hobocleaned, aes(x=as.POSIXct(Date))) +
   theme_bw()
 ```
 
-<img src="images/hobo-two-vars.png" alt="weather 2var" style="width: 600px;"/> 
+<img src="images/hobo-two-vars.png" alt="weather 2var" style="width: 800px;"/> 
 
 Fig. 2) Visualization of the summary statistics of two weather variables (temperature and humidity) in Southern Oregon from October to December 2021.
 
