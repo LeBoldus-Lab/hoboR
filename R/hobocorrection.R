@@ -18,9 +18,16 @@
 #' 
 #' path <- system.file("extdata/calibration", package = "hoboR")
 #' 
-#' path=paste0(path, "/canopy1")
+#' folder=paste0(rep("canopy", 5), 1:5)
 #' 
-#' hobofiles <- hobinder(path, header = TRUE, skip = 0, channels = "ON")
+#' pathtoread = data = list()
+#' 
+#' for (i in seq_along(folder)){
+#'   pathtoread[[i]] <- paste0(path, "/",folder[i])
+#'   # Loading all hobo files
+#'   data[[i]] <- hobinder(as.character(pathtoread[i]), header = TRUE, skip = 0,
+#'    channels = "ON" ) # channels is a new feature
+#' }
 #'  
 #' # Double-check you enter the same date format
 #' times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 

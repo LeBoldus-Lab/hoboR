@@ -20,11 +20,12 @@
 #' 
 #' path <- system.file("extdata", package = "hoboR")
 #' 
-#' csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+#' data <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
 #' 
-#' cleancsv <- hobocleaner(csvfiles, format = "ymd") 
-#' 
-#' hobodata <- meanhobo(cleanfiles, summariseby = "5 mins", 
+#' cleandata <- hobocleaner(data, format = "ymd")
+#'  
+#' # this function needs clean data#needs clean data 
+#' hobodata <- meanhobo(cleandata, summariseby = "5 mins", 
 #'                                     na.rm = TRUE, minmax = TRUE)
 #'
 

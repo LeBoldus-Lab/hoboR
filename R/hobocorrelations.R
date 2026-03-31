@@ -24,7 +24,7 @@
 #' 
 #' cleaned <- hobocleaner(csvfiles, format = "ymd")
 #'
-#' hobocorrelation(cleaned, summariseby = "month", by = "mean", na.rm = FALSE)
+#' hobocorrelations(cleaned, summariseby = "month", by = "mean", na.rm = FALSE)
 #' 
 #' @export
 

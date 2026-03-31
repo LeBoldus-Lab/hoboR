@@ -21,15 +21,13 @@
 #' 
 #' cleancsv <- hobocleaner(csvfiles)
 #'
-#' site.ranges <- hoborange(cleancsv, start = "2022-08-05 11:59",  
-#'                           end = "2022-10-24 23:59")
-#' 
-#' head(site.ranges)
+#' site.ranges <- hoborange(cleancsv, start = "2022-08-04 09:05",  
+#'                           end = "2022-10-04 09:05")
 #' 
 #' @export
 
-hoborange <- function(data, start = "2022-08-05 11:59", 
-                      end = "2022-10-24 23:59", 
+hoborange <- function(data, start = "2022-08-04 09:05", 
+                      end = "2022-10-04 09:05", 
                       na.rm = TRUE ){
 
   # convert start and end to POSIXct

@@ -27,7 +27,7 @@ csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF")
 
 cleaned <- hobocleaner(csvfiles, format = "ymd")
 
-hobocorrelation(cleaned, summariseby = "month", by = "mean", na.rm = FALSE)
+hobocorrelations(cleaned, summariseby = "month", by = "mean", na.rm = FALSE)
 
 }
 \author{

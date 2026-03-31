@@ -26,12 +26,12 @@
 #'
 #' path <- system.file("extdata", package = "hoboR")
 #'
-#' files <- hobinder(path, header = TRUE, skip = 1, channels = "OFF")
+#' data <- hobinder(path, header = TRUE, skip = 1, channels = "OFF")
 #'
-#' cleaned <- hobocleaner(files, format = "ymd")
+#' cleandata <- hobocleaner(data, format = "ymd")
 #' 
-#' timestamp <- timestamp(cleaned, stamp = "yyyy/mm/dd: ss", 
-#'                         by = "24 hours", days = 100, na.rm = TRUE, 
+#' datastamp <- timestamp(cleandata, stamp ="2022-08-04 12:00", 
+#'                         by = "1 hour", days = 60, na.rm = TRUE, 
 #'                         plot = TRUE, var = "Temp")
 #'
 #' @export 

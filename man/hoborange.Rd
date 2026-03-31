@@ -6,8 +6,8 @@
 \usage{
 hoborange(
   data,
-  start = "2022-08-05 11:59",
-  end = "2022-10-24 23:59",
+  start = "2022-08-04 09:05",
+  end = "2022-10-04 09:05",
   na.rm = TRUE
 )
 }
@@ -35,10 +35,8 @@ csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF")
 
 cleancsv <- hobocleaner(csvfiles)
 
-site.ranges <- hoborange(cleancsv, start = "2022-08-05 11:59",  
-                          end = "2022-10-24 23:59")
-
-head(site.ranges)
+site.ranges <- hoborange(cleancsv, start = "2022-08-04 09:05",  
+                          end = "2022-10-04 09:05")
 
 }
 \author{

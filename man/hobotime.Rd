@@ -26,10 +26,12 @@ HOBO software
 
 path <- system.file("extdata", package = "hoboR")
 
-csvfiles <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
+data <- hobinder(path, header = TRUE, skip = 1, channels = "OFF") 
 
-subset <- hobotime(csvfiles, summariseby = 5, 
-                    na.rm = TRUE, na.action = na.pass)
+cleandata <- hobocleaner(data, format = "ymd")
+
+# this function needs clean data 
+subset <- hobotime(cleandata,  summariseby = "5 mins", na.rm = TRUE)
 
 head(subset)
 

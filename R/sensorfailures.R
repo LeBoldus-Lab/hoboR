@@ -30,14 +30,13 @@
 #' 
 #' data <- hobocleaner(csvfiles)
 #' 
-#' 
 #' sensorfailures(data, condition = ">", 
 #'                 threshold = c(50, 3000, 101), 
-#'                 opt = c("Temp", "Rain", "Wetness"))
+#'                 w.var = c("Temp", "Rain", "Wetness"))
 #' 
 #' NAdata <- sensorfailures(data, condition = "<", 
 #'                 threshold = c(0, 0), 
-#'                 opt = c("Rain", "Wetness"))
+#'                 w.var = c("Rain", "Wetness"))
 #'
 #' @export
 

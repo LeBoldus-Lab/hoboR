@@ -7,7 +7,7 @@
 correction.test(
   list.data,
   calibrationfile,
-  w.var = c("Temp", "Rain", "RH"),
+  w.var = c(3, 8, 13),
   times = times,
   threshold = c(1, 5, 10)
 )
@@ -21,23 +21,32 @@ correction.test(
 
 \item{times}{A vector of times for which the data is relevant.}
 
-\item{threshold}{A vector of threshold values for passing the correction test. The smaller the value the highest precision.}
+\item{threshold}{A vector of threshold values for passing the correction test.
+The smaller the value the highest precision.}
 }
 \value{
-A data frame with the differences for data correction, to be used with a corrector.
+A data frame with the differences for data correction, to be used
+with a corrector.
 }
 \description{
-This function calculates the difference among HOBO loggers, finding the variance
-and using it as a base correction. It's designed to adjust HOBO data based
-on calibration files and specified thresholds.
+This function calculates the difference among HOBO loggers, finding the
+variance and using it as a base correction. It's designed to adjust HOBO
+data based on calibration files and specified thresholds.
 }
 \examples{
 
 path <- system.file("extdata/calibration", package = "hoboR")
 
-path=paste0(path, "/canopy1")
+folder=paste0(rep("canopy", 5), 1:5)
 
-hobofiles <- hobinder(path, header = TRUE, skip = 0, channels = "ON")
+pathtoread = data = list()
+
+for (i in seq_along(folder)){
+  pathtoread[[i]] <- paste0(path, "/",folder[i])
+  # Loading all hobo files
+  data[[i]] <- hobinder(as.character(pathtoread[i]), header = TRUE, skip = 0,
+   channels = "ON" ) # channels is a new feature
+}
  
 # Double-check you enter the same date format
 times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 
@@ -48,11 +57,10 @@ variables <- c(3, 8, 13) # Select the weather variables
 
 meanvars <- calibrator(data, columns = variables, times = times)
  
-correction.test(list.data = data, calibrationfile = meanvars, 
-                w.var = c(3, 8, 13), 
+correction.test(list.data = data, calibrationfile =  meanvars, 
+                w.var = variables, 
                 times = times, 
                 threshold = c(1, 5, 10))
-
 }
 \author{
 Ricardo I Alcala Briseno, \email{ria5282@psu.edu}

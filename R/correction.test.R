@@ -1,17 +1,19 @@
 
 #' Correction Test for HOBO data from calibrator
 #' 
-#' This function calculates the difference among HOBO loggers, finding the variance
-#' and using it as a base correction. It's designed to adjust HOBO data based
-#' on calibration files and specified thresholds.
+#' This function calculates the difference among HOBO loggers, finding the 
+#' variance and using it as a base correction. It's designed to adjust HOBO 
+#' data based on calibration files and specified thresholds.
 #' 
 #' @author Ricardo I Alcala Briseno, \email{ria5282@psu.edu}
 #' @param list.data A list of CSV data frames containing the HOBO data.
 #' @param calibrationfile A data frame representing the calibration file.
 #' @param w.var A vector of column indices to be used in the correction.
 #' @param times A vector of times for which the data is relevant.
-#' @param threshold A vector of threshold values for passing the correction test. The smaller the value the highest precision.
-#' @return A data frame with the differences for data correction, to be used with a corrector.
+#' @param threshold A vector of threshold values for passing the correction test. 
+#'                  The smaller the value the highest precision.
+#' @return A data frame with the differences for data correction, to be used 
+#'        with a corrector.
 #'
 #' @importFrom dplyr group_by
 #' @importFrom dplyr mutate
@@ -19,12 +21,19 @@
 #' @importFrom lubridate as_datetime
 #'
 #' @examples 
-#' 
+#'
 #' path <- system.file("extdata/calibration", package = "hoboR")
 #' 
-#' path=paste0(path, "/canopy1")
+#' folder=paste0(rep("canopy", 5), 1:5)
 #' 
-#' hobofiles <- hobinder(path, header = TRUE, skip = 0, channels = "ON")
+#' pathtoread = data = list()
+#' 
+#' for (i in seq_along(folder)){
+#'   pathtoread[[i]] <- paste0(path, "/",folder[i])
+#'   # Loading all hobo files
+#'   data[[i]] <- hobinder(as.character(pathtoread[i]), header = TRUE, skip = 0,
+#'    channels = "ON" ) # channels is a new feature
+#' }
 #'  
 #' # Double-check you enter the same date format
 #' times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 
@@ -35,15 +44,14 @@
 #' 
 #' meanvars <- calibrator(data, columns = variables, times = times)
 #'  
-#' correction.test(list.data = data, calibrationfile = meanvars, 
-#'                 w.var = c(3, 8, 13), 
+#' correction.test(list.data = data, calibrationfile =  meanvars, 
+#'                 w.var = variables, 
 #'                 times = times, 
 #'                 threshold = c(1, 5, 10))
-#'
 #' @export
 
 correction.test <- function(list.data, calibrationfile, 
-                            w.var = c("Temp", "Rain", "RH"), 
+                            w.var =c(3, 8, 13), 
                             times = times, threshold = c(1, 5, 10)){
   
             # Convert times from character to POSIXct UTC times
@@ -52,11 +60,23 @@ correction.test <- function(list.data, calibrationfile,
             list.data <- lapply(list.data, \(x) { 
                               names(x)[grep("^Date", names(x))] <- "Date"; x })
             
-            # Subset data by selected times 
+            # # Subset data by selected times 
+            # y <- lapply(list.data, function(df) {
+            #   df[as.POSIXct(df$Date,
+            #       #format = "%m-%d-%Y %H:%M:%S", 
+            #                   tz = "UTC") %in% time, ]
+            # })
+            
             y <- lapply(list.data, function(df) {
-              df[as.POSIXct(df$Date, 
-                              #format = "%m-%d-%Y %H:%M:%S", 
-                              tz = "UTC") %in% time, ]
+              idx <- lubridate::parse_date_time(
+                df$Date,
+                orders = c("ymd HMS", "ymd HM",
+                           "mdy HMS", "mdy HM",
+                           "dmy HMS", "dmy HM",
+                           "ymdHMS", "mdyHMS", "dmyHMS"),
+                tz = "UTC"
+              )
+              df[idx %in% time, , drop = FALSE]
             })
             
             # check if empty
@@ -105,3 +125,4 @@ correction.test <- function(list.data, calibrationfile,
             # result and message
             return(list(result = result, message = testmessage))
 }
+
