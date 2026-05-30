@@ -20,16 +20,16 @@ smaller data frame with incidence and rates
 }
 \description{
 This function calculates incidence and rates for baiting
-phytophthora collected on dates for baited and removed leaves
+Phytophthora collected on dates for baited and removed leaves
 HOBO software
 }
 \examples{
 
-\dontrun{
-samples <- read.cvs(sampling.data)
-
-samp.rates <- samplingrates(samples)
-}
+path <- system.file("extdata/sampling", package = "hoboR")
+#' 
+samples <- read.csv(paste0(path, "/", "sampling.csv"))
+ 
+samp.rates <- sampling.rates(samples, n = 9, round = 2)
 
 }
 \author{

@@ -16,43 +16,52 @@
 #' @importFrom lubridate ymd
 #' @importFrom stats sd na.omit
 #' @examples 
-#' \dontrun{
-#' samples <- read.cv(sampling.data)
-#'
-#' hobomeans <- meanhobo(hobocleaned)
-#'
-#' samp.rates <- samplingrates(samples, n = 9, round = 2)
-#'
-#' Site <- sampling.trends(hobomeans, samp.rates, round = 2)
-#' }
-
+#' 
+#' path <- system.file("extdata/sampling", package = "hoboR")
+#' 
+#' hobomeans <- read.csv(paste0(path, "/", "hobomeans.csv"), as.is = TRUE) 
+#' 
+#' samples <- read.csv(paste0(path, "/", "sampling.csv"))
+#'  
+#' samp.rates <- sampling.rates(samples, n = 9, round = 2)
+#' 
+#' results <- sampling.trends(hobomeans, samp.rates, round = 2, na.rm = TRUE)
+#' 
+#' @export
+    
 sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
-  rows = NULL
-  for (k in 1:nrow(samp.rates)){
-    if (purrr::is_empty(which(hobomeans$Date == samp.rates$Leaves.In[k])) == 
-        TRUE){ 
-      message(paste0("Missing in row ", k, ", start date: ", 
-                     samp.rates$Leaves.In[k], '\r\n'))
-     y <- which(hobomeans$Date <= samp.rates$Leaves.In[k]) |>
-           max()
-    } else {
-      y <- which(hobomeans$Date == samp.rates$Leaves.In[k])
+  
+  hobomeans$Date <- as.POSIXct(hobomeans$Date, tz = "UTC")
+  
+  samp.rates$Leaves.In <- as.POSIXct(samp.rates$Leaves.In, tz = "UTC")
+  samp.rates$Leaves.Out <- as.POSIXct(samp.rates$Leaves.Out, tz = "UTC")
+  
+  dat <- list()
+  
+  for(k in seq_len(nrow(samp.rates))){
+    
+    start <- samp.rates$Leaves.In[k]
+    end   <- samp.rates$Leaves.Out[k]
+    
+    if(is.na(start) || is.na(end) || end < start){
+      warning("Skipping row ", k, ": invalid date range")
+      next
     }
-    if (purrr::is_empty(which(hobomeans$Date == samp.rates$Leaves.Out[k])) == 
-        TRUE){
-      message(paste0("Missing in row ", k, ", end date: ", 
-                            samp.rates$Leaves.Out[k], '\r\n'))
-     message(paste0("        Last recorded date: ", max(hobomeans$Date), '\r\n', 
-                 "    NA's may be present as a result of missing dates, 
-                 proceed with caution", '\r\n'))
-      #- Getting 
-      x <- which(hobomeans$Date <= samp.rates$Leaves.Out[k]) |>
-            max()
-    } else {
-      x <- which(hobomeans$Date == samp.rates$Leaves.Out[k])
+    
+    if(start > max(hobomeans$Date, na.rm = TRUE)){
+      warning("Skipping row ", k, ": start date is after last HOBO record")
+      next
     }
-    #- Calculating means
-    rango <- hobomeans[y:x,]
+    
+    y <- which(hobomeans$Date >= start)[1]
+    x <- max(which(hobomeans$Date <= end))
+    
+    if(is.na(y) || is.infinite(x) || x < y){
+      warning("Skipping row ", k, ": no HOBO data in this interval")
+      next
+    }
+    
+    rango <- hobomeans[y:x, ]
     nT <- nrow(rango)
     rows  <- data.frame(Sampling = k,
                         Sites = samp.rates$Sites[k], 
@@ -60,51 +69,51 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
                         Treatment = samp.rates$Treatment[k], 
                         collection = samp.rates$Leaves.Out[k],
                         mean.wet = mean(ifelse(test = isFALSE(na.rm) == T, 
-                                             yes = round(mean(rango$x.Wetness), 
-                                                            round), 
-                                             no = round(mean(rango$x.Wetness, 
-                                                      na.rm = na.rm), round))),
+                                               yes = round(mean(rango$x.Wetness), 
+                                                           round), 
+                                               no = round(mean(rango$x.Wetness, 
+                                                               na.rm = na.rm), round))),
                         
                         se.wet = round(stats::sd(rango$x.Wetness, 
                                                  na.rm = na.rm)/
                                          sqrt(ifelse(test = isFALSE(na.rm) == T, 
-                                            yes = length(rango$x.Wetness), 
-                                            no = length(na.omit(
-                                                    rango$x.Wetness)))), round),
+                                                     yes = length(rango$x.Wetness), 
+                                                     no = length(na.omit(
+                                                       rango$x.Wetness)))), round),
                         mean.temp = mean(ifelse(test = isFALSE(na.rm) == T, 
                                                 yes = round(mean(rango$x.Temp), 
                                                             round), 
-                                                 no = round(mean(rango$x.Temp, 
-                                                                 na.rm = na.rm),  
-                                                            round))),
+                                                no = round(mean(rango$x.Temp, 
+                                                                na.rm = na.rm),  
+                                                           round))),
                         
                         se.temp = round(stats::sd(rango$x.Temp, na.rm = na.rm)/
-
-                                         sqrt(ifelse(test = isFALSE(na.rm) == T, 
-                                                 yes = length(rango$x.Temp), 
-                                                 no = length(na.omit(
-                                                       rango$x.Temp)))), round),
-                        mean.max.temp = round(mean(rango$max.Temp), round),
-                        mean.min.temp = round(mean(rango$min.Temp), round),
+                                          
+                                          sqrt(ifelse(test = isFALSE(na.rm) == T, 
+                                                      yes = length(rango$x.Temp), 
+                                                      no = length(na.omit(
+                                                        rango$x.Temp)))), round),
+                        #mean.max.temp = round(mean(rango$max.Temp), round),
+                        #mean.min.temp = round(mean(rango$min.Temp), round),
                         mean.RH = mean(ifelse(test = isFALSE(na.rm) == T, 
-                                                 yes = round(mean(rango$x.RH), 
+                                              yes = round(mean(rango$x.RH), 
                                                           round), 
-                                                 no = round(mean(rango$x.RH, 
-                                                                 na.rm = na.rm), 
-                                                            round))),
+                                              no = round(mean(rango$x.RH, 
+                                                              na.rm = na.rm), 
+                                                         round))),
                         
                         se.RH = round(stats::sd(rango$x.RH, na.rm = na.rm)/
-                                       
-                                         sqrt(ifelse(test = isFALSE(na.rm) == T, 
-                                                 yes = length(rango$x.RH), 
-                                                  no = length(na.omit(
-                                                    rango$x.RH)))), round),
+                                        
+                                        sqrt(ifelse(test = isFALSE(na.rm) == T, 
+                                                    yes = length(rango$x.RH), 
+                                                    no = length(na.omit(
+                                                      rango$x.RH)))), round),
                         sum.rain = round(sum(rango$sum.Rain, na.rm = na.rm), 
-                                              round),
-                        mean.max.rain = max(rango$sum.Rain, na.rm = na.rm),
-                        mean.min.rain = min(rango$sum.Rain, na.rm = na.rm),
+                                         round),
+                        #mean.max.rain = max(rango$sum.Rain, na.rm = na.rm),
+                        #mean.min.rain = min(rango$sum.Rain, na.rm = na.rm),
                         mean.rain = round(mean(rango$sum.Rain, na.rm = na.rm), 
-                                              round),
+                                          round),
                         sd.rain = round(stats::sd(rango$sum.Rain, 
                                                   na.rm = na.rm)),
                         Incidice = samp.rates$Incidence[k],
@@ -118,4 +127,3 @@ sampling.trends <- function(hobomeans, samp.rates, round, na.rm = T ){
   }
   return(dat)
 }
-

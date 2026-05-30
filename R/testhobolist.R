@@ -13,9 +13,28 @@
 #' @importFrom lubridate parse_date_time
 #' 
 #' @examples 
-#' \dontrun{
-#' data <- testhobolist(data, times)
+#'
+#' path <- system.file("extdata/calibration", package = "hoboR")
+#'  
+#' folder=paste0(rep("canopy", 5), 1:5)
+#' 
+#' pathtoread = data = list()
+#' 
+#' for (i in seq_along(folder)){
+#'   pathtoread[[i]] <- paste0(path, "/",folder[i])
+#'   # Loading all hobo files
+#'   data[[i]] <- hobinder(as.character(pathtoread[i]), header = TRUE, skip = 0,
+#'    channels = "ON" ) # channels is a new feature
 #' }
+#' 
+#' # Make sure you enter the date & time format with zeros, 
+#' # for example 08:00 instead of 8:00 for 8am.
+#' times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 
+#'            "2022-03-22 04:00", "2022-03-22 05:00", "2022-03-22 06:00", 
+#'            "2022-03-22 07:00", "2022-03-22 08:00", "2022-03-22 09:00") 
+#'
+#' data <- testhobolist(data, times)
+#' 
 #' @export
 
 testhobolist <- function(data, times){
