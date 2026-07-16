@@ -29,4 +29,4 @@ write.csv(summarybybaits, "summarybybaits_file.csv")
 ```
 
 <p>Funded by:</p>
-<img src="{{ site.baseurl }}/images/osu--usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
+<img src="{{ site.baseurl }}/images/osu-psu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>

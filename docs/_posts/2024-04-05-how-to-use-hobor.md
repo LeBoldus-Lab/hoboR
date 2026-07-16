@@ -114,4 +114,4 @@ cor(test)|>
 
 
 <p>Funded by:</p>
-<img src="../images/osu-psu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
+<img src="{{ site.baseurl }}/images/osu-psu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
