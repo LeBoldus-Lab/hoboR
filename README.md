@@ -1,3 +1,5 @@
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/hoboR)](https://CRAN.R-project.org/package=hoboR)
+
 # hoboR
 An R package for the analysis of  HOBO weather station data.
 The HOBO files as CSV, time formats accepted: DD/MM/YYYY, MM/DD/YYYY, YY/MM/DD
