@@ -51,4 +51,4 @@ sampling.trends()| summarises the weather data by sample collection | custom fun
 
 
 <p>Funded by:</p>
-<img src="{{ site.baseurl }}/images/osu-psu-usda-logo.png" alt="OSU PSU USDA Logo" style="width: 900px;"/>
+<img src="{{ site.baseurl }}/images/osu-psu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
