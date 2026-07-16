@@ -1,87 +1,102 @@
 # Example code to correct hobos 
-# install.packages("devtools")
 
+# Install the hoboR package from CRAN
 ```
-library("devtools")
-devtools::install_github("LeBoldus-Lab/hoboR", force = TRUE)
-
+install.packages("hoboR")
 library(hoboR)
 ```
+HOBO data loggers have inherent variability in the data collection process, which can be assessed and corrected using the `calibrator()` and `correction()` functions. Identifying variability among HOBO devices before deployment helps detect malfunctioning units and estimate correction factors when possible. This is particularly important in microclimate studies, where differences between environments can be small and device variability may lead to misinterpretation of weather data. Conducting a calibration experiment under controlled conditions before deploying the loggers helps standardizemeasurements and reduce differences among HOBO devices.
 
-```
+To calibrate the HOBO devices, place all data loggers in an incubator or other controlled environment where temperature, relative humidity, or other variables of interest remain stable. If a controlled environment is not available, place the loggers together in a location with similar environmental conditions for several days. Avoid exposing the devices to direct sunlight during the calibration period.
+
+Additionally, the recording channels in the HOBO data loggers should be configured before starting the calibration experiment (e.g., the HOBO [MX2301A](https://www.onsetcomp.com/products/data-loggers/mx2301a)). Enabling the minimum, maximum, and mean recording options for each measurement will provide additional information that can be used during calibration and data analysis.
+
+Once you collect the data from the data loggers, you can use the hoboR function calibration() to calculate the differences and the function correction() to correct the weather measurements recorded from the field plots.
+
+# Usage
+
+Load library(hoboR) and then continue setting the path to your calibration files. For example, if you have 24 HOBO loggers, you need to create a unique folder for each HOBO, e.g., hobo1, hobo2, hobo3, … hobo24, and then put all the CSV files from the same HOBO in its unique folder. We recommend inspecting the files to confirm you have the information needed for the calibration.
+
+### ---- CALIBRATION STEP 1: Load the data
+```R
 # Set path directories
-path1 = "~/Desktop/testsky/calibration/originalfiles/"
-
-path2 = "~/Desktop/testsky/correction_files"
+path <- system.file("extdata/calibration", package = "hoboR")
+# Sanity check that the path exists
+file.exists(path) # must be TRUE otherwise, check if you are in the correct folder
+# Create a vector with your folder names 
+folder=paste0(rep("canopy", 5), 1:5)
+# Change "hobo" to the folder names, and match the number of HOBOs to calibrate. 
 ```
+> Confirm folder name matches the vector.
 
-### ---- CALIBRATION STEP 1:
+Now that you set the path and the folder contents, you need to iterate over the files to create a list of your HOBO data (.csv files).
+
+### For loop to iterate over all the HOBO devices 
 ```R
-# Check files
-file.exists(path1)
-list.files(path1)
-
-# Create the folder to store the calibrations
-folder=paste0(rep("canopy", 24), 1:24)
-```
-## For loop to iterate over all your HOBO devices
-
-```R
-pathtoread=calibrationfiles=hobocleaned=data=list()
-
+pathtoread = dat = data = list()
+ 
 for (i in seq_along(folder)){
-  pathtoread[[i]] <- paste0(path1, folder[i])
-  # loading all hobo files
-  calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" ) # channels is a new feature
-  data[[i]]=hobocleaned[[i]] <- hobocleaner(calibrationfiles[[i]], format = "mdy")
+   pathtoread[[i]] <- paste0(path, "/",folder[i])
+   # Loading all hobo files
+   dat[[i]] <- hobinder(as.character(pathtoread[i]), header = TRUE, skip = 0,
+    channels = "ON" ) # channels is a new feature
+   data[[i]] <- hobocleaner(dat[[i]], format = "mdy")
 }
 ```
-Lets print out the list data position 2, `data[[2]]`, the list data, has 24 elements corresponding to 24 HOBO devices.
+Print out the list 2 file 2, `data[[2]]`. The `list` has 5 elements corresponding to 5 HOBO devices, each `data.frame`.
 
 ```R
 data[[2]]
 ```
-You have to pick the times when you set up your experiment, in our case was from 01:00 to 09:00 hours.
+
+The list containing all HOBO data loggers is processed with calibrator(), expecting the columns to correspond to the
+measurements to calibrate and the times set used to calculate the differences among data loggers. These times should correspond to the calibration experiment conducted under controlled conditions.
+
+Enter the date & time format exactly as the HOBO data, for example 2022-03-22 01:00, instead of just 1:00 for 1am.
+```R
+times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 
+            "2022-03-22 04:00", "2022-03-22 05:00", "2022-03-22 06:00", 
+            "2022-03-22 07:00", "2022-03-22 08:00", "2022-03-22 09:00")
+```
+Select the target columns corresponding to the weather variables.
+```R
+variables <- c(2, 7, 12) 
+```
+### CALIBRATION STEP 1:
+The function calibrator() calculates the average difference between multiple data loggers and the first logger in the list, which is used as the reference logger. The function estimates the average values for each data logger relative to the reference. These differential values can later be used with correction() or calibrate() to standardize all data loggers to the same baseline.
 
 ```R
-times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00",                    "2022-03-22 04:00", "2022-03-22 05:00", "2022-03-22 06:00",                    "2022-03-22 07:00", "2022-03-22 08:00", "2022-03-22 09:00")
+calibrationmeans <- calibrator(data, columns= variables, times = times) 
+calibrationmeans
 ```
-You need to select the target columns, where the weather variable is. 
-```R
-calibrationresults <- calibrator(data, columns= c(2, 7, 12), times = times)
-```
-The calibration results, is a dataframe with the mean variation values to correct the experimental csv files. You might need to modify the column names to match between the calibration results, and the experiment values. 
+All data loggers should contain measurements collected during the samecalibration experiment and have the same number of records for the selected time range. HOBOs with different numbers of records will trigger a warning message. Missing HOBO folders are skipped and will appear as "NaN" in the calibrator() output.
 
-```$
-colnames(calibrationresults) <- c("Temperature", "RH", "Dew")
-```
-Once you proceed to correct the values, you can delimit a threshold to allow a threshold difference.
+To evaluate the variability of the weather variables recorded by the data  loggers by using the recorded recorded data, and the results of `calibrator()`. By selecting the threshold variables, the function will evaluate if the  variability of the correction data is as expected. The results will show that the HOBO data loggers passed the test.
+> We recommend allowing a variability of less than 1°C.
+
 ```R
-correction.test(list.data=data, calibrationfile=calibrationresults, columns = c(2, 7, 12), times = times, threshold = 1)
+correction.test(list.data=data, calibrationfile=calibrationmeans, w.var = c(2, 7, 12), 
+                times = times, threshold = c(1, 5, 10))
+```
+### CORRECTION STEP 2: 
+To correct the data, the function correction() applies the calibration diffrence to the measurements collected by HOBO data loggers in your experimental site.
+There are two alternatives to correct the data. The first option is to correct a single weather variable from a single HOBO data logger. In the next example, HOBO2 is corrected using the temperature calibration offset.
+
+```R
+# Individual corrections
+# Change the object "data" to your combined HOBO file name
+calibratedfiles <- correction(data, w.var = "Temperature.C.", calibrate = "0.1089") 
 ```
 
-## CORRECTION STEP 2:
-Set the path for the HOBO experiment
-```
-# Check files
-file.exists(path2)
-list.files(path2)
-```
-Load the experimental files, already processed with `hobinder` and `hobocleaner`.  
 ```R
-# This is a generic way to load multiple csv files
-files <- list.files(path=path2, pattern = "\\.csv", full.names = T)
-experiment <- lapply(files, function(x) {
-  read.csv(x)})
+# Multiple corrections
+# Use `w.var = FULL` to correct all variables at once.
+multicalibratedfiles <- correction(field, w.var = "FULL", calibrate = calibrationmeans) 
 ```
-There is a single variable calibration, you can choose the weather variable and correction.
+
+> Note: Look at the dataframe structures headline`head(field[[1]])`
+
+Double-check that both weather variables match, use this to match both names.
 ```R
-# to correct a single variable
-exp2=experiment[[2]]
-correction(exp2, w.var = "Temperature", calibrate = "0.1088889")
-```
-Also, there is a full mode, where you can specify `"FULL"` and the calibration file, and it will do a multiple correction for all weather variables.
-```R
-# to correct multple variables
-correction(experiment, w.var = "FULL", calibrate = calibrationresults)
+colnames(calibrationmeans) <- c("Temperature.C.", "RH.C.", "Dew.C.")  
 ```

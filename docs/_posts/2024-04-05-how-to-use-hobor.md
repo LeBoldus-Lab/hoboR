@@ -1,14 +1,15 @@
 # How to work with hobor
 
 ### For readers
-Hobor is an R package to process CSV files from HOBO weather stations and data loggers. The best way to start your project with hobor, is to organize your CSV files from a single directory for `hobobinder()` function to process all the CSV files. E.g., if you have 10 locations, you should have 10 folders, and each folder containing all the CSV corresponding to your period of time. By having all the files in a single data frame, hobocleaner() can sort all the entries and identify duplicates generated while retrieving the data or replacing batteries. In addition, the hobomean() function summarize the data by time intervals of your election. 
+Hobor is an R package to process CSV files from HOBO weather stations and data loggers. The best way to start your project with hoboR, is to organize your CSV files in a single directory for `hobobinder()`, this function that processes all CSV files in the directory. For example, if you have 10 experimental sites or locations, you should have 10 folders, and each folder containing all the CSV corresponding to the recorded time. By having all the files in a single data frame, hobocleaner() can sort all the entries and identify duplicates, often generated while data is retrieved or batteries replaced. In addition, multiple functions can help with subset, summarize, identify impossible values and sensor failures, and the hobomean() function summarize the data using the mean and standard deviation by time intervals of your election. 
 
-Other functions to identify impossible values and sensor failures are available. As well as subsetting function by time intervals such as ho.range() or snapshots of a time intervals using timestamp(). Additional code is provided to calibrate HOBO data loggers, and experimental analysis of diseases incidence related to sudden oak death.
+Additional functions are provided to calibrate HOBO data loggers by accounting for variability among devices. Using one logger as a reference, the remaining loggers can be calibrated with `correction()` and `calibrate()`. An example analysis is included using weather data and baiting records to evaluate the incidence of sudden oak death in relation to environmental conditions.
 
 ### For code
 
 ```R
 # load the library
+install.packages("hoboR")
 library(hoboR)
 ```
 
@@ -19,7 +20,7 @@ Suppose multiple CSV files in a directory called site A.
 # Change the number for the site
 site = "A"
 # Add the PATH to your sites for weather data (from hobo)
-path = paste0("path/your//site_", site)
+path = paste0("path/to/your/site_", site)
 # make sure the path to your CSV files exists
 file.exists(path)        # this will return a logical value TRUE
 ```
@@ -30,7 +31,7 @@ Inspect you file, and choose how many rows you need to skip to read the columns.
 # loading all hobo files
 hobofiles <- hobinder(path, skip=1)
 ```
-After merging, the hobocleaner function adjusts to differet datasets, clean duplicate entries, and rename columns. The format argument should match the HOBO format type: "ymd" for YYYY/MM/DD, "myd" for MM/YYYY/DD", and "yymd" corresponds to two digits year YY/MM/DD. Be mindful with your format selection, otherwise proceed with caution.
+After merging, `hobocleaner()` adjusts to different dataset formats. For example, some data loggers record only rain, temperature and relative humidity, whereas other weather stations may also include variables such as wind speed and atmospheric pressure. The function automatically adapts to these formats, removes duplicated records, and rename columns using standardized weather variable names. In addition, the `date.format` argument must match the format used in the HOBO file. For example, "ymd" corresponds to YYYY/MM/DD, "myd" to MM/YYYY/DD", and "yymd" to two-digit year format YY/MM/DD. Be careful when selecting the date format, as an incorrect format may result in incorrect date parsing.
 ```R
 # cleaning hobo files, add format
 hobocleaned <- hobocleaner(hobofiles, format = "ymd")
@@ -38,7 +39,6 @@ head(hobocleaned)
 tail(hobocleaned)
 ```
 The clean data can be aggregated by time interval, e.g. "5 mins", "12 h", "1 day", etc., by using hobotime(), or obtaining the mean, the minimum and maximum, and the rest of summary statistcs by implementing meanhobo().
-
 ```R
 # getting hobo mean summary by time
 hobot <- hobotime(hobocleaned, summariseby = "5 mins", na.rm = T)
@@ -50,7 +50,7 @@ head(hobomeans)
 ```
 
 ## Additional features
-
+Additional functions can be used to further analyze, subset or summarize the data, such as `horange()` to specify a window range, `timestamp()` to obtain a snapshot of a time interval, `impossiblevalues()` to identify sensor failures, and `sensorfailures()` to identify sensor failures.
 ```
 # specify a window range 
 horange(hobocleaned, start="2022-06-04", end="2022-10-22")
@@ -68,8 +68,7 @@ na_data <- sensorfailures(hobocleaned, condition = ">", threshold = c(50, 3000, 
 
 
 ## Get plots  
-
-Here, I provide a guide to `ggplot` the weather data, for one and two variables. This way you have more control about the style, color and format of your data. 
+An example to get `ggplot` with the weather data, for one and two variables. Using third party packages the user has more control about the style, color and format of the data. 
 
 ```R
 library(ggplot2)
@@ -115,4 +114,4 @@ cor(test)|>
 
 
 <p>Funded by:</p>
-<img src="../images/osu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>
+<img src="../images/osu-psu-usda-logo.png" alt="OSU Logo" style="width: 900px;"/>

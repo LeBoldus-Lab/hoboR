@@ -8,103 +8,91 @@ Once you collect the data from the data loggers, you can use the hoboR function 
 ## Usage
 Load `library(hoboR)` and then continue setting the `path` to your calibration files. For example, if you have 24 HOBO loggers, you need to create a unique folder for each HOBO, e.g., hobo1, hobo2, hobo3, ... hobo24, and then put all the CSV files from the same HOBO in its unique folder. We recommend inspecting the files to confirm you have the information needed for the calibration.
 
+Install packages from CRAN
+```R
+install.packages("hoboR")
+library(hoboR)
+````
+
 ```R
 # Set the path
-path = "~/path/to/calibration/files/" # change to your directory
+path <- system.file("extdata/calibration", package = "hoboR")
 # Sanity check that the path exists
 file.exists(path) # must be TRUE otherwise, check if you are in the correct folder
 # Create a vector with your folder names 
-folder=paste0(rep("hobo", 24), 1:24)
-# Change "hobo" to the words you name for the folders.
-# Change 24 to the total number of HOBO that you have in the calibration. 
-# Make sure the name of your folder matches the vector created here.
+folder=paste0(rep("canopy", 5), 1:5)
+# Change "hobo" to the folder names, and match the number of HOBOs to calibrate. 
+# > Confirm folder name matches the vector.
 ```
+
 Now that you set the path and the folder contents, you need to iterate over the files to create a list of your HOBO csv data.
 
 ```R
 # Create an empty list to feed through looping to your data
-pathtoread=calibrationfiles=hobocleaned=data=list()
-
+pathtoread = dat = data = list()
+ 
 for (i in seq_along(folder)){
-pathtoread[[i]] <- paste0(path, folder[i])
-# Loading all hobo files
-calibrationfiles[[i]] <- hobinder(as.character(pathtoread[i]), channels = "ON" ) # channels is a new feature
-data[[i]] <- hobocleaner(calibrationfiles[[i]], format = "ymd") # change the format to "mdy" if your DateTime format is MM/DD/YYYY
+   pathtoread[[i]] <- paste0(path, "/",folder[i])
+   # Loading all hobo files
+   dat[[i]] <- hobinder(as.character(pathtoread[i]), header = TRUE, skip = 0,
+    channels = "ON" ) # channels is a new feature
+   data[[i]] <- hobocleaner(dat[[i]], format = "mdy")
 }
 # Check the content of your list, it will call out the csv from HOBO2
-data[[2]] 
+data[[2]]
 ```
-Now that you created the list with all your hobos, the function `calibrator()`, 
-expect that you provide the columns for the measurements to calibrate, as well as 
-the set of time ranges to calculate the difference between your data loggers.
+Now that you created the list with all your hobos, the function `calibrator()`, expect that you provide the columns for the measurements to calibrate, as well as the set of time ranges to calculate the difference between your data loggers.
 These times would correspond to the experiment you made in a controlled environment. 
 
 ```R
-# Columns to analyze
-measurements <- c(2, 7, 12) # Select the weather variables 
-# Selected times
-times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", "2022-03-22 04:00","2022-03-22 05:00", "2022-03-22 06:00", "2022-03-22 07:00", "2022-03-22 08:00","2022-03-22 09:00") # Make sure you enter the date & time format with zeros, for example 08:00 instead of 8:00 for 8am.
-
-calibrationmeans <- calibrator(data, columns= measurements, times = times) # for the hobo(s) with different length datasets, you will see a warning message. That HOBO won't be calculated, so you will see it as "NaN" when you call out the "calibrationmeans". For that HOBO you have to calculate the numbers manually, then add the numbers to "calibrationmeans" when applying the correction to the field collected data. 
-calibrationmeans
-
-# Manually add the calculated HOBO numbers (i.e. HOBO15) into "calibrationmeans", if any.
-calibrationmeans[15,] <- c(-0.003056, 0.48528, 0.38472)  
+# Select the weather variables 
+variables <- c(2, 7, 12) # Select the weather variables 
+# Make sure you enter the date & time format exactly the same 
+# for example 2022-03-22 01:00, instead of 1:00 for 1am.
+times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00", 
+            "2022-03-22 04:00", "2022-03-22 05:00", "2022-03-22 06:00", 
+            "2022-03-22 07:00", "2022-03-22 08:00", "2022-03-22 09:00") 
 ```
-The result of `hobor::calibrator()` is the difference of HOBO1 compared to HOBO2, until completed the comparison. We use HOBO1 as the baseline, and these differences show the differences of each HOBO from the baseline HOBO (which is HOBO1 here).
-You can evaluate if the correction of your data loggers is as expected. We
-recommend allowing a variability of less than 1°C.
+
+The function `calibrator()` calculates the average difference between multiple data loggers and the first logger in the list, which is used as the reference logger. The function estimates the average values for each data logger relative to the reference. 
+
+These differential values can later be used with `correction()` or `calibrate()` to standardize all data loggers to the same baseline.
+
+```R
+calibrationmeans <- calibrator(data, columns= variables, times = times) 
+calibrationmeans
+```
+
+All data loggers should contain measurements collected during the same calibration experiment and have the same number of records for the selected time range. HOBOs with different numbers of records will trigger a warning message. Missing HOBO folders are skipped and will appear as "NaN" in the calibrator() output.
+
+By selecting the threshold variables, the function will evaluate if the  variability of the correction data is as expected. The results will show that the HOBO data loggers passed the test.
+
+> Preferably allow a variability of less than 1°C.
+
 ```R
 correction.test(list.data=data, calibrationfile=calibrationmeans, w.var = c(2, 7, 12), 
                 times = times, threshold = c(1, 5, 10))
 ```
 
-While you have your field data collected, use `hobor::hobinder()` and `hobor::hobocleaner()` to combine multiple csv files if you have downloaded the data multiple times. Then you can export the combined data as a separate csv file for correction and further analysis.
+To correct the data, the function correction() applies the calibration diffrence to the measurements collected by HOBO data loggers in your experimental site.
 
-Then, you need to correct your data using `hobor::correction()` to calibrate your 
-measurements between the HOBO devices after collecting data in your experiment site.
+There are two alternatives to correct the data. The first option is to correct a single weather variable from a single HOBO data logger. In the next example, HOBO2 is corrected using the temperature calibration offset.
 
-Here are two ways for corrections. If you want to correct the temperature measurements of another single HOBO, for example HOBO2, you can use the 
-temperature for hobo2, `calibrationmeans[2,1]`. 
 ```R
 # Individual corrections
-calibratedfiles <- correction(data, w.var = "Temperature", calibrate = "0.1089") # Change "data" to your combined HOBO file name
-```
-Or, if you have plenty of HOBO devices, you can also calibrate all measurements and all the HOBO devices at once, just make sure your calibration files match the names of your data.
+# Change the object "data" to your combined HOBO file name
+calibratedfiles <- correction(data, w.var = "Temperature.C.", calibrate = "0.1089") 
 
-First of all, you will have to combine the datasets from all the HOBOs as one file. To do this, use `hobor::hobinder()` and `hobor::hobocleaner()` to combine multiple csv files from the same HOBO device and export as an individual csv file. Then, create a folder and drag all the combined csv files from all HOBO devices to the unique folder.
-
-```R
-# Set path directories
-path_all = "~/Desktop/testsky/correction_files"
-
-# Check files
-file.exists(path_all)
-list.files(path_all)
-
-# Load the combined field files, already processed with `hobinder` and `hobocleaner`.  
-
-# Load multiple csv files without merging so you can correct each HOBO data
-files <- list.files(path=path_all, pattern = "\\.csv", full.names = T)
-field <- lapply(files, function(x) {
-  read.csv(x)})
-```
-
-Then you need to check out the structure of the pooled dataframe before applying `hobor::correction()`
-
-```R
-# Look at the dataframe structures and headline.
-field[[1]]
-
-# Add column names to "calibrationmeans" you created before, so the headline matches the field dataframe.
-colnames(calibrationmeans) <- c("Temperature", "RH", "Dew") # Change to fit your weather variables
-```
-
-Now use `hobor::correction()` to correct everything in once. 
-
-```R
 # Multiple corrections
-multicalibratedfiles <- correction(field, w.var = "FULL", calibrate = calibrationmeans) # Change "field" to your data name
+# Use `w.var = FULL` to correct all variables at once.
+multicalibratedfiles <- correction(data, w.var = "FULL", calibrate = calibrationmeans) 
+
+# Note:
+# Look at the dataframe structures headline.
+head(data[[1]])
+
+# Double-check that both weather variables match, use this to match both names.
+colnames(calibrationmeans) <- c("Temperature.C.", "RH.C.", "Dew.C.") 
 ```
 
 ### Handling errors
