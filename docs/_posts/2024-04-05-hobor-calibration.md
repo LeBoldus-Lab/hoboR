@@ -1,9 +1,9 @@
 ## Calibration setup in a controlled environment.
-Knowing the variation among individual HOBO devices is crucial before placing them in the field. This is especially true for microclimate studies, where the differences between the environments could be very small, and you would avoid misinterpreting the weather data from the device variance. So, a pre-field calibration is crucial to knowing the differences between your HOBO devices for each environmental variable.  
+Knowing the variation among individual HOBO devices is crucial before placing them in the field. This is especially true for microclimate studies, where the differences between the environments could be very small, and you would avoid misinterpreting the weather data from the device variance. So, a pre-field calibration step is crucial to correct the differences between the HOBO devices for each environmental variable.  
 
 To calibrate the HOBO devices, you need to put all the devices in an incubator or control environment to have a consistent temperature, humidity, or any other measurements you need to calibrate. If you cannot access a control environment device, leave it in a location with similar conditions for several days. Make sure the hobos are not exposed directly to sunlight. HOBO devices can be set to work with channels  (i.e., MX2301A,https://www.onsetcomp.com/products/data-loggers/mx2301a) to record min, max, and mean values for each of the measurements for the recorded data.
 
-Once you collect the data from the data loggers, you can use the hoboR function `calibration()` to calculate the differences and the function `correction()` to correct the weather measurements recorded from the field plots.
+Once you collect the data from the data loggers, you can use the hoboR function `calibrator()` to calculate the differences and the function `correction()` to correct the weather measurements recorded from the field plots.
 
 ## Usage
 Load `library(hoboR)` and then continue setting the `path` to your calibration files. For example, if you have 24 HOBO loggers, you need to create a unique folder for each HOBO, e.g., hobo1, hobo2, hobo3, ... hobo24, and then put all the CSV files from the same HOBO in its unique folder. We recommend inspecting the files to confirm you have the information needed for the calibration.
@@ -56,7 +56,7 @@ times <- c("2022-03-22 01:00", "2022-03-22 02:00", "2022-03-22 03:00",
 
 The function `calibrator()` calculates the average difference between multiple data loggers and the first logger in the list, which is used as the reference logger. The function estimates the average values for each data logger relative to the reference. 
 
-These differential values can later be used with `correction()` or `calibrate()` to standardize all data loggers to the same baseline.
+These differential values can later be used with `correction()` or `calibrator()` to standardize all data loggers to the same baseline.
 
 ```R
 calibrationmeans <- calibrator(data, columns= variables, times = times) 
