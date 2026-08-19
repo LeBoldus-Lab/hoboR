@@ -69,7 +69,7 @@ library(hoboR)
 The data was collected in China Creek in Southern Oregon using a weather station. The measurements were recorded every minute over 5 months, from August to December 2022. The weather variables collected were humidity (Wetness), temperature (Temp), relative humidity (RH), and rain (Rain). 
 ```R
 # Add the PATH to your sites for weather data (from HOBO)
-path <- system.file("extdata", package = "hoboR") # example files 
+path <- "../data/site_12_date_adj2" # example files 
 # make sure the path to your CSV files exists
 file.exists(path)     # this will return a logical value TRUE
 ```
@@ -81,7 +81,7 @@ Confirm that the path exists, then bind all CSV files and clean the data.
 # loading all hobo files, note to include how many lines to skip. Channels default is OFF. 
 hobofiles <- hobinder(path, header = T, skip = 1, channels = "OFF")
 # this function would clean duplicate entries
-hobocleaned <- hobocleaner(hobofiles, format = "yymd")
+cleanfiles <- hobocleaner(hobofiles, format = "yymd")
 head(hobocleaned)
 ```
 Let's summarize the data every 30 min, and get the means for 1 day or get the mean every 24 hours
@@ -94,18 +94,19 @@ hobodata <- meanhobo(cleanfiles, summariseby = "5 mins", na.rm = T, minmax = T)
   hobodata
 
 ## Exercise to show the slight differences between aggregation times
-# getting hobo mean summary by time every 5 mins
+#  getting hobo mean summary by time every 5 mins
 hobot5 <- hobotime(cleanfiles, summariseby = "5 mins", na.rm = T)
-hobomeans5 <- meanhobo(hobot5, summariseby = "1 day",  na.rm = T)
+hobomeans5 <- meanhobo(hobot5, summariseby = "24 h",  na.rm = T)
 head(hobomeans5)
 
 # getting hobo mean summary by time every 60 mins
 hobot60 <- hobotime(cleanfiles, summariseby = "60 mins", na.rm = T)
-hobomeans60 <- meanhobo(hobot60, summariseby = "1 day",  na.rm = T)
+hobomeans60 <- meanhobo(hobot60, summariseby = "24 h",  na.rm = T)
 head(hobomeans60)
 
 # getting hobo means by the original recording of 1 minute
-hobomeans1 <- meanhobo(cleanfiles, summariseby = "24 h",  na.rm = T)
+hobot1 <- hobotime(cleanfiles, summariseby = "1 min", na.rm = T)
+hobomeans1 <- meanhobo(hobot1, summariseby = "24 h",  na.rm = T)
 head(hobomeans1)
 ```
 
