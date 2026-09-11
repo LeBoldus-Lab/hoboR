@@ -5,6 +5,8 @@ docs/images/.DS_Store
 docs/.DS_Store
 # Session Data files
 .RData
+paper/
+.DS_Store
 
 # User-specific files
 .Ruserdata
